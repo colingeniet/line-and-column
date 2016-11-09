@@ -13,9 +13,9 @@ CC = g++
 CFLAGS = -Wall -pedantic 
 LIBFLAGS =
 
-PROGRAM =
+PROGRAM = line-and-column
 # add new .cpp files here
-SRCS =
+SRCS = main.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 ###
@@ -27,20 +27,20 @@ DEPFLAGS = -MM
 default: all
 
 .PHONY: all
-ifeq($(wildcard $(DEPFILE)), )
+ifeq ($(wildcard $(DEPFILE)), )
 all: $(DEPFILE)
 	make --no-print-directory
 else
 include $(DEPFILE)
 
-all: $(PROGNAME)
+all: $(PROGRAM)
 endif
 
 
 $(PROGRAM) : $(OBJS)
 	$(CC) $(CFLAGS) $(LIBFLAGS) $^ -o $@
 
-%.o : %.c
+%.o : %.cpp
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(DEPFILE) : $(SRCS)
