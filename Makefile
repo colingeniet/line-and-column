@@ -15,7 +15,7 @@ LIBFLAGS =
 
 PROGRAM = line-and-column
 # add new .cpp files here
-SRCS = main.cpp
+SRCS = main.cpp form.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 ###

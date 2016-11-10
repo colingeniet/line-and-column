@@ -1,7 +1,9 @@
 #ifndef FORM_H_INCLUDED
 #define FORM_H_INCLUDED
 
-// No point (pun intended) in making it a class
+#include <cstddef>
+
+// No point (pun intended) in making it a class, it is just too small
 struct Point
 {
     int x, y;
@@ -13,12 +15,14 @@ struct Point
  * destructeur / operator= correctement
  * Toujours s'assurer que boxmin et boxmax sont mis a jour
  */
+#define FORM_DEFAULT_SIZE 5
+
 class Form
 {
 public:
     Form();
     Form(const Form&);
-    Form(const Point *const, size_t);
+    Form(const Point *, size_t);
 
     ~Form();
 
@@ -28,25 +32,26 @@ public:
     void updatebox();
 
     // add a square (if it does not already exist)
-    void add(const Point&);
-    void add(size_t, size_t);
+    void add(Point);
+    void add(int, int);
 
     // remove a square (if it exists)
-    void remove(const Point&);
-    void remove(size_t, size_t);
+    void remove(Point);
+    void remove(int, int);
 
     // accessors
-    const Point* getsquares() const;
     size_t getsize() const;
+    const Point& operator[](size_t) const;
+    Point getboxmin() const;
+    Point getboxmax() const;
 
 private:
     size_t array_size, n_squares;
     Point *squares;
     Point boxmin, boxmax;
 
-    // find a square, return it's index, -1 if it does not exist
-    size_t find(const Point&);
-    size_t find();
+    // find a square, return its index, -1 if it does not exist
+    size_t find(int, int) const;
 
     void resize();
 };
