@@ -21,9 +21,15 @@ public:
     Board& operator=(const Board&);
 
     void setSquare(size_t, size_t, Color);
+    void addForm(const Form&, size_t, size_t, Color);
+
+    bool formCollide(const Form&, size_t, size_t) const;
+
+    // delete full lines / columns (empty is black)
+    void clean();
 
     // temporaire, juste pour voir rapidement le contenu (couleurs inutiles)
-    void print();
+    void print() const;
 
 private:
     size_t height, width;

@@ -3,11 +3,12 @@
 
 #include <cstddef>
 
-// No point (pun intended) in making it a class, it is just too small
+
 struct Point
 {
     int x, y;
 };
+
 
 /* This class stores forms made of squares and keeps it's boundary box,
  * ie the smallest rectangle that contains the form */
@@ -22,7 +23,7 @@ class Form
 public:
     Form();
     Form(const Form&);
-    Form(const Point *, size_t);
+    Form(const Point*, size_t);
 
     ~Form();
 
