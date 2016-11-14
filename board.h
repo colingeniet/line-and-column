@@ -20,20 +20,21 @@ public:
 
     Board& operator=(const Board&);
 
-    void setSquare(size_t, size_t, Color);
-    void addForm(const Form&, size_t, size_t, Color);
+    void setSquare(size_t, size_t, int);
+    void addForm(const Form&, int, int, int);
 
-    bool formCollide(const Form&, size_t, size_t) const;
+    bool formCollide(const Form&, int, int) const;
 
-    // delete full lines / columns (empty is black)
-    void clean();
+    // delete full lines / columns
+    void clean(int&, int&);
 
-    // temporaire, juste pour voir rapidement le contenu (couleurs inutiles)
-    void print() const;
+    const int *operator[](size_t) const;
+    size_t height() const;
+    size_t width() const;
 
 private:
     size_t height, width;
-    Color **board;
+    int **board;
 };
 
 #endif // BOARD_H_INCLUDED

@@ -11,11 +11,12 @@
 
 CC = g++
 CFLAGS = -Wall -pedantic 
-LIBFLAGS =
+LIBFLAGS = -lncurses
 
 PROGRAM = line-and-column
 # add new .cpp files here
-SRCS = main.cpp form.cpp
+SRCS = main.cpp form.cpp color.cpp
+
 OBJS = $(SRCS:.cpp=.o)
 
 ###

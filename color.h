@@ -1,27 +1,18 @@
 #ifndef COLOR_H_INCLUDED
 #define COLOR_H_INCLUDED
 
+#include <ncurses.h>
 
-/* Terminal colors enumeration
- * It is likely to be used in various unrelated classes, so I define it globally
- */
-enum Color
-{
-    COLOR_BLACK,
-    COLOR_RED,
-    COLOR_GREEN,
-    COLOR_YELLOW,
-    COLOR_BLUE,
-    COLOR_MAGENTA,
-    COLOR_CYAN,
-    COLOR_WHITE,
-    COLOR_MAX
-};
-
-/* generally, no color will be black. As it is defined as 0 in the enum, boolean
- * tests will work. This defines a more natural name for this purpose
- */
+/* standard terminal colors (black, red, green, yellow, blue, magenta, cyan
+ * and white) are defined by ncurses as COLOR_'color'.
+ * black is defined as 0 so it can be used as false, other being true
+ * COLOR_NONE is defined as black to be more explicit for boolean use */
 #define COLOR_NONE COLOR_BLACK
 
+// color pairs
+#define BLACK_RED 1
+#define RED_BLACK 2
+
+void init_color_pairs();
 
 #endif // COLOR_H_INCLUDED
