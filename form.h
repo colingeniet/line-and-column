@@ -32,7 +32,7 @@ public:
     void add(int, int);
 
     // accessors
-    size_t size() const;
+    size_t getsize() const;
     Point operator[](size_t) const;
     Point getboxmin() const;
     Point getboxmax() const;
