@@ -2,13 +2,13 @@
 
 
 Form::Form() :
-    capacity(FORM_DEFAULT_SIZE),
     size(0),
+    capacity(FORM_DEFAULT_SIZE),
     squares(new Point[capacity]) {}
 
 Form::Form(const Form& f) :
-    capacity(f.size),
     size(f.size),
+    capacity(f.size),
     squares(new Point[capacity]),
     boxmin(f.boxmin),
     boxmax(f.boxmax)
@@ -80,7 +80,7 @@ void Form::add(int x, int y) {
 }
 
 
-size_t Form::size() const
+size_t Form::getsize() const
 {
     return size;
 }
