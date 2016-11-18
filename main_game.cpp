@@ -18,12 +18,12 @@ size_t mainGame::getform_size() const {
     return form_size;
 }
 
-size_t mainGame::getheight() const {
-    return board.getheight();
-}
-
 size_t mainGame::getwidth() const {
     return board.getwidth();
+}
+
+size_t mainGame::getheight() const {
+    return board.getheight();
 }
 
 const int* mainGame::operator[](size_t n) const {
