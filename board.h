@@ -29,8 +29,8 @@ public:
     void clean(int&, int&);
 
     const int *operator[](size_t) const;
-    size_t height() const;
-    size_t width() const;
+    size_t getheight() const;
+    size_t getwidth() const;
 
 private:
     size_t height, width;

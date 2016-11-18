@@ -13,23 +13,38 @@ class mainGame
 public:
     /* parameters : width, height (main board), max form size */
     mainGame(size_t, size_t, size_t);
-    ~mainGame();
 
-    size_t form_size();
-    size_t height();
-    size_t width();
+    // accessors
+    size_t getform_size() const;
+    size_t getheight() const ;
+    size_t getwidth() const;
 
     const int *operator[](size_t) const;
-    const Form* form1() const;
-    const Form* form2() const;
-    const Form* form3() const;
+    Form getform1() const;
+    Form getform2() const;
+    Form getform3() const;
+
+
+    /* perform a move, return true if valid, false if not
+     * add one of the 3 selected forms at given coordonates
+     * and perform all required action */
+    bool add_form(uint8_t, int, int);
+
+    // add a form to the set of forms used
+    bool add_form_to_set(const Form&);
+
+    // choose 3 differents forms from the forms set
+    void random_select_forms();
+
 
 private:
     Board board;
 
     size_t form_size;
-    std::vector<Form> forms;
+    std::vector<Form> form_set;
     size_t form1, form2, form3;
+
+    void update_score(int, int);
 
     int score, combo;
 };
