@@ -19,6 +19,7 @@ public:
     size_t getheight() const ;
     size_t getwidth() const;
 
+    // coordonates are x, y
     const int *operator[](size_t) const;
     Form getform1() const;
     Form getform2() const;
