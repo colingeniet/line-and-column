@@ -7,6 +7,9 @@
 #include <vector>
 
 
+#define N_FORMS 3
+
+
 /* main game class, keep all information about game state */
 class mainGame
 {
@@ -24,15 +27,13 @@ public:
 
     // coordonates are x, y
     const int *operator[](size_t) const;
-    Form getform1() const;
-    Form getform2() const;
-    Form getform3() const;
+    Form getform(size_t) const;
 
 
     /* perform a move, return true if valid, false if not
      * add one of the 3 selected forms at given coordonates
      * and perform all required action */
-    bool add_form(uint8_t, int, int);
+    bool add_form(size_t, int, int);
 
     bool move_available() const;
 
@@ -48,7 +49,7 @@ private:
 
     size_t form_size;
     std::vector<Form> form_set;
-    size_t form1, form2, form3;
+    size_t form[N_FORMS];
 
     void update_score(int, int);
 
