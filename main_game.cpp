@@ -26,6 +26,14 @@ size_t mainGame::getheight() const {
     return board.getheight();
 }
 
+int mainGame::getscore() const {
+    return score;
+}
+
+int mainGame::getcombo() const {
+    return combo;
+}
+
 const int* mainGame::operator[](size_t n) const {
     return board[n];
 }
