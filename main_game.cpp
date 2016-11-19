@@ -92,6 +92,44 @@ bool mainGame::add_form(uint8_t n, int x, int y)
     return true;
 }
 
+bool mainGame::move_available() const
+{
+    if(form1 != (size_t) -1)
+    {
+        for(size_t x=0; x<board.getwidth(); x++) {
+            for(size_t y=0; y<board.getheight(); y++) {
+                if( !board.formCollide(form_set[form1], x, y) ) {
+                    return true;
+                }
+            }
+        }
+    }
+
+    if(form2 != (size_t) -1)
+    {
+        for(size_t x=0; x<board.getwidth(); x++) {
+            for(size_t y=0; y<board.getheight(); y++) {
+                if( !board.formCollide(form_set[form2], x, y) ) {
+                    return true;
+                }
+            }
+        }
+    }
+
+    if(form3 != (size_t) -1)
+    {
+        for(size_t x=0; x<board.getwidth(); x++) {
+            for(size_t y=0; y<board.getheight(); y++) {
+                if( !board.formCollide(form_set[form3], x, y) ) {
+                    return true;
+                }
+            }
+        }
+    }
+
+    return false;
+}
+
 bool mainGame::add_form_to_set(const Form &F)
 {
     form_set.push_back(F);   // ajouter test de taille ici, a voir
@@ -114,5 +152,7 @@ void mainGame::random_select_forms()
 
 void mainGame::update_score(int lines, int columns)
 {
+    score +=  lines + columns;
+    combo = lines + columns;
 }
 
