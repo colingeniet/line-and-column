@@ -41,6 +41,10 @@ Form mainGame::getform(size_t n) const {
     return form[n] == (size_t) -1 ? Form() : form_set[form[n]];
 }
 
+int mainGame::getform_color(size_t n) const {
+    return form[n] == (size_t) -1 ? COLOR_NONE : form_color[form[n]];
+}
+
 
 bool mainGame::add_form(size_t n, int x, int y)
 {

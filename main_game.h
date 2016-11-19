@@ -25,9 +25,11 @@ public:
     int getscore() const;
     int getcombo() const;
 
+    Form getform(size_t) const;
+    int getform_color(size_t) const;
+
     // coordonates are x, y
     const int *operator[](size_t) const;
-    Form getform(size_t) const;
 
 
     /* perform a move, return true if valid, false if not
