@@ -18,14 +18,12 @@ public:
 
 private:
     WINDOW *borderWindow, *boardWindow, *scoreWindow,
-            *formWindow1, *formWindow2, *formWindow3;
+            *formWindow[N_FORMS];
     mainGame *board;
 
     void print_score();
     void print_board();
-    void print_form1();
-    void print_form2();
-    void print_form3();
+    void print_form(size_t);
 
     int cursor_x, cursor_y;
 };

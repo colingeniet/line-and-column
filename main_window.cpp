@@ -14,8 +14,12 @@ mainWindow::mainWindow(size_t width, size_t height, size_t form_size) :
     required_row = height + form_size + 7;
 
     required_col = 8;
-    if(required_col < width+2) required_col = width+2;
-    if(required_col < 3*form_size + 4) required_col = 3*form_size + 4;
+    if(required_col < width+2) {
+        required_col = width+2;
+    }
+    if(required_col < N_FORMS*form_size + N_FORMS + 1) {
+        required_col = N_FORMS*form_size + N_FORMS + 1;
+    }
     required_col *= 2;
 
     if(row < required_row || col < required_col)
@@ -30,12 +34,10 @@ mainWindow::mainWindow(size_t width, size_t height, size_t form_size) :
     borderWindow = newwin(required_row, required_col, 0, (col-required_col)/2);
     scoreWindow = newwin(3, required_col-4, 1, (col-required_col+4)/2);
     boardWindow = newwin(height, width*2, 5, (col - width*2)/2);
-    formWindow1 = newwin(form_size, form_size*2,
-                         height+6, (col - form_size*6 -4)/2);
-    formWindow2 = newwin(form_size, form_size*2,
-                         height+6, (col - form_size*2)/2);
-    formWindow3 = newwin(form_size, form_size*2,
-                         height+6, (col + form_size*2 +4)/2);
+    for(size_t i=0; i<N_FORMS; i++) {
+        formWindow[i] = newwin(form_size, form_size*2, height+6,
+                               col/2 + (2*i - N_FORMS)*(form_size+1) + 1);
+    }
 
 
     wbkgd(borderWindow, A_REVERSE);
@@ -57,9 +59,9 @@ mainWindow::~mainWindow()
 {
     delwin(borderWindow);
     delwin(boardWindow);
-    delwin(formWindow1);
-    delwin(formWindow2);
-    delwin(formWindow3);
+    for(size_t i=0; i<N_FORMS; i++) {
+        delwin(formWindow[i]);
+    }
     delete board;
 }
 
@@ -68,16 +70,17 @@ void mainWindow::print()
 {
     print_score();
     print_board();
-    print_form1();
-    print_form2();
-    print_form3();
+    for(size_t i=0; i<N_FORMS; i++) {
+        print_form(i);
+    }
 
     wrefresh(borderWindow);
     wrefresh(scoreWindow);
     wrefresh(boardWindow);
-    wrefresh(formWindow1);
-    wrefresh(formWindow2);
-    wrefresh(formWindow3);
+
+    for(size_t i=0; i<N_FORMS; i++) {
+        wrefresh(formWindow[i]);
+    }
 }
 
 void mainWindow::print_score()
@@ -104,35 +107,13 @@ void mainWindow::print_board()
     }
 }
 
-void mainWindow::print_form1()
+void mainWindow::print_form(size_t n)
 {
-    Form form = board->getform1();
-    wclear(formWindow1);
-    wattron(formWindow1, COLOR_PAIR(BLACK_RED));
-    for(size_t n=0; n<form.getsize(); n++) {
-        mvwprintw(formWindow1, form[n].y, form[n].y, " ");
+    Form form = board->getform(n);
+    wclear(formWindow[n]);
+    wattron(formWindow[n], COLOR_PAIR(BLACK_RED));
+    for(size_t i=0; i<form.getsize(); i++) {
+        mvwprintw(formWindow[n], form[i].y, form[i].y, " ");
     }
-    wattroff(formWindow1, COLOR_PAIR(BLACK_RED));
-}
-
-void mainWindow::print_form2()
-{
-    Form form = board->getform2();
-    wclear(formWindow2);
-    wattron(formWindow2, COLOR_PAIR(BLACK_RED));
-    for(size_t n=0; n<form.getsize(); n++) {
-        mvwprintw(formWindow2, form[n].y, form[n].y, " ");
-    }
-    wattroff(formWindow2, COLOR_PAIR(BLACK_RED));
-}
-
-void mainWindow::print_form3()
-{
-    Form form = board->getform3();
-    wclear(formWindow3);
-    wattron(formWindow3, COLOR_PAIR(BLACK_RED));
-    for(size_t n=0; n<form.getsize(); n++) {
-        mvwprintw(formWindow3, form[n].y, form[n].y, " ");
-    }
-    wattroff(formWindow3, COLOR_PAIR(BLACK_RED));
+    wattroff(formWindow[n], COLOR_PAIR(BLACK_RED));
 }
