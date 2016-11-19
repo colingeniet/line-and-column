@@ -19,6 +19,9 @@ public:
     size_t getheight() const ;
     size_t getwidth() const;
 
+    int getscore() const;
+    int getcombo() const;
+
     // coordonates are x, y
     const int *operator[](size_t) const;
     Form getform1() const;
