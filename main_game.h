@@ -38,7 +38,7 @@ public:
     bool move_available() const;
 
     // add a form to the set of forms used
-    bool add_form_to_set(const Form&);
+    bool add_form_to_set(const Form &form, int color = COLOR_WHITE);
 
     // choose 3 differents forms from the forms set
     void random_select_forms();
@@ -49,6 +49,7 @@ private:
 
     size_t form_size;
     std::vector<Form> form_set;
+    std::vector<int> form_color;
     size_t form[N_FORMS];
 
     void update_score(int, int);

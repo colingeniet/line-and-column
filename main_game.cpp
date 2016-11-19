@@ -50,7 +50,7 @@ bool mainGame::add_form(size_t n, int x, int y)
     if(board.formCollide(form_set[form[n]], x, y)) return false;
 
     // add
-    board.addForm(form_set[form[n]], x, y, COLOR_WHITE);  // ajouter couleur
+    board.addForm(form_set[form[n]], x, y, form_color[form[n]]);  // ajouter couleur
     // clean updating score
     int lines=0, columns=0;
     board.clean(lines, columns);
@@ -89,9 +89,18 @@ bool mainGame::move_available() const
     return false;
 }
 
-bool mainGame::add_form_to_set(const Form &F)
+bool mainGame::add_form_to_set(const Form &form, int color)
 {
-    form_set.push_back(F);   // ajouter test de taille ici, a voir
+    // (x+1)/2 and (x/2) always sum up to x (unlike (x/2)*2)
+    if(form.getboxmax().x > (form_size+1)/2 ||
+       form.getboxmax().y > (form_size+1)/2 ||
+       form.getboxmin().x < -(form_set/2) ||
+       form.getboxmin().y < -(form_set/2) ) {
+        return false;
+    }
+
+    form_set.push_back(form);
+    form_color.push_back(color);
     return true;
 }
 
