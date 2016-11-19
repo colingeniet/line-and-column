@@ -31,6 +31,8 @@ public:
      * and perform all required action */
     bool add_form(uint8_t, int, int);
 
+    bool move_available() const;
+
     // add a form to the set of forms used
     bool add_form_to_set(const Form&);
 
