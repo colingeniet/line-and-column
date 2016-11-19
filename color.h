@@ -11,7 +11,15 @@
 
 // color pairs
 #define BLACK_RED 1
-#define RED_BLACK 2
+#define BLACK_GREEN 2
+#define BLACK_YELLOW 3
+#define BLACK_BLUE 4
+#define BLACK_MAGENTA 5
+#define BLACK_CYAN 6
+#define BLACK_WHITE 7
+
+#define RED_BLACK 9
+#define BLUE_BLACK 12
 
 void init_color_pairs();
 

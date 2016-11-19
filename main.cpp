@@ -3,8 +3,10 @@
 
 int main(int argc, char** argv)
 {
-    initscr();
-    cbreak();
+    initscr();      // ncruses initialisation
+    cbreak();       // no input buffering
+    noecho();       // no input echo
+    curs_set(0);    // cursor invisible
     // refresh of is required after initialization or windows won't display
     refresh();
     if(has_colors())
