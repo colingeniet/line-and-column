@@ -94,8 +94,8 @@ bool mainGame::add_form_to_set(const Form &form, int color)
     // (x+1)/2 and (x/2) always sum up to x (unlike (x/2)*2)
     if(form.getboxmax().x > (form_size+1)/2 ||
        form.getboxmax().y > (form_size+1)/2 ||
-       form.getboxmin().x < -(form_set/2) ||
-       form.getboxmin().y < -(form_set/2) ) {
+       form.getboxmin().x < -(form_size/2) ||
+       form.getboxmin().y < -(form_size/2) ) {
         return false;
     }
 
