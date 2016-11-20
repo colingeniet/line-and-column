@@ -158,6 +158,17 @@ void mainWindow::print_board()
             wattroff(boardWindow, attr);
         }
     }
+
+    Form form = board->getform(selected_form);
+    wattron(boardWindow, get_attr_color(board->getform_color(selected_form)));
+    for(size_t i=0; i<form.getsize(); i++) {
+        int x = cursor_x + form[i].x;
+        int y = cursor_y + form[i].y;
+        if(0<=x && x<board->getwidth() && 0<=y && y<board->getheight()) {
+            mvwprintw(boardWindow, y, 2*x, "  ");
+        }
+    }
+    wattroff(boardWindow, get_attr_color(board->getform_color(selected_form)));
 }
 
 void mainWindow::print_form(size_t n)
