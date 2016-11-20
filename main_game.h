@@ -15,12 +15,12 @@ class mainGame
 {
 public:
     /* parameters : width, height (main board), max form size */
-    mainGame(size_t, size_t, size_t);
+    mainGame(int, int, int);
 
     // accessors
-    size_t getform_size() const;
-    size_t getheight() const ;
-    size_t getwidth() const;
+    int getform_size() const;
+    int getheight() const ;
+    int getwidth() const;
 
     int getscore() const;
     int getcombo() const;
@@ -29,7 +29,7 @@ public:
     int getform_color(size_t) const;
 
     // coordonates are x, y
-    const int *operator[](size_t) const;
+    const int *operator[](int) const;
 
 
     /* perform a move, return true if valid, false if not
@@ -49,7 +49,7 @@ public:
 private:
     Board board;
 
-    size_t form_size;
+    int form_size;
     std::vector<Form> form_set;
     std::vector<int> form_color;
     size_t form[N_FORMS];

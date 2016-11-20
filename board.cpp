@@ -1,14 +1,14 @@
 #include "board.h"
 
 
-Board::Board(size_t _width, size_t _height) :
+Board::Board(int _width, int _height) :
     width(_width),
     height(_height)
 {
     board = new int*[width];
-    for(size_t i=0; i<width; i++) {
+    for(int i=0; i<width; i++) {
         board[i] = new int[height];
-        for(size_t j=0; j<height; j++) {
+        for(int j=0; j<height; j++) {
             board[i][j] = COLOR_NONE;
         }
     }
@@ -19,9 +19,9 @@ Board::Board(const Board &b) :
     height(b.height)
 {
     board = new int*[width];
-    for(size_t i=0; i<width; i++) {
+    for(int i=0; i<width; i++) {
         board[i] = new int[height];
-        for(size_t j=0; j<height; j++) {
+        for(int j=0; j<height; j++) {
             board[i][j] = b.board[i][j];
         }
     }
@@ -29,7 +29,7 @@ Board::Board(const Board &b) :
 
 Board::~Board()
 {
-    for(size_t i=0; i<width; i++) {
+    for(int i=0; i<width; i++) {
         delete[] board[i];
     }
     delete[] board;
@@ -38,7 +38,7 @@ Board::~Board()
 Board& Board::operator=(const Board &b)
 {
     if(this != &b) {
-        for(size_t i=0; i<width; i++) {
+        for(int i=0; i<width; i++) {
             delete[] board[i];
         }
         delete[] board;
@@ -47,9 +47,9 @@ Board& Board::operator=(const Board &b)
         height = b.height;
 
         board = new int*[width];
-        for(size_t i=0; i<width; i++) {
+        for(int i=0; i<width; i++) {
             board[i] = new int[height];
-            for(size_t j=0; j<height; j++) {
+            for(int j=0; j<height; j++) {
                 board[i][j] = b.board[i][j];
             }
         }
@@ -59,7 +59,7 @@ Board& Board::operator=(const Board &b)
 
 
 
-void Board::setSquare(size_t x, size_t y, int color)
+void Board::setSquare(int x, int y, int color)
 {
     board[x][y] = color;
 }
@@ -69,7 +69,7 @@ void Board::addForm(const Form &form, int x, int y, int color)
     for(size_t i=0; i<form.getsize(); i++) {
         if(0 <= x + form[i].x && x + form[i].x < width &&
            0 <= y + form[i].y && y + form[i].y < height) {
-            board[x + form[i].x][y + form[i].y] = color;
+            board[x+form[i].x][y+form[i].y] = color;
         }
     }
 }
@@ -100,43 +100,47 @@ void Board::clean(int &n_line, int &n_column)
     bool *lines = new bool[height];
     bool *columns = new bool[width];
 
-    for(size_t y=0; y<height; y++) {
+    for(int y=0; y<height; y++) {
         bool full = true;
-        for(size_t x=0; x<width && full; x++) {
+        for(int x=0; x<width && full; x++) {
             if( !board[x][y] ) full = false;
         }
 
         if(full) {
             lines[y] = true;
             n_line++;
+        } else {
+            lines[y] = false;
         }
     }
 
-    for(size_t x=0; x<width; x++) {
+    for(int x=0; x<width; x++) {
         bool full = true;
-        for(size_t y=0; y<height && full; y++) {
+        for(int y=0; y<height && full; y++) {
             if( !board[x][y] ) full = false;
         }
 
         if(full) {
             columns[x] = true;
             n_column++;
+        } else {
+            columns[x] = false;
         }
     }
 
     // the clean. we can't do both at once obviously as it would delete
     // squares before tests
-    for(size_t y=0; y<height; y++) {
+    for(int y=0; y<height; y++) {
         if(lines[y]) {
-            for(size_t x=0; x<width; x++) {
+            for(int x=0; x<width; x++) {
                 board[x][y] = COLOR_NONE;
             }
         }
     }
 
-    for(size_t x=0; x<width; x++) {
+    for(int x=0; x<width; x++) {
         if(columns[x]) {
-            for(size_t y=0; y<height; y++) {
+            for(int y=0; y<height; y++) {
                 board[x][y] = COLOR_NONE;
             }
         }
@@ -146,14 +150,14 @@ void Board::clean(int &n_line, int &n_column)
 }
 
 
-const int* Board::operator[](size_t n) const {
+const int* Board::operator[](int n) const {
     return board[n];
 }
 
-size_t Board::getwidth() const {
+int Board::getwidth() const {
     return width;
 }
 
-size_t Board::getheight() const {
+int Board::getheight() const {
     return height;
 }
