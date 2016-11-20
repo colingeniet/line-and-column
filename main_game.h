@@ -40,7 +40,7 @@ public:
     bool move_available() const;
 
     // add a form to the set of forms used
-    bool add_form_to_set(const Form &form, int color = COLOR_WHITE);
+    bool add_form_to_set(const Form&, int);
 
     // choose 3 differents forms from the forms set
     void random_select_forms();

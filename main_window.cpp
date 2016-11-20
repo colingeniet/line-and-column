@@ -152,11 +152,10 @@ void mainWindow::print_board()
     wclear(boardWindow);
     for(int x=0; x<board->getwidth(); x++) {
         for(int y=0; y<board->getheight(); y++) {
-            if( (*board)[x][y] ) {
-                wattron(boardWindow, COLOR_PAIR(BLACK_RED));
-                mvwprintw(boardWindow, y, 2*x, "  ");
-                wattroff(boardWindow, COLOR_PAIR(BLACK_RED));
-            }
+            int attr = get_attr_color( (*board)[x][y] );
+            wattron(boardWindow, attr);
+            mvwprintw(boardWindow, y, 2*x, "  ");
+            wattroff(boardWindow, attr);
         }
     }
 }
@@ -165,11 +164,11 @@ void mainWindow::print_form(size_t n)
 {
     Form form = board->getform(n);
     wclear(formWindow[n]);
-    wattron(formWindow[n], COLOR_PAIR(BLACK_RED));
+    wattron(formWindow[n], get_attr_color(board->getform_color(n)));
     for(size_t i=0; i<form.getsize(); i++) {
         mvwprintw(formWindow[n],
                   form[i].y + board->getform_size()/2,
                   2*form[i].x + (board->getform_size()/2)*2, "  ");
     }
-    wattroff(formWindow[n], COLOR_PAIR(BLACK_RED));
+    wattroff(formWindow[n], get_attr_color(board->getform_color(n)));
 }

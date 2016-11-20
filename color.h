@@ -23,4 +23,8 @@
 
 void init_color_pairs();
 
+/* return a color pair attribute with color as background, black as foreground
+ * use black and white if colors are unavailable */
+int get_attr_color(int);
+
 #endif // COLOR_H_INCLUDED

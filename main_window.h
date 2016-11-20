@@ -18,7 +18,7 @@ public:
 
     bool input(int);
 
-    bool add_form_to_set(const Form &form, int color=COLOR_WHITE);
+    bool add_form_to_set(const Form&, int);
 
     void random_select_forms();
 

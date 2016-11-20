@@ -18,6 +18,8 @@ int main(int argc, char** argv)
         init_color_pairs();
     }
 
+    srand(time(NULL));
+
     Form square;
     square.add(0,0);
     square.add(0,1);
@@ -36,8 +38,8 @@ int main(int argc, char** argv)
     bigsquare.add(1, 1);
 
     mainWindow win(10, 10, 5);
-    win.add_form_to_set(square);
-    win.add_form_to_set(bigsquare);
+    win.add_form_to_set(square, COLOR_RED);
+    win.add_form_to_set(bigsquare, COLOR_YELLOW);
     win.random_select_forms();
 
     win.print();
