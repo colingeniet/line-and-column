@@ -11,7 +11,7 @@ class Board
 {
 public:
     // width / height
-    Board(size_t, size_t);
+    Board(int, int);
     Board(const Board&);
 
     ~Board();
@@ -19,7 +19,7 @@ public:
     Board& operator=(const Board&);
 
     // last parameter is the color
-    void setSquare(size_t, size_t, int);
+    void setSquare(int, int, int);
     // write a form on the board at any coordonates (including outside)
     void addForm(const Form&, int, int, int);
 
@@ -31,12 +31,12 @@ public:
 
     // accessors
     // coordonates are x, y
-    const int *operator[](size_t) const;
-    size_t getwidth() const;
-    size_t getheight() const;
+    const int *operator[](int) const;
+    int getwidth() const;
+    int getheight() const;
 
 private:
-    size_t width, height;
+    int width, height;
     int **board;
 };
 

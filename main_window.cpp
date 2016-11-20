@@ -4,9 +4,11 @@
 #include <exception>
 
 
-mainWindow::mainWindow(size_t width, size_t height, size_t form_size) :
+
+mainWindow::mainWindow(int width, int height, int form_size) :
     cursor_x(width/2),
-    cursor_y(height/2)
+    cursor_y(height/2),
+    selected_form(0)
 {
     int row, col, required_row, required_col;
     getmaxyx(stdscr, row, col);
@@ -66,6 +68,59 @@ mainWindow::~mainWindow()
 }
 
 
+bool mainWindow::add_form_to_set(const Form &form, int color)
+{
+    return board->add_form_to_set(form, color);
+}
+
+
+bool mainWindow::input(int ch)
+{
+    switch(ch)
+    {
+    case KEY_UP:
+        cursor_y--;
+        if(cursor_y < 0) cursor_y = 0;
+        break;
+    case KEY_DOWN:
+        cursor_y++;
+        if(cursor_y >= board->getheight()) cursor_y = board->getheight()-1;
+        break;
+    case KEY_LEFT:
+        cursor_x--;
+        if(cursor_x < 0) cursor_x = 0;
+        break;
+    case KEY_RIGHT:
+        cursor_x++;
+        if(cursor_x >= board->getwidth()) cursor_x = board->getwidth()-1;
+        break;
+    case '1':
+        selected_form = 0;
+        break;
+    case '2':
+        selected_form = 1;
+        break;
+    case '3':
+        selected_form = 2;
+        break;
+    case '\n':
+        board->add_form(selected_form, cursor_x, cursor_y);
+        if( !board->move_available() ) return false;
+        break;
+    case 'q':
+        return false;
+        break;
+    default:
+        break;
+    }
+    return true;
+}
+
+void mainWindow::random_select_forms()
+{
+    board->random_select_forms();
+}
+
 void mainWindow::print()
 {
     print_score();
@@ -77,7 +132,6 @@ void mainWindow::print()
     wrefresh(borderWindow);
     wrefresh(scoreWindow);
     wrefresh(boardWindow);
-
     for(size_t i=0; i<N_FORMS; i++) {
         wrefresh(formWindow[i]);
     }
@@ -96,11 +150,11 @@ void mainWindow::print_score()
 void mainWindow::print_board()
 {
     wclear(boardWindow);
-    for(size_t x=0; x<board->getwidth(); x++) {
-        for(size_t y=0; y<board->getheight(); y++) {
+    for(int x=0; x<board->getwidth(); x++) {
+        for(int y=0; y<board->getheight(); y++) {
             if( (*board)[x][y] ) {
                 wattron(boardWindow, COLOR_PAIR(BLACK_RED));
-                mvwprintw(boardWindow, y, x, " ");
+                mvwprintw(boardWindow, y, 2*x, "  ");
                 wattroff(boardWindow, COLOR_PAIR(BLACK_RED));
             }
         }
@@ -113,7 +167,9 @@ void mainWindow::print_form(size_t n)
     wclear(formWindow[n]);
     wattron(formWindow[n], COLOR_PAIR(BLACK_RED));
     for(size_t i=0; i<form.getsize(); i++) {
-        mvwprintw(formWindow[n], form[i].y, form[i].y, " ");
+        mvwprintw(formWindow[n],
+                  form[i].y + board->getform_size()/2,
+                  2*form[i].x + (board->getform_size()/2)*2, "  ");
     }
     wattroff(formWindow[n], COLOR_PAIR(BLACK_RED));
 }

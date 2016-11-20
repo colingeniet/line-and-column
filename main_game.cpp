@@ -2,7 +2,7 @@
 
 #include <cstdlib>
 
-mainGame::mainGame(size_t _width, size_t _height, size_t _form_size) :
+mainGame::mainGame(int _width, int _height, int _form_size) :
     board(_width, _height),
     form_size(_form_size),
     score(0),
@@ -13,15 +13,15 @@ mainGame::mainGame(size_t _width, size_t _height, size_t _form_size) :
 
 
 
-size_t mainGame::getform_size() const {
+int mainGame::getform_size() const {
     return form_size;
 }
 
-size_t mainGame::getwidth() const {
+int mainGame::getwidth() const {
     return board.getwidth();
 }
 
-size_t mainGame::getheight() const {
+int mainGame::getheight() const {
     return board.getheight();
 }
 
@@ -33,7 +33,7 @@ int mainGame::getcombo() const {
     return combo;
 }
 
-const int* mainGame::operator[](size_t n) const {
+const int* mainGame::operator[](int n) const {
     return board[n];
 }
 
@@ -54,7 +54,7 @@ bool mainGame::add_form(size_t n, int x, int y)
     if(board.formCollide(form_set[form[n]], x, y)) return false;
 
     // add
-    board.addForm(form_set[form[n]], x, y, form_color[form[n]]);  // ajouter couleur
+    board.addForm(form_set[form[n]], x, y, form_color[form[n]]);
     // clean updating score
     int lines=0, columns=0;
     board.clean(lines, columns);
@@ -71,7 +71,6 @@ bool mainGame::add_form(size_t n, int x, int y)
         random_select_forms();
     }
 
-
     return true;
 }
 
@@ -81,8 +80,8 @@ bool mainGame::move_available() const
     {
         if(form[i] != (size_t) -1)
         {
-            for(size_t x=0; x<board.getwidth(); x++) {
-                for(size_t y=0; y<board.getheight(); y++) {
+            for(int x=0; x<board.getwidth(); x++) {
+                for(int y=0; y<board.getheight(); y++) {
                     if( !board.formCollide(form_set[form[i]], x, y) ) {
                         return true;
                     }
@@ -112,11 +111,12 @@ bool mainGame::add_form_to_set(const Form &form, int color)
 // BAD : can select the same form twice
 void mainGame::random_select_forms()
 {
-    for(size_t i=0; i<N_FORMS; i++) {
-        form[i] = random() % form_set.size();
+    if(form_set.size() > 0) {
+        for(size_t i=0; i<N_FORMS; i++) {
+            form[i] = rand() % form_set.size();
+        }
     }
 }
-
 
 
 void mainGame::update_score(int lines, int columns)
