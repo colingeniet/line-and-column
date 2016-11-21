@@ -141,12 +141,13 @@ void mainWindow::print()
         print_form(i);
     }
 
-    wrefresh(borderWindow);
-    wrefresh(scoreWindow);
-    wrefresh(boardWindow);
+    wnoutrefresh(borderWindow);
+    wnoutrefresh(scoreWindow);
+    wnoutrefresh(boardWindow);
     for(size_t i=0; i<N_FORMS; i++) {
-        wrefresh(formWindow[i]);
+        wnoutrefresh(formWindow[i]);
     }
+    doupdate();
 }
 
 void mainWindow::print_score()
