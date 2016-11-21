@@ -6,6 +6,9 @@
 
 #include <ncurses.h>
 
+#include <cstddef>
+
+
 /* main GUI class, link the GUI with the main game class */
 class mainWindow
 {

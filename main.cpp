@@ -1,7 +1,10 @@
 #include "main_window.h"
 #include "color.h"
 
-#include <iostream>
+#include <ncurses.h>
+
+#include <cstdlib>
+#include <ctime>
 
 
 void ncurses_init()

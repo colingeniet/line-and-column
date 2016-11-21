@@ -2,6 +2,7 @@
 
 #include <cstdlib>
 
+
 mainGame::mainGame(int _width, int _height, int _form_size) :
     board(_width, _height),
     form_size(_form_size),

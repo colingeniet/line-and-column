@@ -10,6 +10,7 @@ mainWindow::mainWindow(int width, int height, int form_size) :
     cursor_y(height/2),
     selected_form(0)
 {
+    // Windows placement
     int row, col, required_row, required_col;
     getmaxyx(stdscr, row, col);
 
@@ -33,6 +34,7 @@ mainWindow::mainWindow(int width, int height, int form_size) :
         std::terminate();
     }
 
+    // create windows
     borderWindow = newwin(required_row, required_col, 0, (col-required_col)/2);
     scoreWindow = newwin(3, required_col-4, 1, (col-required_col+4)/2);
     boardWindow = newwin(height, width*2, 5, (col - width*2)/2);
@@ -42,6 +44,7 @@ mainWindow::mainWindow(int width, int height, int form_size) :
     }
 
 
+    // initialise colors
     wbkgd(borderWindow, A_REVERSE);
 
     if(has_colors())
