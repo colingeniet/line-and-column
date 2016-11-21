@@ -40,7 +40,7 @@ endif
 
 
 $(PROGRAM) : $(OBJS)
-	$(CC) $(CFLAGS) $(LIBFLAGS) $^ -o $@
+	$(CC) $(CFLAGS) $^ $(LIBFLAGS) -o $@
 
 %.o : %.cpp
 	$(CC) $(CFLAGS) -c $< -o $@
