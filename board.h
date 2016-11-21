@@ -5,6 +5,9 @@
 #include "color.h"
 #include "form.h"
 
+#include <cstddef>
+
+
 /* Tihs class defines the main 1010 board. It mostly is the array of squares
  * with all method required to manipulate it */
 class Board
