@@ -4,7 +4,13 @@
 Form::Form() :
     size(0),
     capacity(FORM_DEFAULT_SIZE),
-    squares(new Point[capacity]) {}
+    squares(new Point[capacity])
+{
+    boxmin.x = 0;
+    boxmin.y = 0;
+    boxmax.x = 0;
+    boxmax.y = 0;
+}
 
 Form::Form(const Form& f) :
     size(f.size),

@@ -81,21 +81,18 @@ bool mainWindow::input(int ch)
 {
     switch(ch)
     {
+        // no bound testing here, done below
     case KEY_UP:
         cursor_y--;
-        if(cursor_y < 0) cursor_y = 0;
         break;
     case KEY_DOWN:
         cursor_y++;
-        if(cursor_y >= board->getheight()) cursor_y = board->getheight()-1;
         break;
     case KEY_LEFT:
         cursor_x--;
-        if(cursor_x < 0) cursor_x = 0;
         break;
     case KEY_RIGHT:
         cursor_x++;
-        if(cursor_x >= board->getwidth()) cursor_x = board->getwidth()-1;
         break;
     case '1':
         selected_form = 0;
@@ -116,6 +113,18 @@ bool mainWindow::input(int ch)
     default:
         break;
     }
+    // since various command may affect bounds, testing is done here
+    int minx = - board->getform(selected_form).getboxmin().x;
+    int miny = - board->getform(selected_form).getboxmin().y;
+    int maxx = board->getwidth()
+                - board->getform(selected_form).getboxmax().x - 1;
+    int maxy = board->getheight()
+                - board->getform(selected_form).getboxmax().y - 1;
+    if(cursor_x < minx) cursor_x = minx;
+    if(cursor_y < miny) cursor_y = miny;
+    if(cursor_x > maxx) cursor_x = maxx;
+    if(cursor_y > maxy) cursor_y = maxy;
+
     return true;
 }
 
