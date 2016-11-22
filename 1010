@@ -1,0 +1,2 @@
+export TERM="xterm-1003"
+./line-and-column
