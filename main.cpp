@@ -10,11 +10,16 @@
 void ncurses_init()
 {
     initscr();                  // ncruses initialisation
+    clear();
     cbreak();                   // no input buffering
-    keypad(stdscr, TRUE);       // recieve functions key input
+    nodelay(stdscr, true);      // don't wait for input if there is none
+    keypad(stdscr, true);       // recieve functions key input
     noecho();                   // no input echo
     curs_set(0);                // cursor invisible
-    // refresh of is required after initialization or windows won't display
+    // enable mouse
+    mousemask(BUTTON1_PRESSED | REPORT_MOUSE_POSITION, NULL);
+    mouseinterval(0);           // disable click resolution to avoid input delay
+    // refresh is required after initialization or windows won't display
     refresh();
     if(has_colors())
     {
@@ -57,9 +62,29 @@ int main(int argc, char** argv)
     win.add_form_to_set(H5, COLOR_RED);
     win.random_select_forms();
 
-    win.print();
-    while(win.input(getch()))
+
+    bool quit = false;
+    // main loop
+    while(!quit)
     {
+        // input
+        int ch;
+        while( (ch = getch()) != ERR )
+        {
+            switch(ch)
+            {
+            case 'q':
+                quit = true;
+                break;
+            default:
+                if(!win.input(ch))
+                {
+                    quit = true;
+                }
+                break;
+            }
+        }
+
         win.print();
     }
 

@@ -19,10 +19,13 @@ public:
 
     void print();
 
+    // take a getch() input and perform corresponding move
+    // return false if the game shall quit, true otherwise
     bool input(int);
 
     bool add_form_to_set(const Form&, int);
 
+    // must be called after adding forms to the form set
     void random_select_forms();
 
 private:
