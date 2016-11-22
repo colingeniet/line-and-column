@@ -12,7 +12,6 @@ void ncurses_init()
     initscr();                  // ncruses initialisation
     clear();
     cbreak();                   // no input buffering
-    nodelay(stdscr, true);      // don't wait for input if there is none
     keypad(stdscr, true);       // recieve functions key input
     noecho();                   // no input echo
     curs_set(0);                // cursor invisible
@@ -67,25 +66,22 @@ int main(int argc, char** argv)
     // main loop
     while(!quit)
     {
-        // input
-        int ch;
-        while( (ch = getch()) != ERR )
-        {
-            switch(ch)
-            {
-            case 'q':
-                quit = true;
-                break;
-            default:
-                if(!win.input(ch))
-                {
-                    quit = true;
-                }
-                break;
-            }
-        }
-
         win.print();
+
+        // input
+        int ch = getch();
+        switch(ch)
+        {
+        case 'q':
+            quit = true;
+            break;
+        default:
+            if(!win.input(ch))
+            {
+                quit = true;
+            }
+            break;
+        }
     }
 
     endwin();
