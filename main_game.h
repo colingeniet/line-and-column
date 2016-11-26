@@ -18,6 +18,7 @@ class mainGame
 {
 public:
     /* parameters : width, height (main board), max form size */
+    mainGame();
     mainGame(int, int, int);
 
     // accessors

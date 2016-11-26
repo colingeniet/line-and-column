@@ -7,6 +7,15 @@
 #include <exception>
 
 
+mainGame::mainGame() :
+    board(0, 0),
+    form_size(0),
+    score(0),
+    combo(0)
+{
+    for(size_t i=0; i<N_FORMS; i++) form[i] = (size_t)-1;
+}
+
 mainGame::mainGame(int _width, int _height, int _form_size) :
     board(_width, _height),
     form_size(_form_size),
