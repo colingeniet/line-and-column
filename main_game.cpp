@@ -157,8 +157,8 @@ std::string mainGame::write() const
     // save
     for(size_t i=0; i<N_FORMS; i++) {
         if(form[i] != (size_t)-1) {
-            str += "SELECTED_FORM : " + std::to_string(i)
-                    + " " + std::to_string(form[i]) + "\n";
+            str += "SELECTED_FORM : " + std::to_string(i+1)
+                    + " " + std::to_string(form[i]+1) + "\n";
         }
     }
 
@@ -244,6 +244,11 @@ FORM_SIZE befor anything else." << std::endl;
 
             if(key == "FORM") {
                 int color = word_to_color(value);
+                if(color == COLOR_BLACK) {
+                    std::cerr << "Forms can not be defined with color black"
+                              << std::endl;
+                    std::terminate();
+                }
                 Form new_form;
                 new_form.read(getblock(str_copy));
                 game->add_form_to_set(new_form, color);
@@ -251,8 +256,8 @@ FORM_SIZE befor anything else." << std::endl;
                 game->board.read(getblock(str_copy));
             } else if(key == "SELECTED_FORM") {
                 size_t index, form_index;
-                index = stoul(getword(value));
-                form_index = stoul(getword(value));
+                index = stoul(getword(value))-1;
+                form_index = stoul(getword(value))-1;
                 game->form[index] = form_index;
             } else if(key == "SCORE") {
                 game->score = stoi(value);

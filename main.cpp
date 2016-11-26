@@ -55,6 +55,8 @@ int main(int argc, char** argv)
     input >> game;
     input.close();
 
+    game.random_select_forms();
+
     ncurses_init();
     std::set_terminate(ncurses_terminate);
 
