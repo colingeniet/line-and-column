@@ -44,9 +44,17 @@ void ncurses_init()
 
 int main(int argc, char** argv)
 {
-    std::ifstream input("default_board");
+    std::ifstream input;
+    if(argc == 2)
+        input.open(argv[1]);
+    else
+        input.open("default_board");
+
     mainGame game;
+
     input >> game;
+    input.close();
+
     game.random_select_forms();
 
     ncurses_init();
@@ -64,6 +72,10 @@ int main(int argc, char** argv)
     }
 
     ncurses_quit();
+
+    std::ofstream output("save");
+    output << game;
+    output.close();
 
     return 0;
 }
