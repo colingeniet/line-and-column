@@ -1,0 +1,82 @@
+# default game configuration
+# DO NOT EDIT
+# use a copy instead
+
+
+WIDTH : 10 
+HEIGHT : 10
+FORM_SIZE : 5
+
+
+FORM : WHITE
+{
+0 0
+}
+
+FORM : RED
+{
+0 0
+1 0
+0 1
+1 1
+}
+
+FORM : BLUE
+{
+0 0
+0 -1
+}
+
+FORM : BLUE
+{
+0 0
+-1 0
+}
+
+FORM : GREEN
+{
+0 -1
+0 0
+0 1
+}
+
+FORM : GREEN
+{
+-1 0
+0 0
+1 0
+}
+
+FORM : YELLOW
+{
+0 -2
+0 -1
+0 0
+0 1
+}
+
+FORM : YELLOW
+{
+-2 0
+-1 0
+0 0
+1 0
+}
+
+FORM : RED
+{
+0 -2
+0 -1
+0 0
+0 1
+0 2
+}
+
+FORM : RED
+{
+-2 0
+-1 0
+0 0
+1 0
+2 0
+}

@@ -6,6 +6,8 @@
 
 #include <cstddef>
 #include <vector>
+#include <string>
+#include <iostream>
 
 
 #define N_FORMS 3
@@ -47,6 +49,12 @@ public:
     void random_select_forms();
 
 
+    std::string write() const;
+    void read(const std::string&);
+
+    void stream_write(std::ostream&) const;
+    void stream_read(std::istream&);
+
 private:
     Board board;
 
@@ -59,6 +67,10 @@ private:
 
     int score, combo;
 };
+
+
+std::ostream& operator<<(std::ostream&, const mainGame&);
+std::istream& operator>>(std::istream&, mainGame&);
 
 
 #endif // MAIN_GAME_H_INCLUDED

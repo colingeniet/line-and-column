@@ -2,13 +2,18 @@
 #include "color.h"
 
 #include <iostream>
+#include <exception>
 
 
-void clean_config_input(std::string &input, char comment)
+
+bool blank_only(const std::string &str)
 {
-    // delete comment
-    input = input.substr(0, input.find(comment));
+    return str.find_first_not_of(" \t\n") == std::string::npos;
+}
 
+
+void clean_config_input(std::string &input)
+{
     // begining / end blanks
     size_t start, end;
     start = input.find_first_not_of(" \n\t");
@@ -46,16 +51,70 @@ std::string getword(std::string &input)
     return word;
 }
 
+std::string getline(std::string &input)
+{
+    size_t blank = input.find_first_of("\n");
+    std::string line = input.substr(0, blank);
+
+    if(blank == std::string::npos)
+        input = std::string();
+    else
+        input = input.substr(blank+1, std::string::npos);
+
+    return line;
+}
+
+std::string getblock(std::string &input)
+{
+    std::string block;
+
+    // find delimiters
+    size_t start = input.find('{');
+    if(start == std::string::npos) {
+        std::cerr << "Invalid block syntax : missing {" << std::endl;
+        std::terminate();
+        return std::string();
+    }
+    size_t end = input.find('}', start);
+    if(start == std::string::npos) {
+        std::cerr << "Invalid block syntax : missing }" << std::endl;
+        std::terminate();
+        return std::string();
+    }
+
+    // check for blank only before {
+    block = input.substr(0, start);
+    if(!blank_only(block)) {
+        std::cerr << "Invalid block syntax : input before {" << std::endl;
+        std::terminate();
+        return std::string();
+    }
+
+    block = input.substr(start+1, end-start-1);
+    input = input.substr(end+1);
+    return block;
+}
+
 
 bool get_key_value(const std::string &input,
                    std::string &key, std::string &value)
 {
-   size_t delimiter = input.find(" : ");
-   if(delimiter == std::string::npos) return false;
+    size_t delimiter = input.find(" :");
 
-   key = input.substr(0, delimiter);
-   value = input.substr(delimiter+3, std::string::npos);
-   return true;
+    // special case : at the end of input, second space is optional
+    if(delimiter == input.size()-2) {
+        key = input.substr(0, delimiter);
+        value = std::string();
+        return true;
+    } else {
+        delimiter = input.find(" : ");
+
+        if(delimiter == std::string::npos) return false;
+
+        key = input.substr(0, delimiter);
+        value = input.substr(delimiter+3, std::string::npos);
+        return true;
+    }
 }
 
 
@@ -82,7 +141,6 @@ void set_case(std::string &str, bool lower)
 int word_to_color(const std::string& input)
 {
     std::string word = input;
-    set_case(word, false);
     if(word == "BLACK")         return COLOR_BLACK;
     else if(word == "RED")      return COLOR_RED;
     else if(word == "GREEN")    return COLOR_GREEN;

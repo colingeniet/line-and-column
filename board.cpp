@@ -191,6 +191,7 @@ void Board::read(const std::string &str) {
             if(color == -1) {
                 std::terminate();
             }
+            board[x][y] = color;
         }
     }
 }

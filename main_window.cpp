@@ -4,12 +4,23 @@
 #include <exception>
 
 
-
-mainWindow::mainWindow(int width, int height, int form_size) :
-    cursor_x(width/2),
-    cursor_y(height/2),
+mainWindow::mainWindow(mainGame& game) :
+    board(&game),
+    cursor_x(board->getwidth()/2),
+    cursor_y(board->getheight()/2),
     selected_form(0)
 {
+    init_windows();
+}
+
+
+
+void mainWindow::init_windows()
+{
+    int width = board->getwidth();
+    int height = board->getheight();
+    int form_size = board->getform_size();
+
     // Windows placement
     int row, col, required_row, required_col;
     getmaxyx(stdscr, row, col);
@@ -43,7 +54,6 @@ mainWindow::mainWindow(int width, int height, int form_size) :
                                col/2 + (2*i - N_FORMS)*(form_size+1) + 1);
     }
 
-
     // initialise colors
     wbkgd(borderWindow, A_REVERSE);
 
@@ -55,8 +65,6 @@ mainWindow::mainWindow(int width, int height, int form_size) :
     {
         wattron(scoreWindow, A_BOLD);
     }
-
-    board = new mainGame(width, height, form_size);
 }
 
 
@@ -67,7 +75,6 @@ mainWindow::~mainWindow()
     for(size_t i=0; i<N_FORMS; i++) {
         delwin(formWindow[i]);
     }
-    delete board;
 }
 
 
