@@ -1,5 +1,7 @@
 #include "form.h"
 
+#include "config_load.h"
+
 
 Form::Form() :
     size(0),
@@ -104,6 +106,29 @@ Point Form::getboxmin() const
 Point Form::getboxmax() const
 {
     return boxmax;
+}
+
+
+std::string Form::write() const
+{
+    std::string str;
+    for(size_t i=0; i<size; i++) {
+        str += std::to_string(squares[i].x) + " " +
+               std::to_string(squares[i].y) + "\n";
+    }
+    return str;
+}
+
+void Form::read(const std::string &str)
+{
+    std::string str_copy = str;
+    int x, y;
+    clean_config_input(str_copy);
+    while(str_copy.size() > 0) {
+        x = stoi(getword(str_copy));
+        y = stoi(getword(str_copy));
+        add(x, y);
+    }
 }
 
 

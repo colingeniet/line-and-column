@@ -37,7 +37,12 @@ std::string getword(std::string &input)
 {
     size_t blank = input.find_first_of(" \t\n");
     std::string word = input.substr(0, blank);
-    input = input.substr(blank+1, std::string::npos);
+
+    if(blank == std::string::npos)
+        input = std::string();
+    else
+        input = input.substr(blank+1, std::string::npos);
+
     return word;
 }
 
