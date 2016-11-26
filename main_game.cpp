@@ -77,13 +77,7 @@ bool mainGame::add_form(size_t n, int x, int y)
     // remove the added form
     form[n] = (size_t) -1;
     // select new ones if needed
-    bool empty = true;
-    for(size_t i=0; i<N_FORMS && empty; i++) {
-        if(form[i] != (size_t)-1) empty = false;
-    }
-    if(empty) {
-        random_select_forms();
-    }
+    random_select_forms(false);
 
     return true;
 }
@@ -123,8 +117,17 @@ bool mainGame::add_form_to_set(const Form &form, int color)
 
 
 // BAD : can select the same form twice
-void mainGame::random_select_forms()
+void mainGame::random_select_forms(bool force)
 {
+    // test if forms must be selected
+    if(!force) {
+        bool empty = true;
+        for(size_t i=0; i<N_FORMS && empty; i++) {
+            if(form[i] != (size_t)-1) empty = false;
+        }
+        if(!empty) return;
+    }
+
     if(form_set.size() > 0) {
         for(size_t i=0; i<N_FORMS; i++) {
             form[i] = rand() % form_set.size();

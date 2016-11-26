@@ -55,8 +55,6 @@ int main(int argc, char** argv)
     input >> game;
     input.close();
 
-    game.random_select_forms();
-
     ncurses_init();
     std::set_terminate(ncurses_terminate);
 
@@ -73,7 +71,7 @@ int main(int argc, char** argv)
 
     ncurses_quit();
 
-    std::ofstream output("save");
+    std::ofstream output("autosave");
     output << game;
     output.close();
 
