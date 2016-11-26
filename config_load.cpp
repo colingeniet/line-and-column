@@ -47,6 +47,18 @@ std::string getword(std::string &input)
 }
 
 
+bool get_key_value(const std::string &input,
+                   std::string &key, std::string &value)
+{
+   size_t delimiter = input.find(" : ");
+   if(delimiter == std::string::npos) return false;
+
+   key = input.substr(0, delimiter);
+   value = input.substr(delimiter+3, std::string::npos);
+   return true;
+}
+
+
 void set_case(std::string &str, bool lower)
 {
     if(lower)

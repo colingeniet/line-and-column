@@ -6,6 +6,7 @@
 #include "form.h"
 
 #include <cstddef>
+#include <string>
 
 
 /* Tihs class defines the main 1010 board. It mostly is the array of squares
@@ -37,6 +38,10 @@ public:
     const int *operator[](int) const;
     int getwidth() const;
     int getheight() const;
+
+    // I/O
+    std::string write() const;
+    void read(const std::string&);
 
 private:
     int width, height;

@@ -1,5 +1,9 @@
 #include "board.h"
 
+#include "config_load.h"
+
+#include <exception>
+
 
 Board::Board(int _width, int _height) :
     width(_width),
@@ -160,4 +164,33 @@ int Board::getwidth() const {
 
 int Board::getheight() const {
     return height;
+}
+
+
+
+std::string Board::write() const
+{
+    std::string str;
+    for(int y=0; y<height; y++) {
+        for(int x=0; x<width; x++) {
+            str += color_to_word(board[x][y]);
+            if(x == width-1)    str += "\n";
+            else                str += " ";
+        }
+    }
+    return str;
+}
+
+void Board::read(const std::string &str) {
+    std::string str_copy = str;
+    clean_config_input(str_copy);
+
+    for(int y=0; y<height; y++) {
+        for(int x=0; x<width; x++) {
+            int color = word_to_color(getword(str_copy));
+            if(color == -1) {
+                std::terminate();
+            }
+        }
+    }
 }

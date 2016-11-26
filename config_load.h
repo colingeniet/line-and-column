@@ -16,6 +16,13 @@ void clean_config_input(std::string &input, char comment = '#');
  * it is designed for use on string cleaned with clean_config_input */
 std::string getword(std::string &input);
 
+/* look for the sequence " : " in a string. If found, set key to the first part
+ * (before : ) and value to the second (after : ) and return true.
+ * If not, return false.
+ * Only the first " : " is considered */
+bool get_key_value(const std::string &input,
+                   std::string &key,  std::string &value);
+
 /* convert a string to all upper(lower = false) / lower (lower = true) case.
  * default is upper */
 void set_case(std::string &str, bool lower = false);
