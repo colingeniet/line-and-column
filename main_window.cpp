@@ -78,12 +78,6 @@ mainWindow::~mainWindow()
 }
 
 
-bool mainWindow::add_form_to_set(const Form &form, int color)
-{
-    return board->add_form_to_set(form, color);
-}
-
-
 bool mainWindow::input(int ch)
 {
     switch(ch)
@@ -133,11 +127,6 @@ bool mainWindow::input(int ch)
     if(cursor_y > maxy) cursor_y = maxy;
 
     return true;
-}
-
-void mainWindow::random_select_forms()
-{
-    board->random_select_forms();
 }
 
 void mainWindow::print()

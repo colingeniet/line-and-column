@@ -20,10 +20,6 @@ public:
 
     bool input(int);
 
-    bool add_form_to_set(const Form&, int);
-
-    void random_select_forms();
-
 
 private:
     WINDOW *borderWindow, *boardWindow, *scoreWindow;
