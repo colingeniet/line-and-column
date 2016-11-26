@@ -10,16 +10,22 @@
 #define COLOR_NONE COLOR_BLACK
 
 // color pairs
-#define BLACK_RED 1
-#define BLACK_GREEN 2
-#define BLACK_YELLOW 3
-#define BLACK_BLUE 4
-#define BLACK_MAGENTA 5
-#define BLACK_CYAN 6
-#define BLACK_WHITE 7
-
-#define RED_BLACK 9
-#define BLUE_BLACK 12
+enum colorPair
+{
+    /* color pair 0 is reserved by ncurses as default color pair
+     * it is initialized by start_colors() and should not be modified */
+    DEFAULT_PAIR,
+    BLACK_RED,
+    BLACK_GREEN,
+    BLACK_YELLOW,
+    BLACK_BLUE,
+    BLACK_MAGENTA,
+    BLACK_CYAN,
+    BLACK_WHITE,
+    RED_BLACK,
+    BLUE_BLACK,
+    MAX_PAIR
+};
 
 void init_color_pairs();
 
