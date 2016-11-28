@@ -11,7 +11,7 @@ compile :
 	make all
 The ncurses library is required. It is should be available with most 
 UNIX system. If you don't have it or want to compile it on your own, you can
-get it from ftp://ftp.gnu.org/pub/gnu/ncurses
+get it from http://ftp.gnu.org/pub/gnu/ncurses/
 
 delete all files created during compilation :
 	make clean

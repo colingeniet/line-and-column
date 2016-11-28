@@ -11,7 +11,7 @@ compiler :
 	make all
 La librairie ncurses est requise. Elle devrait être disponible sur la plupart
 des systèmes UNIX. Elle peut être obtenue à
-ftp://ftp.gnu.org/pub/gnu/ncurses
+http://ftp.gnu.org/pub/gnu/ncurses/
 
 supprimer les fichiers crées à la compilation :
 	make clean
