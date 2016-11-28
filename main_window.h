@@ -13,8 +13,7 @@
 class mainWindow
 {
 public:
-    /* parameters : width, height (main board), maximum form size */
-    mainWindow(int, int, int);
+    mainWindow(mainGame&);
     ~mainWindow();
 
     void print();
@@ -23,15 +22,12 @@ public:
     // return false if the game shall quit, true otherwise
     bool input(int);
 
-    bool add_form_to_set(const Form&, int);
-
-    // must be called after adding forms to the form set
-    void random_select_forms();
-
 private:
     WINDOW *borderWindow, *boardWindow, *scoreWindow;
     WINDOW *formWindow[N_FORMS];
     mainGame *board;
+
+    void init_windows();
 
     void print_score();
     void print_board();

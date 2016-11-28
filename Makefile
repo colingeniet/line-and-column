@@ -10,13 +10,13 @@
 
 
 CC = g++
-CFLAGS = -Wall -pedantic 
+CFLAGS = -Wall -pedantic -std=c++11
 LIBFLAGS = -lncurses
 
 PROGRAM = line-and-column
 # add new .cpp files here
 SRCS = main.cpp color.cpp form.cpp board.cpp main_game.cpp \
-       main_window.cpp 
+       main_window.cpp config_load.cpp
 
 OBJS = $(SRCS:.cpp=.o)
 

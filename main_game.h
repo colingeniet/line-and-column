@@ -6,6 +6,8 @@
 
 #include <cstddef>
 #include <vector>
+#include <string>
+#include <iostream>
 
 
 #define N_FORMS 3
@@ -16,6 +18,7 @@ class mainGame
 {
 public:
     /* parameters : width, height (main board), max form size */
+    mainGame();
     mainGame(int, int, int);
 
     // accessors
@@ -43,9 +46,16 @@ public:
     // add a form to the set of forms used
     bool add_form_to_set(const Form&, int);
 
-    // choose 3 differents forms from the forms set
-    void random_select_forms();
+    /* choose 3 forms from the forms set if none are selected
+     * if force is true, reselect anyway */
+    void random_select_forms(bool force=false);
 
+
+    std::string write() const;
+    void read(const std::string&);
+
+    void stream_write(std::ostream&) const;
+    void stream_read(std::istream&);
 
 private:
     Board board;
@@ -59,6 +69,10 @@ private:
 
     int score, combo;
 };
+
+
+std::ostream& operator<<(std::ostream&, const mainGame&);
+std::istream& operator>>(std::istream&, mainGame&);
 
 
 #endif // MAIN_GAME_H_INCLUDED

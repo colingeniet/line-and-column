@@ -8,11 +8,25 @@
 #define SCORE_WINDOW_HEIGHT 3
 
 
-mainWindow::mainWindow(int width, int height, int form_size) :
-    cursor_x(width/2),
-    cursor_y(height/2),
+
+
+mainWindow::mainWindow(mainGame& game) :
+    board(&game),
+    cursor_x(board->getwidth()/2),
+    cursor_y(board->getheight()/2),
     selected_form(0)
 {
+    init_windows();
+}
+
+
+
+void mainWindow::init_windows()
+{
+    int width = board->getwidth();
+    int height = board->getheight();
+    int form_size = board->getform_size();
+
     // Windows placement
     int row, col, required_row, required_col;
     getmaxyx(stdscr, row, col);
@@ -50,7 +64,6 @@ mainWindow::mainWindow(int width, int height, int form_size) :
                                col/2 + (2*i - N_FORMS)*(form_size+1) + 1);
     }
 
-
     // initialise colors
 
     // border window is filled with background color, other windows are
@@ -62,8 +75,6 @@ mainWindow::mainWindow(int width, int height, int form_size) :
     } else {
         wattron(scoreWindow, A_BOLD);
     }
-
-    board = new mainGame(width, height, form_size);
 }
 
 
@@ -74,13 +85,6 @@ mainWindow::~mainWindow()
     for(size_t i=0; i<N_FORMS; i++) {
         delwin(formWindow[i]);
     }
-    delete board;
-}
-
-
-bool mainWindow::add_form_to_set(const Form &form, int color)
-{
-    return board->add_form_to_set(form, color);
 }
 
 
@@ -157,11 +161,6 @@ bool mainWindow::input(int ch)
 
     if( !board->move_available() ) return false;
     else return true;
-}
-
-void mainWindow::random_select_forms()
-{
-    board->random_select_forms();
 }
 
 void mainWindow::print()
