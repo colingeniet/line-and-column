@@ -28,6 +28,12 @@ contrôles :
 	entrée pour comfirmer l'emplacement
 	q pour quitter
 Le jeu s'arrète des qu'aucun mouvement est possible.
+
+support de la souris -EXPERIMENTAL-
+	Pour pouvoir jouer à la souris, il faut que le terminal transmette
+	tous les mouvements de la souris, ce qui n'est pas standard.
+	Sur xterm et ses dérivés, essayez avec
+	TERM=xterm-1003 ./line-and-column
 	
 	
 ----------------------------------------------------------------------------
@@ -38,4 +44,4 @@ v 1.1.0
 	- les formes ne peuvent plus 'sortir' du plateau
 
 v 1.0.0
-	-version initiale
+	- version initiale

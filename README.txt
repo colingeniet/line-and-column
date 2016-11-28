@@ -28,6 +28,11 @@ controls :
 	q to quit
 The game quit as soon as no move are possible
 
+mouse support -EXPERIMENTAL- :
+	To be playable with mouse, your terminal needs to report all mouse
+	movement, which is non-standard behavior. On xterm derivated terminals
+	Try with   TERM=xterm-1003 ./line-and-column
+
 
 
 -------------------------------------------------------------------------------

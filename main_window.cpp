@@ -4,6 +4,12 @@
 #include <exception>
 
 
+#define SCORE_WINDOW_WIDTH 8
+#define SCORE_WINDOW_HEIGHT 3
+
+
+
+
 mainWindow::mainWindow(mainGame& game) :
     board(&game),
     cursor_x(board->getwidth()/2),
@@ -25,16 +31,16 @@ void mainWindow::init_windows()
     int row, col, required_row, required_col;
     getmaxyx(stdscr, row, col);
 
-    required_row = height + form_size + 7;
+    required_row = SCORE_WINDOW_HEIGHT + height + form_size + 4;
 
-    required_col = 8;
+    required_col = SCORE_WINDOW_WIDTH + 2;
     if(required_col < width+2) {
         required_col = width+2;
     }
     if(required_col < N_FORMS*form_size + N_FORMS + 1) {
         required_col = N_FORMS*form_size + N_FORMS + 1;
     }
-    required_col *= 2;
+    required_col *= 2;  // 2 columns per square
 
     if(row < required_row || col < required_col)
     {
@@ -47,22 +53,26 @@ void mainWindow::init_windows()
 
     // create windows
     borderWindow = newwin(required_row, required_col, 0, (col-required_col)/2);
-    scoreWindow = newwin(3, required_col-4, 1, (col-required_col+4)/2);
-    boardWindow = newwin(height, width*2, 5, (col - width*2)/2);
+    // score window is as large as possible
+    scoreWindow = newwin(SCORE_WINDOW_HEIGHT, required_col-4,
+                         1, (col-required_col+4)/2);
+    boardWindow = newwin(height, width*2,
+                         SCORE_WINDOW_HEIGHT + 2, (col - width*2)/2);
     for(size_t i=0; i<N_FORMS; i++) {
-        formWindow[i] = newwin(form_size, form_size*2, height+6,
+        formWindow[i] = newwin(form_size, form_size*2,
+                               height + SCORE_WINDOW_HEIGHT + 3,
                                col/2 + (2*i - N_FORMS)*(form_size+1) + 1);
     }
 
     // initialise colors
+
+    // border window is filled with background color, other windows are
+    // print over it
     wbkgd(borderWindow, A_REVERSE);
 
-    if(has_colors())
-    {
+    if(has_colors()) {
         wattron(scoreWindow, A_BOLD | COLOR_PAIR(BLUE_BLACK));
-    }
-    else
-    {
+    } else {
         wattron(scoreWindow, A_BOLD);
     }
 }
@@ -80,6 +90,8 @@ mainWindow::~mainWindow()
 
 bool mainWindow::input(int ch)
 {
+    MEVENT event;
+
     switch(ch)
     {
         // no bound testing here, done below
@@ -106,11 +118,31 @@ bool mainWindow::input(int ch)
         break;
     case '\n':
         board->add_form(selected_form, cursor_x, cursor_y);
-        if( !board->move_available() ) return false;
         break;
-    case 'q':
-        return false;
-        break;
+    case KEY_MOUSE:
+        if(getmouse(&event) == OK)
+        {
+            if(wenclose(boardWindow, event.y, event.x))
+            {
+                wmouse_trafo(boardWindow, &event.y, &event.x, false);
+                cursor_x = event.x / 2;
+                cursor_y = event.y;
+
+                if(event.bstate & BUTTON1_PRESSED)
+                {
+                    board->add_form(selected_form, cursor_x, cursor_y);
+                }
+            }
+            else
+            {
+                for(size_t i=0; i<N_FORMS; i++) {
+                    if(wenclose(formWindow[i], event.y, event.x) &&
+                       (event.bstate & BUTTON1_PRESSED) ) {
+                        selected_form = i;
+                    }
+                }
+            }
+        }
     default:
         break;
     }
@@ -126,7 +158,9 @@ bool mainWindow::input(int ch)
     if(cursor_x > maxx) cursor_x = maxx;
     if(cursor_y > maxy) cursor_y = maxy;
 
-    return true;
+
+    if( !board->move_available() ) return false;
+    else return true;
 }
 
 void mainWindow::print()
@@ -143,6 +177,7 @@ void mainWindow::print()
     for(size_t i=0; i<N_FORMS; i++) {
         wnoutrefresh(formWindow[i]);
     }
+
     doupdate();
 }
 
@@ -159,6 +194,7 @@ void mainWindow::print_score()
 void mainWindow::print_board()
 {
     wclear(boardWindow);
+    // fixed forms
     for(int x=0; x<board->getwidth(); x++) {
         for(int y=0; y<board->getheight(); y++) {
             int attr = get_attr_color( (*board)[x][y] );
@@ -168,6 +204,7 @@ void mainWindow::print_board()
         }
     }
 
+    // current selected form
     Form form = board->getform(selected_form);
     wattron(boardWindow, get_attr_color(board->getform_color(selected_form)));
     for(size_t i=0; i<form.getsize(); i++) {
