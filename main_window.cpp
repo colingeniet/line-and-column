@@ -108,13 +108,24 @@ bool mainWindow::input(int ch)
         cursor_x++;
         break;
     case '1':
-        selected_form = 0;
+    case 'x':
+        if(0 < N_FORMS) selected_form = 0;
         break;
     case '2':
-        selected_form = 1;
+    case 'c':
+        if(1 < N_FORMS) selected_form = 1;
         break;
     case '3':
-        selected_form = 2;
+    case 'v':
+        if(2 < N_FORMS) selected_form = 2;
+        break;
+    case KEY_PPAGE:
+        if(selected_form == 0) selected_form = N_FORMS-1;
+        else selected_form--;
+        break;
+    case KEY_NPAGE:
+        if(selected_form == N_FORMS-1) selected_form = 0;
+        else selected_form++;
         break;
     case '\n':
         board->add_form(selected_form, cursor_x, cursor_y);

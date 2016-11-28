@@ -11,7 +11,7 @@ compile :
 	make all
 The ncurses library is required. It is should be available with most 
 UNIX system. If you don't have it or want to compile it on your own, you can
-get it from ftp://ftp.gnu.org/pub/gnu/ncurses/ncurses.tar.gz
+get it from ftp://ftp.gnu.org/pub/gnu/ncurses
 
 delete all files created during compilation :
 	make clean
@@ -22,16 +22,18 @@ launch :
 	./line-and-column
 
 controls :
-	arrow keys to move cursor
-	1-2-3 to select one of the forms
-	enter to confirm location
-	q to quit
+	- arrow keys to move cursor
+	- 1-2-3 or x-c-v to select one of the forms
+	- previous / next page to select previous / next form
+	- enter to confirm location
+	- q to quit
 The game quit as soon as no move are possible
 
 mouse support -EXPERIMENTAL- :
 	To be playable with mouse, your terminal needs to report all mouse
-	movement, which is non-standard behavior. On xterm derivated terminals
-	Try with   TERM=xterm-1003 ./line-and-column
+	movement, which is non-standard behavior. 
+	On xterm derivated terminals, try with
+	TERM=xterm-1003 ./line-and-column
 
 
 
