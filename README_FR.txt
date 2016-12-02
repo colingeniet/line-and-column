@@ -2,9 +2,48 @@ LINE AND COLUMN
 clone de 1010 pour terminal Unix
 par Colin Geniet, Youcef Cherfaoui, Victor Huesca et Alexandre Ribeyre
 
+version 1.1.0
 
-controles :
-	fleches directionelles pour deplacer le curseur
-	1-2-3 pour selectionner une des formes
-	entree pour comfirmer l'emplacement
-	q pour quitter
+----------------------------------------------------------------------------
+Utilisation:
+
+compiler :
+	make all
+La librairie ncurses est requise. Elle devrait être disponible sur la plupart
+des systèmes UNIX. Elle peut être obtenue à
+http://ftp.gnu.org/pub/gnu/ncurses/
+
+supprimer les fichiers crées à la compilation :
+	make clean
+Aucun fichier n'est créé à l'extérieur du dossier principal. Pour tout 
+désinstaller, il suffit de le supprimer.
+
+
+lancer :
+	./line-and-column
+
+contrôles :
+	- flèches directionelles pour déplacer le curseur
+	- x-c-v ou 1-2-3 pour sélectionner une des formes
+	- page précédante / suivante pour sélectionner la
+	  forme précédante / suivante
+	- entrée pour comfirmer l'emplacement
+	- q pour quitter
+Le jeu s'arrète des qu'aucun mouvement n'est possible.
+
+support de la souris -EXPERIMENTAL- :
+	Pour pouvoir jouer à la souris, il faut que le terminal transmette
+	tous les mouvements de la souris, ce qui n'est pas standard.
+	Sur xterm et ses dérivés, essayez avec
+	TERM=xterm-1003 ./line-and-column
+	
+	
+----------------------------------------------------------------------------
+Historique des versions :
+
+v 1.1.0
+	- problème de rafraichissement fixé
+	- les formes ne peuvent plus 'sortir' du plateau
+
+v 1.0.0
+	- version initiale

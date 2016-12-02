@@ -18,8 +18,9 @@ public:
 
     void print();
 
+    // take a getch() input and perform corresponding move
+    // return false if the game shall quit, true otherwise
     bool input(int);
-
 
 private:
     WINDOW *borderWindow, *boardWindow, *scoreWindow;
@@ -27,6 +28,8 @@ private:
     mainGame *board;
 
     void init_windows();
+
+    void cursor_bounds();
 
     void print_score();
     void print_board();
