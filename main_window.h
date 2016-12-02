@@ -29,6 +29,8 @@ private:
 
     void init_windows();
 
+    void cursor_bounds();
+
     void print_score();
     void print_board();
     void print_form(size_t);

@@ -139,6 +139,10 @@ bool mainWindow::input(int ch)
                 cursor_x = event.x / 2;
                 cursor_y = event.y;
 
+		// because mouse allow movement and click at the same time,
+		// the cursor must be rechecked before adding the form
+		cursor_bounds();
+
                 if(event.bstate & BUTTON1_PRESSED)
                 {
                     board->add_form(selected_form, cursor_x, cursor_y);
@@ -157,22 +161,27 @@ bool mainWindow::input(int ch)
     default:
         break;
     }
-    // since various command may affect bounds, testing is done here
+
+    cursor_bounds();
+    
+    if( !board->move_available() ) return false;
+    else return true;
+}
+
+void mainWindow::cursor_bounds()
+{
     int minx = - board->getform(selected_form).getboxmin().x;
     int miny = - board->getform(selected_form).getboxmin().y;
     int maxx = board->getwidth()
-                - board->getform(selected_form).getboxmax().x - 1;
+      - board->getform(selected_form).getboxmax().x - 1;
     int maxy = board->getheight()
-                - board->getform(selected_form).getboxmax().y - 1;
+      - board->getform(selected_form).getboxmax().y - 1;
     if(cursor_x < minx) cursor_x = minx;
     if(cursor_y < miny) cursor_y = miny;
     if(cursor_x > maxx) cursor_x = maxx;
     if(cursor_y > maxy) cursor_y = maxy;
-
-
-    if( !board->move_available() ) return false;
-    else return true;
 }
+
 
 void mainWindow::print()
 {
