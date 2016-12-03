@@ -44,8 +44,9 @@ bool mainWindow::input(int ch)
             current_window = WINDOW_MENU;
             break;
         case gameWindow::RETURN_NO_MOVE:
+            score_window.add_score(game->getscore());
             game->restart();
-            current_window = WINDOW_MENU;
+            current_window = WINDOW_SCORE;
             break;
         default:
             std::cerr << "Unknown return code" << std::endl;
@@ -65,6 +66,9 @@ bool mainWindow::input(int ch)
             game->restart();
             current_window = WINDOW_GAME;
             break;
+        case menuWindow::RETURN_SCORES:
+            current_window = WINDOW_SCORE;
+            break;
         case menuWindow::RETURN_QUIT:
             return false;
             break;
@@ -73,6 +77,9 @@ bool mainWindow::input(int ch)
             std::terminate();
             break;
         }
+        break;
+    case WINDOW_SCORE:
+        current_window = WINDOW_MENU;
         break;
     default:
         std::cerr << "Incorrect window code" << std::endl;
@@ -91,6 +98,9 @@ void mainWindow::print()
         break;
     case WINDOW_MENU:
         menu_window.print();
+        break;
+    case WINDOW_SCORE:
+        score_window.print();
         break;
     default:
         std::cerr << "Incorrect window code" << std::endl;

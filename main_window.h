@@ -4,6 +4,7 @@
 #include "main_game.h"
 #include "game_window.h"
 #include "menu_window.h"
+#include "score_window.h"
 
 #include <ncurses.h>
 
@@ -41,12 +42,14 @@ private:
     {
         WINDOW_GAME,
         WINDOW_MENU,
+        WINDOW_SCORE,
         WINDOW_MAX
     };
     Window current_window;
 
     gameWindow game_window;
     menuWindow menu_window;
+    scoreWindow score_window;
 };
 
 

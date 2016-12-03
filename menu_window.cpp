@@ -10,6 +10,7 @@ menuWindow::menuWindow() :
 {
     entry[ENTRY_RESUME] = "resume";
     entry[ENTRY_RESTART] = "restart";
+    entry[ENTRY_SCORES] = "scores";
     entry[ENTRY_QUIT] = "quit";
 }
 
@@ -60,6 +61,9 @@ menuWindow::returnValue menuWindow::input(int ch)
             break;
         case ENTRY_RESTART:
             return RETURN_RESTART;
+            break;
+        case ENTRY_SCORES:
+            return RETURN_SCORES;
             break;
         case ENTRY_QUIT:
             return RETURN_QUIT;

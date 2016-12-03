@@ -81,7 +81,7 @@ int main(int argc, char** argv)
 
     ncurses_quit();
 
-    std::ofstream output("autosave");
+    std::ofstream output(".autosave");
     output << win;
     output.close();
 

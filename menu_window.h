@@ -18,6 +18,7 @@ public:
         RETURN_NONE,
         RETURN_RESUME,
         RETURN_RESTART,
+        RETURN_SCORES,
         RETURN_QUIT,
         RETURN_MAX
     };
@@ -37,6 +38,7 @@ private:
     {
         ENTRY_RESUME,
         ENTRY_RESTART,
+        ENTRY_SCORES,
         ENTRY_QUIT,
         ENTRY_MAX
     };
