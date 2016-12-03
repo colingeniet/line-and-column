@@ -77,17 +77,9 @@ int main(int argc, char** argv)
 
         // input
         int ch = getch();
-        switch(ch)
+        if(!win.input(ch))
         {
-        case 'q':
             quit = true;
-            break;
-        default:
-            if(!win.input(ch))
-            {
-                quit = true;
-            }
-            break;
         }
     }
 

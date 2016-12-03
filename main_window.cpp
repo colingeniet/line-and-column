@@ -23,7 +23,22 @@ bool mainWindow::input(int ch)
     switch(current_window)
     {
     case WINDOW_GAME:
-        return game_window.input(ch);
+        switch(game_window.input(ch))
+        {
+        case gameWindow::RETURN_NONE:
+            return true;
+            break;
+        case gameWindow::RETURN_QUIT:
+            return false;
+            break;
+        case gameWindow::RETURN_NO_MOVE:
+            return false;
+            break;
+        default:
+            std::cerr << "Unknown return code" << std::endl;
+            std::terminate();
+            break;
+        }
         break;
     default:
         std::cerr << "Incorrect window code" << std::endl;

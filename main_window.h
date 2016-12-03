@@ -2,7 +2,6 @@
 #define MAIN_WINDOW_H_INCLUDED
 
 
-#include "window_enum.h"
 #include "game_window.h"
 
 class mainWindow
@@ -12,6 +11,7 @@ public:
 
     void setgame(mainGame&);
 
+    // return false if the game shall quit
     bool input(int);
 
     void print();

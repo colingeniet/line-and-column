@@ -17,6 +17,8 @@ public:
     enum returnValue
     {
         RETURN_NONE,
+        RETURN_NO_MOVE,
+        RETURN_QUIT,
         RETURN_MAX
     };
 
@@ -29,7 +31,7 @@ public:
 
     // take a getch() input and perform corresponding move
     // return false if the game shall quit, true otherwise
-    bool input(int);
+    returnValue input(int);
 
 
 private:

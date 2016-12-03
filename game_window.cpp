@@ -103,12 +103,15 @@ void gameWindow::init_windows()
 }
 
 
-bool gameWindow::input(int ch)
+gameWindow::returnValue gameWindow::input(int ch)
 {
     MEVENT event;
 
     switch(ch)
     {
+    case 'q':
+        return RETURN_QUIT;
+        break;
         // no bound testing here, done below
     case KEY_UP:
         cursor_y--;
@@ -179,8 +182,8 @@ bool gameWindow::input(int ch)
 
     cursor_bounds();
 
-    if( !game->move_available() ) return false;
-    else return true;
+    if( !game->move_available() ) return RETURN_NO_MOVE;
+    else return RETURN_NONE;
 }
 
 void gameWindow::cursor_bounds()
