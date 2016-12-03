@@ -1,4 +1,4 @@
-#include "main_window.h"
+#include "game_window.h"
 
 #include <iostream>
 #include <exception>
@@ -10,7 +10,7 @@
 
 
 
-mainWindow::mainWindow(mainGame& game) :
+gameWindow::gameWindow(mainGame& game) :
     board(&game),
     cursor_x(board->getwidth()/2),
     cursor_y(board->getheight()/2),
@@ -21,7 +21,7 @@ mainWindow::mainWindow(mainGame& game) :
 
 
 
-void mainWindow::init_windows()
+void gameWindow::init_windows()
 {
     int width = board->getwidth();
     int height = board->getheight();
@@ -78,7 +78,7 @@ void mainWindow::init_windows()
 }
 
 
-mainWindow::~mainWindow()
+gameWindow::~gameWindow()
 {
     delwin(borderWindow);
     delwin(boardWindow);
@@ -88,7 +88,7 @@ mainWindow::~mainWindow()
 }
 
 
-bool mainWindow::input(int ch)
+bool gameWindow::input(int ch)
 {
     MEVENT event;
 
@@ -163,12 +163,12 @@ bool mainWindow::input(int ch)
     }
 
     cursor_bounds();
-    
+
     if( !board->move_available() ) return false;
     else return true;
 }
 
-void mainWindow::cursor_bounds()
+void gameWindow::cursor_bounds()
 {
     int minx = - board->getform(selected_form).getboxmin().x;
     int miny = - board->getform(selected_form).getboxmin().y;
@@ -183,7 +183,7 @@ void mainWindow::cursor_bounds()
 }
 
 
-void mainWindow::print()
+void gameWindow::print()
 {
     print_score();
     print_board();
@@ -201,7 +201,7 @@ void mainWindow::print()
     doupdate();
 }
 
-void mainWindow::print_score()
+void gameWindow::print_score()
 {
     wclear(scoreWindow);
     mvwprintw(scoreWindow, 1, 1,
@@ -211,7 +211,7 @@ void mainWindow::print_score()
     }
 }
 
-void mainWindow::print_board()
+void gameWindow::print_board()
 {
     wclear(boardWindow);
     // fixed forms
@@ -237,7 +237,7 @@ void mainWindow::print_board()
     wattroff(boardWindow, get_attr_color(board->getform_color(selected_form)));
 }
 
-void mainWindow::print_form(size_t n)
+void gameWindow::print_form(size_t n)
 {
     Form form = board->getform(n);
     wclear(formWindow[n]);

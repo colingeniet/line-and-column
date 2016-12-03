@@ -1,5 +1,5 @@
-#ifndef MAIN_WINDOW_H_INCLUDED
-#define MAIN_WINDOW_H_INCLUDED
+#ifndef GAME_WINDOW_H_INCLUDED
+#define GAME_WINDOW_H_INCLUDED
 
 #include "main_game.h"
 #include "color.h"
@@ -10,11 +10,11 @@
 
 
 /* main GUI class, link the GUI with the main game class */
-class mainWindow
+class gameWindow
 {
 public:
-    mainWindow(mainGame&);
-    ~mainWindow();
+    gameWindow(mainGame&);
+    ~gameWindow();
 
     void print();
 
@@ -40,4 +40,4 @@ private:
 };
 
 
-#endif // MAIN_WINDOW_H_INCLUDED
+#endif // GAME_WINDOW_H_INCLUDED

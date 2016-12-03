@@ -1,4 +1,4 @@
-#include "main_window.h"
+#include "game_window.h"
 #include "main_game.h"
 #include "color.h"
 
@@ -63,7 +63,7 @@ int main(int argc, char** argv)
     game.random_select_forms();
 
     ncurses_init();
-    mainWindow win(game);
+    gameWindow win(game);
 
     srand(time(NULL));
 
