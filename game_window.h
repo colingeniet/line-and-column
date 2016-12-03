@@ -9,7 +9,9 @@
 #include <cstddef>
 
 
-/* main GUI class, link the GUI with the main game class */
+/* main game display
+ * Because copying ncurses windows does not make sense, this class
+ * is not designed to be copied. */
 class gameWindow
 {
 public:
@@ -22,10 +24,10 @@ public:
         RETURN_MAX
     };
 
-    gameWindow(mainGame&);
+    gameWindow(mainGame*);
     ~gameWindow();
 
-    void setgame(mainGame&);
+    void setgame(mainGame*);
 
     void print();
 

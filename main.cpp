@@ -50,23 +50,19 @@ void ncurses_init()
 
 int main(int argc, char** argv)
 {
+    ncurses_init();
+    srand(time(NULL));
+
+    mainWindow win;
+
     std::ifstream input;
     if(argc == 2)
         input.open(argv[1]);
     else
         input.open("default_board");
 
-    mainGame game;
-
-    input >> game;
-    input.close();
-    game.random_select_forms();
-
-    ncurses_init();
-    mainWindow win(game);
-
-    srand(time(NULL));
-
+    input >> win;
+    win.initialize_game();
 
 
     bool quit = false;
@@ -86,7 +82,7 @@ int main(int argc, char** argv)
     ncurses_quit();
 
     std::ofstream output("autosave");
-    output << game;
+    output << win;
     output.close();
 
     return 0;

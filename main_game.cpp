@@ -155,6 +155,13 @@ void mainGame::reset()
     score = 0; combo = 0;
 }
 
+void mainGame::update_score(int lines, int columns)
+{
+    score +=  lines + columns;
+    combo = lines + columns;
+}
+
+
 
 std::string mainGame::write() const
 {
@@ -191,20 +198,12 @@ std::string mainGame::write() const
     return str;
 }
 
-
-void mainGame::update_score(int lines, int columns)
-{
-    score +=  lines + columns;
-    combo = lines + columns;
-}
-
-
-
-void mainGame::read(const std::string &str)
+mainGame mainGame::read(const std::string &str)
 {
     std::string str_copy = str;
     std::string line, key, value;
-    mainGame *game = NULL;
+    mainGame game;
+    bool initialized = false;
     int new_width=-1, new_height=-1, new_form_size=-1;
 
     while(str_copy.size() > 0)
@@ -255,8 +254,8 @@ configuration is illegal" << std::endl;
                 std::terminate();
             }
         } else {
-            // any other entry is illegal if game is not created
-            if(game == NULL) {
+            // any other entry is illegal if game is not initialized
+            if(!initialized) {
                 std::cerr << "Game configuration require WIDTH, HEIGHT and \
 FORM_SIZE befor anything else." << std::endl;
                 std::terminate();
@@ -271,18 +270,18 @@ FORM_SIZE befor anything else." << std::endl;
                 }
                 Form new_form;
                 new_form.read(getblock(str_copy));
-                game->add_form_to_set(new_form, color);
+                game.add_form_to_set(new_form, color);
             } else if(key == "BOARD") {
-                game->board.read(getblock(str_copy));
+                game.board.read(getblock(str_copy));
             } else if(key == "SELECTED_FORM") {
                 size_t index, form_index;
                 index = stoul(getword(value))-1;
                 form_index = stoul(getword(value))-1;
-                game->form[index] = form_index;
+                game.form[index] = form_index;
             } else if(key == "SCORE") {
-                game->score = stoi(value);
+                game.score = stoi(value);
             } else if(key == "COMBO") {
-                game->combo = stoi(value);
+                game.combo = stoi(value);
             } else {
                 std::cerr << "Invalid key in game configuration : "
                           << key << std::endl;
@@ -291,20 +290,20 @@ FORM_SIZE befor anything else." << std::endl;
         }
 
         // create game if required info is given
-        if(game == NULL && new_width >= 0 &&
+        if(!initialized && new_width >= 0 &&
            new_height >= 0 && new_form_size >= 0) {
-            game = new mainGame(new_width, new_height, new_form_size);
+            game = mainGame(new_width, new_height, new_form_size);
+            initialized = true;
         }
     }
 
-    if(game == NULL) {
+    if(!initialized) {
         std::cerr << "Height, width and form size definition is required \
 in game configuration" << std::endl;
         std::terminate();
-    } else {
-        *this = *game;
-        delete game;
     }
+
+    return game;
 }
 
 void mainGame::stream_write(std::ostream &os) const
@@ -312,25 +311,13 @@ void mainGame::stream_write(std::ostream &os) const
     os << write();
 }
 
-void mainGame::stream_read(std::istream &is)
+mainGame mainGame::stream_read(std::istream &is)
 {
     std::string input, line;
     while(std::getline(is, line))
     {
         input += line.substr(0, line.find('#')) + "\n";
     }
-    read(input);
-}
-
-std::ostream& operator<<(std::ostream &os, const mainGame &game)
-{
-    game.stream_write(os);
-    return os;
-}
-
-std::istream& operator>>(std::istream &is, mainGame &game)
-{
-    game.stream_read(is);
-    return is;
+    return read(input);
 }
 

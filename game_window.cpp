@@ -10,8 +10,8 @@
 
 
 
-gameWindow::gameWindow(mainGame &newgame) :
-    game(&newgame),
+gameWindow::gameWindow(mainGame *newgame) :
+    game(newgame),
     cursor_x(game->getwidth()/2),
     cursor_y(game->getheight()/2),
     selected_form(0)
@@ -28,7 +28,7 @@ gameWindow::~gameWindow()
     }
 }
 
-void gameWindow::setgame(mainGame &newgame)
+void gameWindow::setgame(mainGame *newgame)
 {
     delwin(borderWindow);
     delwin(boardWindow);
@@ -36,7 +36,7 @@ void gameWindow::setgame(mainGame &newgame)
         delwin(formWindow[i]);
     }
 
-    game = &newgame;
+    game = newgame;
     cursor_x = game->getwidth()/2;
     cursor_y = game->getheight()/2;
     selected_form = 0;
