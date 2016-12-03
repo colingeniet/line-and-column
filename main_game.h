@@ -46,9 +46,16 @@ public:
     // add a form to the set of forms used
     bool add_form_to_set(const Form&, int);
 
-    /* choose 3 forms from the forms set if none are selected
-     * if force is true, reselect anyway */
+    /* choose 3 forms from the form set if none are currently selected
+     * if force is true, always reselect. If the form set is empty, reset
+     * all 3 forms to unselected */
     void random_select_forms(bool force=false);
+
+
+    // clean the board and redo random selection (keep the form set)
+    void restart();
+    // reset everything
+    void reset();
 
 
     std::string write() const;

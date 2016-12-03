@@ -132,7 +132,27 @@ void mainGame::random_select_forms(bool force)
         for(size_t i=0; i<N_FORMS; i++) {
             form[i] = rand() % form_set.size();
         }
+    } else {
+        for(size_t i=0; i<N_FORMS; i++) {
+            form[i] = (size_t) -1;
+        }
     }
+}
+
+void mainGame::restart()
+{
+    board = Board(board.getwidth(), board.getheight());
+    random_select_forms(true);
+    score = 0; combo = 0;
+}
+
+void mainGame::reset()
+{
+    board = Board(board.getwidth(), board.getheight());
+    form_set.clear();
+    form_color.clear();
+    random_select_forms(true);
+    score = 0; combo = 0;
 }
 
 
