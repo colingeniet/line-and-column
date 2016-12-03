@@ -16,7 +16,8 @@ LIBFLAGS = -lncurses
 PROGRAM = line-and-column
 # add new .cpp files here
 SRCS = main.cpp color.cpp form.cpp board.cpp main_game.cpp \
-       game_window.cpp config_load.cpp
+       config_load.cpp game_window.cpp main_window.cpp 
+
 
 OBJS = $(SRCS:.cpp=.o)
 

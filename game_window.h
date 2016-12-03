@@ -13,8 +13,17 @@
 class gameWindow
 {
 public:
+    // input() return status
+    enum returnValue
+    {
+        RETURN_NONE,
+        RETURN_MAX
+    };
+
     gameWindow(mainGame&);
     ~gameWindow();
+
+    void setgame(mainGame&);
 
     void print();
 
@@ -22,10 +31,11 @@ public:
     // return false if the game shall quit, true otherwise
     bool input(int);
 
+
 private:
     WINDOW *borderWindow, *boardWindow, *scoreWindow;
     WINDOW *formWindow[N_FORMS];
-    mainGame *board;
+    mainGame *game;
 
     void init_windows();
 

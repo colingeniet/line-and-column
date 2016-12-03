@@ -10,12 +10,37 @@
 
 
 
-gameWindow::gameWindow(mainGame& game) :
-    board(&game),
-    cursor_x(board->getwidth()/2),
-    cursor_y(board->getheight()/2),
+gameWindow::gameWindow(mainGame &newgame) :
+    game(&newgame),
+    cursor_x(game->getwidth()/2),
+    cursor_y(game->getheight()/2),
     selected_form(0)
 {
+    init_windows();
+}
+
+gameWindow::~gameWindow()
+{
+    delwin(borderWindow);
+    delwin(boardWindow);
+    for(size_t i=0; i<N_FORMS; i++) {
+        delwin(formWindow[i]);
+    }
+}
+
+void gameWindow::setgame(mainGame &newgame)
+{
+    delwin(borderWindow);
+    delwin(boardWindow);
+    for(size_t i=0; i<N_FORMS; i++) {
+        delwin(formWindow[i]);
+    }
+
+    game = &newgame;
+    cursor_x = game->getwidth()/2;
+    cursor_y = game->getheight()/2;
+    selected_form = 0;
+
     init_windows();
 }
 
@@ -23,9 +48,9 @@ gameWindow::gameWindow(mainGame& game) :
 
 void gameWindow::init_windows()
 {
-    int width = board->getwidth();
-    int height = board->getheight();
-    int form_size = board->getform_size();
+    int width = game->getwidth();
+    int height = game->getheight();
+    int form_size = game->getform_size();
 
     // Windows placement
     int row, col, required_row, required_col;
@@ -78,16 +103,6 @@ void gameWindow::init_windows()
 }
 
 
-gameWindow::~gameWindow()
-{
-    delwin(borderWindow);
-    delwin(boardWindow);
-    for(size_t i=0; i<N_FORMS; i++) {
-        delwin(formWindow[i]);
-    }
-}
-
-
 bool gameWindow::input(int ch)
 {
     MEVENT event;
@@ -128,7 +143,7 @@ bool gameWindow::input(int ch)
         else selected_form++;
         break;
     case '\n':
-        board->add_form(selected_form, cursor_x, cursor_y);
+        game->add_form(selected_form, cursor_x, cursor_y);
         break;
     case KEY_MOUSE:
         if(getmouse(&event) == OK)
@@ -145,7 +160,7 @@ bool gameWindow::input(int ch)
 
                 if(event.bstate & BUTTON1_PRESSED)
                 {
-                    board->add_form(selected_form, cursor_x, cursor_y);
+                    game->add_form(selected_form, cursor_x, cursor_y);
                 }
             }
             else
@@ -164,18 +179,18 @@ bool gameWindow::input(int ch)
 
     cursor_bounds();
 
-    if( !board->move_available() ) return false;
+    if( !game->move_available() ) return false;
     else return true;
 }
 
 void gameWindow::cursor_bounds()
 {
-    int minx = - board->getform(selected_form).getboxmin().x;
-    int miny = - board->getform(selected_form).getboxmin().y;
-    int maxx = board->getwidth()
-      - board->getform(selected_form).getboxmax().x - 1;
-    int maxy = board->getheight()
-      - board->getform(selected_form).getboxmax().y - 1;
+    int minx = - game->getform(selected_form).getboxmin().x;
+    int miny = - game->getform(selected_form).getboxmin().y;
+    int maxx = game->getwidth()
+      - game->getform(selected_form).getboxmax().x - 1;
+    int maxy = game->getheight()
+      - game->getform(selected_form).getboxmax().y - 1;
     if(cursor_x < minx) cursor_x = minx;
     if(cursor_y < miny) cursor_y = miny;
     if(cursor_x > maxx) cursor_x = maxx;
@@ -205,9 +220,9 @@ void gameWindow::print_score()
 {
     wclear(scoreWindow);
     mvwprintw(scoreWindow, 1, 1,
-              "%i", board->getscore());
-    if(board->getcombo() >= 2) {
-        wprintw(scoreWindow, " X%i", board->getcombo());
+              "%i", game->getscore());
+    if(game->getcombo() >= 2) {
+        wprintw(scoreWindow, " X%i", game->getcombo());
     }
 }
 
@@ -215,9 +230,9 @@ void gameWindow::print_board()
 {
     wclear(boardWindow);
     // fixed forms
-    for(int x=0; x<board->getwidth(); x++) {
-        for(int y=0; y<board->getheight(); y++) {
-            int attr = get_attr_color( (*board)[x][y] );
+    for(int x=0; x<game->getwidth(); x++) {
+        for(int y=0; y<game->getheight(); y++) {
+            int attr = get_attr_color( (*game)[x][y] );
             wattron(boardWindow, attr);
             mvwprintw(boardWindow, y, 2*x, "  ");
             wattroff(boardWindow, attr);
@@ -225,27 +240,27 @@ void gameWindow::print_board()
     }
 
     // current selected form
-    Form form = board->getform(selected_form);
-    wattron(boardWindow, get_attr_color(board->getform_color(selected_form)));
+    Form form = game->getform(selected_form);
+    wattron(boardWindow, get_attr_color(game->getform_color(selected_form)));
     for(size_t i=0; i<form.getsize(); i++) {
         int x = cursor_x + form[i].x;
         int y = cursor_y + form[i].y;
-        if(0<=x && x<board->getwidth() && 0<=y && y<board->getheight()) {
+        if(0<=x && x<game->getwidth() && 0<=y && y<game->getheight()) {
             mvwprintw(boardWindow, y, 2*x, "  ");
         }
     }
-    wattroff(boardWindow, get_attr_color(board->getform_color(selected_form)));
+    wattroff(boardWindow, get_attr_color(game->getform_color(selected_form)));
 }
 
 void gameWindow::print_form(size_t n)
 {
-    Form form = board->getform(n);
+    Form form = game->getform(n);
     wclear(formWindow[n]);
-    wattron(formWindow[n], get_attr_color(board->getform_color(n)));
+    wattron(formWindow[n], get_attr_color(game->getform_color(n)));
     for(size_t i=0; i<form.getsize(); i++) {
         mvwprintw(formWindow[n],
-                  form[i].y + board->getform_size()/2,
-                  2*form[i].x + (board->getform_size()/2)*2, "  ");
+                  form[i].y + game->getform_size()/2,
+                  2*form[i].x + (game->getform_size()/2)*2, "  ");
     }
-    wattroff(formWindow[n], get_attr_color(board->getform_color(n)));
+    wattroff(formWindow[n], get_attr_color(game->getform_color(n)));
 }
