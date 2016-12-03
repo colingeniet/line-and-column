@@ -31,8 +31,6 @@ public:
 
     void print();
 
-    // take a getch() input and perform corresponding move
-    // return false if the game shall quit, true otherwise
     returnValue input(int);
 
 

@@ -90,11 +90,6 @@ void gameWindow::init_windows()
     }
 
     // initialise colors
-
-    // border window is filled with background color, other windows are
-    // print over it
-    wbkgd(borderWindow, A_REVERSE);
-
     if(has_colors()) {
         wattron(scoreWindow, A_BOLD | COLOR_PAIR(BLUE_BLACK));
     } else {
@@ -209,14 +204,16 @@ void gameWindow::print()
         print_form(i);
     }
 
+    // border window is filled with background color, other windows are
+    // printed over it
+    wbkgd(borderWindow, A_REVERSE);
     wnoutrefresh(borderWindow);
+
     wnoutrefresh(scoreWindow);
     wnoutrefresh(boardWindow);
     for(size_t i=0; i<N_FORMS; i++) {
         wnoutrefresh(formWindow[i]);
     }
-
-    doupdate();
 }
 
 void gameWindow::print_score()

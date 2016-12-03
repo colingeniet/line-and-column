@@ -3,6 +3,9 @@
 
 #include "main_game.h"
 #include "game_window.h"
+#include "menu_window.h"
+
+#include <ncurses.h>
 
 #include <iostream>
 
@@ -37,11 +40,13 @@ private:
     enum Window
     {
         WINDOW_GAME,
+        WINDOW_MENU,
         WINDOW_MAX
-    } current_window;
+    };
+    Window current_window;
 
     gameWindow game_window;
-
+    menuWindow menu_window;
 };
 
 

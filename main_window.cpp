@@ -39,12 +39,33 @@ bool mainWindow::input(int ch)
         switch(game_window.input(ch))
         {
         case gameWindow::RETURN_NONE:
-            return true;
             break;
         case gameWindow::RETURN_QUIT:
-            return false;
+            current_window = WINDOW_MENU;
             break;
         case gameWindow::RETURN_NO_MOVE:
+            game->restart();
+            current_window = WINDOW_MENU;
+            break;
+        default:
+            std::cerr << "Unknown return code" << std::endl;
+            std::terminate();
+            break;
+        }
+        break;
+    case WINDOW_MENU:
+        switch(menu_window.input(ch))
+        {
+        case menuWindow::RETURN_NONE:
+            break;
+        case menuWindow::RETURN_RESUME:
+            current_window = WINDOW_GAME;
+            break;
+        case menuWindow::RETURN_RESTART:
+            game->restart();
+            current_window = WINDOW_GAME;
+            break;
+        case menuWindow::RETURN_QUIT:
             return false;
             break;
         default:
@@ -58,6 +79,7 @@ bool mainWindow::input(int ch)
         std::terminate();
         break;
     }
+    return true;
 }
 
 void mainWindow::print()
@@ -67,11 +89,16 @@ void mainWindow::print()
     case WINDOW_GAME:
         game_window.print();
         break;
+    case WINDOW_MENU:
+        menu_window.print();
+        break;
     default:
         std::cerr << "Incorrect window code" << std::endl;
         std::terminate();
         break;
     }
+
+    doupdate();
 }
 
 
