@@ -3,7 +3,7 @@
 
 #include <ncurses.h>        // ncurses initialization
 
-#include <cstdlib>          // srand()
+#include <cstdlib>          // srand(), exit()
 #include <ctime>            // for srand()
 #include <exception>        // terminate setting
 
@@ -21,7 +21,7 @@ void ncurses_terminate()
 {
     ncurses_quit();
     std::cerr << "terminate called : exiting ncurses and aborting" << std::endl;
-    abort();
+    exit(EXIT_FAILURE);     // destroy objects, flush streams ...
 }
 
 
