@@ -6,7 +6,7 @@
 
 
 menuWindow::menuWindow(mainGame *newgame) :
-    window(newwin(0,0,0,0)),
+    window(newwin(0,0,0,0)),    // full screen window
     game(newgame),
     selected_entry(0)
 {
@@ -66,7 +66,7 @@ menuWindow::returnValue menuWindow::input(int ch)
         if(selected_entry == ENTRY_MAX-1) selected_entry = 0;
         else selected_entry++;
         break;
-    case '\n':
+    case '\n':  // different codes enter may produce
     case '\r':
     case KEY_ENTER:
         return excecute_entry(selected_entry);
@@ -77,20 +77,25 @@ menuWindow::returnValue menuWindow::input(int ch)
             if(wenclose(window, event.y, event.x))
             {
                 wmouse_trafo(window, &event.y, &event.x, false);
+                // go through entries testing if cursor is on them
                 int x, y, maxx, maxy;
                 getmaxyx(window, maxy, maxx);
+                // test if cursor height is in the menu
                 y = (maxy - ENTRY_MAX + 1)/2;
-                for(size_t i=0; i<ENTRY_MAX; i++) {
-                    x = (maxx - entry[i].size() + 1)/2;
-                    if(event.y == y+(int)i &&
-                       x <= event.x && event.x < x + (int)entry[i].size())
-                    {
-                        selected_entry = i;
+                if(y <= event.y && event.y < y + ENTRY_MAX) {
+                    y = event.y - y;    // y is now the entry number
+                    // test if cursor width is in the entry
+                    x = (maxx - entry[y].size() + 1)/2;
+                    if(x <= event.x && event.x < x + (int)entry[y].size()) {
+                        // change current entry
+                        selected_entry = y;
+                        // select it if button is pressed
                         if(event.bstate & BUTTON1_PRESSED) {
-                            return excecute_entry(i);
+                            return excecute_entry(selected_entry);
                         }
                     }
                 }
+
             }
         }
         break;
@@ -104,6 +109,7 @@ menuWindow::returnValue menuWindow::input(int ch)
 
 menuWindow::returnValue menuWindow::excecute_entry(int entry)
 {
+    // every action will leave the menu, so reset selection for next time
     selected_entry = 0;
     switch(entry)
     {
@@ -160,11 +166,10 @@ std::string menuWindow::prompt(const std::string &prompt) const
     for(;;) {
         wclear(window);
         mvwprintw(window, 1, 1, "%s %s", prompt.c_str(), name.c_str());
-        wnoutrefresh(window);
-        doupdate();
+        wrefresh(window);
 
         int ch = getch();
-        if(ch == 24) {                          // cancel - ^X
+        if(ch == 24) {  // cancel - ^X : return empty string
             name = "";
             break;
         } else if(ch == '\n' || ch == '\r' || ch == KEY_ENTER) {
@@ -177,52 +182,62 @@ std::string menuWindow::prompt(const std::string &prompt) const
         }
     }
 
+    // deactivate cursor
     curs_set(0);
+
+    wclear(window);
+    wrefresh(window);
 
     return name;
 }
 
-void menuWindow::save(const char *file, bool verbose) const
+bool menuWindow::save(const char *file, bool verbose) const
 {
     // empty path is considered as cancel
-    if(!file[0]) return;
+    if(!file[0]) return false;
 
+    bool success = false;
     std::string success_msg = "Save successfull - press any key";
     std::string error_msg = "Save failed - press any key";
     int maxx, maxy;
     getmaxyx(window, maxy, maxx);
 
+    if(verbose) {
+        wclear(window);
+    }
+
     std::ofstream output(file);
     if(!output.is_open()) {
         if(verbose)
         {
-            wclear(window);
             mvwprintw(window, maxy/2, (maxx-error_msg.size())/2,
                       "%s", error_msg.c_str());
-            wnoutrefresh(window);
-            doupdate();
         }
     } else {
         game->stream_write(output);
+        success = true;
         if(verbose)
         {
-            wclear(window);
             mvwprintw(window, maxy/2, (maxx-success_msg.size())/2,
                       "%s", success_msg.c_str());
-            wnoutrefresh(window);
-            doupdate();
         }
     }
     output.close();
 
+    // wait after message
     if(verbose)
     {
+        wrefresh(window);
         int ch;
         do {
             ch = getch();
         } while(ch == KEY_MOUSE);
+
+        wclear(window);
+        wrefresh(window);
     }
 
+    return success;
 }
 
 bool menuWindow::load(const char *file, bool verbose)
@@ -230,21 +245,23 @@ bool menuWindow::load(const char *file, bool verbose)
     // empty path is considered as cancel
     if(!file[0]) return false;
 
+    bool success = false;
     std::string success_msg = "Save successfully loaded - press any key";
     std::string error_open_msg = "Failed to open save - press any key";
     std::string error_read_msg = "Save invalid - press any key";
     int maxx, maxy;
     getmaxyx(window, maxy, maxx);
 
+    if(verbose) {
+        wclear(window);
+    }
+
     std::ifstream input(file);
     if(!input.is_open()) {
         if(verbose)
         {
-            wclear(window);
             mvwprintw(window, maxy/2, (maxx-error_open_msg.size())/2,
                       "%s", error_open_msg.c_str());
-            wnoutrefresh(window);
-            doupdate();
         }
     } else {
         mainGame tmp;
@@ -252,48 +269,40 @@ bool menuWindow::load(const char *file, bool verbose)
             tmp = mainGame::stream_read(input);
             *game = tmp;
 
-            input.close();
-
             if(verbose)
             {
-                wclear(window);
                 mvwprintw(window, maxy/2, (maxx-success_msg.size())/2,
                           "%s", success_msg.c_str());
-                wnoutrefresh(window);
-                doupdate();
-
-                int ch;
-                do {
-                    ch = getch();
-                } while(ch == KEY_MOUSE);
             }
 
-            return true;
+            success = true;
         }
         catch(std::exception &excpt) {
-            input.close();
-
             if(verbose)
             {
-               std::string error(excpt.what());
-                wclear(window);
+                std::string error(excpt.what());
                 mvwprintw(window, maxy/2, (maxx-error.size())/2,
                           "%s", error.c_str());
                 mvwprintw(window, maxy/2 + 1, (maxx-error_read_msg.size())/2,
                           "%s", error_read_msg.c_str());
-                wnoutrefresh(window);
-                doupdate();
             }
         }
     }
 
+    input.close();
+
+    // wait after message
     if(verbose)
     {
+        wrefresh(window);
         int ch;
         do {
             ch = getch();
         } while(ch == KEY_MOUSE);
+
+        wclear(window);
+        wrefresh(window);
     }
 
-    return false;
+    return success;
 }

@@ -39,16 +39,19 @@ private:
     WINDOW *formWindow[N_FORMS];
     mainGame *game;
 
+    int cursor_x, cursor_y;
+    size_t selected_form;
+
+    // create all WINDOW objects (size calculation)
     void init_windows();
 
+    // put cursor back inside bounds
     void cursor_bounds();
 
+    // subwindows print functions
     void print_score();
     void print_board();
     void print_form(size_t);
-
-    int cursor_x, cursor_y;
-    size_t selected_form;
 };
 
 

@@ -15,6 +15,7 @@ mainWindow::mainWindow() :
     menu_window(game),
     score_window()
 {
+    // open default config file
     if(!menu_window.load(DEFAULT_BOARD, false)) {
         std::cerr << "Default configuration file is invalid - please redownload it"
                   << std::endl;
@@ -37,24 +38,25 @@ mainWindow::mainWindow(const mainGame &newgame) :
 
 void mainWindow::setgame(const mainGame &newgame)
 {
-    *game = newgame;
-    game_window.setgame(game);
+    // all Window subclass share the reference to the same mainGame object
+    // but some require to be warned if it is changed
+    // specifically, gameWindow needs to rebuild WINDOWS if dimention changed
+    *game = newgame;            // here game is changed for all classes
+    game_window.setgame(game);  // tell other classes about it
     menu_window.setgame(game);
 }
 
 mainWindow::~mainWindow()
 {
-    // don't bother with errors doing autosave
-    std::ofstream output(AUTOSAVE_FILE);
-    if(output.is_open()) {
-        game->stream_write(output);
-    }
+    menu_window.save(AUTOSAVE_FILE, false);
     delete game;
 }
 
 
 bool mainWindow::input(int ch)
 {
+    // transfer input to the current active window and preform required
+    // action depending on return code
     switch(current_window)
     {
     case WINDOW_GAME:
@@ -66,6 +68,7 @@ bool mainWindow::input(int ch)
             current_window = WINDOW_MENU;
             break;
         case gameWindow::RETURN_NO_MOVE:
+            // game over : save score and reinitialize game
             score_window.add_score(game->getscore());
             game->restart();
             current_window = WINDOW_SCORE;
@@ -86,7 +89,7 @@ bool mainWindow::input(int ch)
             break;
         case menuWindow::RETURN_UPDATE_GAME:
             // this code means that the game board was modified in a way that
-            // that require other windows to be warned.
+            // require other windows to be warned (cf mainWindow::setgame())
             setgame(*game);
             initialize_game();
             current_window = WINDOW_GAME;
@@ -118,6 +121,9 @@ bool mainWindow::input(int ch)
 
 void mainWindow::print()
 {
+    wclear(stdscr);
+    wnoutrefresh(stdscr);
+    // just call print() for current active window
     switch(current_window)
     {
     case WINDOW_GAME:
@@ -135,11 +141,13 @@ void mainWindow::print()
         break;
     }
 
+    // and refresh screen
     doupdate();
 }
 
 
 void mainWindow::initialize_game()
 {
+    // a loaded game may not have forms selected
     game->random_select_forms(false);
 }

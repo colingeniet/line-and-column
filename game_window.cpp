@@ -30,6 +30,7 @@ gameWindow::~gameWindow()
 
 void gameWindow::setgame(mainGame *newgame)
 {
+    // recreation of all windows is required if size is changed
     delwin(borderWindow);
     delwin(boardWindow);
     for(size_t i=0; i<N_FORMS; i++) {
@@ -114,7 +115,6 @@ gameWindow::returnValue gameWindow::input(int ch)
     case 'q':
         return RETURN_QUIT;
         break;
-        // no bound testing here, done below
     case KEY_UP:
         cursor_y--;
         break;
@@ -147,7 +147,7 @@ gameWindow::returnValue gameWindow::input(int ch)
         if(selected_form == N_FORMS-1) selected_form = 0;
         else selected_form++;
         break;
-    case '\n':
+    case '\n':  // different codes enter may produce
     case '\r':
     case KEY_ENTER:
         game->add_form(selected_form, cursor_x, cursor_y);
@@ -161,9 +161,9 @@ gameWindow::returnValue gameWindow::input(int ch)
                 cursor_x = event.x / 2;
                 cursor_y = event.y;
 
-		// because mouse allow movement and click at the same time,
-		// the cursor must be rechecked before adding the form
-		cursor_bounds();
+                // because mouse allow movement and click at the same time,
+                // the cursor must be rechecked before adding the form
+                cursor_bounds();
 
                 if(event.bstate & BUTTON1_PRESSED)
                 {
@@ -195,9 +195,9 @@ void gameWindow::cursor_bounds()
     int minx = - game->getform(selected_form).getboxmin().x;
     int miny = - game->getform(selected_form).getboxmin().y;
     int maxx = game->getwidth()
-      - game->getform(selected_form).getboxmax().x - 1;
+                - game->getform(selected_form).getboxmax().x - 1;
     int maxy = game->getheight()
-      - game->getform(selected_form).getboxmax().y - 1;
+                - game->getform(selected_form).getboxmax().y - 1;
     if(cursor_x < minx) cursor_x = minx;
     if(cursor_y < miny) cursor_y = miny;
     if(cursor_x > maxx) cursor_x = maxx;
@@ -207,6 +207,7 @@ void gameWindow::cursor_bounds()
 
 void gameWindow::print()
 {
+    wbkgd(borderWindow, A_REVERSE);
     print_score();
     print_board();
     for(size_t i=0; i<N_FORMS; i++) {
@@ -215,7 +216,6 @@ void gameWindow::print()
 
     // border window is filled with background color, other windows are
     // printed over it
-    wbkgd(borderWindow, A_REVERSE);
     wnoutrefresh(borderWindow);
 
     wnoutrefresh(scoreWindow);

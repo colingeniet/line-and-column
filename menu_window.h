@@ -17,7 +17,7 @@
 class menuWindow
 {
 public:
-    // input() return status
+    // input() return status to be interpreted by mainWindow::input()
     enum returnValue
     {
         RETURN_NONE,
@@ -37,8 +37,8 @@ public:
 
     returnValue input(int);
 
-    // if verbose is false, no output is produced if operation is successfull
-    void save(const char *file, bool verbose) const;
+    // return true if successfull, verbose control message printing
+    bool save(const char *file, bool verbose) const;
     bool load(const char *file, bool verbose);
 
 private:
@@ -65,6 +65,7 @@ private:
     // perform actions corresponding to an entry and return the appropriate code
     returnValue excecute_entry(int);
 
+    // nice prompt window with custom prompt message
     std::string prompt(const std::string&) const;
 };
 

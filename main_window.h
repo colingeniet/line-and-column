@@ -19,16 +19,19 @@ public:
 
     ~mainWindow();
 
+    // change the mainGame used
     void setgame(const mainGame&);
 
     // take a getch() input. return false if the game shall quit
     bool input(int);
 
+    // print the current active window
     void print();
 
 private:
     mainGame *game;
 
+    // indicate which of the Window subclass is active
     enum Window
     {
         WINDOW_GAME,
@@ -43,7 +46,7 @@ private:
     scoreWindow score_window;
 
     // perform required action to make the game playable after
-    // modification via setgame() or read()
+    // modification via setgame()
     void initialize_game();
 };
 

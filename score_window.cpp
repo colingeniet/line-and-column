@@ -67,6 +67,7 @@ scoreWindow::~scoreWindow()
         output.close();
     } else {
         for(size_t i=0; i<SCORE_NUMBER; i++) {
+            // score of 0 is an empty entry
             if(scores[i] > 0) {
                 output << names[i] << " : " << scores[i] << std::endl;
             }
@@ -91,6 +92,7 @@ void scoreWindow::print()
 
     y += 2;
 
+    // because scores are sorted, as soon as one is 0, the following are too
     for(size_t i=0; i<SCORE_NUMBER && scores[i] > 0; i++) {
         x = maxx/2 - names[i].size();
         mvwprintw(window, y, x, "%s %i", names[i].c_str(), scores[i]);
@@ -122,22 +124,24 @@ void scoreWindow::add_score(int score)
             x = maxx/2 - prompt.size();
             y = maxy/2 + 1;
             mvwprintw(window, y, x, "%s %s", prompt.c_str(), name.c_str());
-            wnoutrefresh(window);
-            doupdate();
+            wrefresh(window);
 
             int ch = getch();
             if(ch == '\n' || ch == '\r' || ch == KEY_ENTER) {
                 if(name.size() > 0) break;
-            } else if(ch == '\b' || ch == 127 ||
+            } else if(ch == '\b' || ch == 127 ||    // 127 is delete
                       ch == KEY_BACKSPACE || ch == KEY_DC) {
                 if(name.size() > 0) name.pop_back();
-            } else if('A' <= ch && ch <= 'Z') {
+            } else if('A' <= ch && ch <= 'Z') {     // name is caps only
                 name += ch;
             } else if('a' <= ch && ch <= 'z') {
                 name += ch - 'a' + 'A';
             }
         }
+        wclear(window);
+        wrefresh(window);
 
+        // insert in proper position
         size_t i=SCORE_NUMBER-1;
         while(i>0 && scores[i-1] < score) {
             scores[i] = scores[i-1];
