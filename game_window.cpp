@@ -53,16 +53,18 @@ void gameWindow::init_windows()
     int form_size = game->getform_size();
 
     // Windows placement
-    int row, col, required_row, required_col;
+    int row, col, required_row, required_col, start_row, start_col;
     getmaxyx(stdscr, row, col);
 
+    // just add everything for required height
     required_row = SCORE_WINDOW_HEIGHT + height + form_size + 4;
 
-    required_col = SCORE_WINDOW_WIDTH + 2;
-    if(required_col < width+2) {
+    // required width is the max of the 3 parts
+    required_col = SCORE_WINDOW_WIDTH + 2;                  // score window
+    if(required_col < width+2) {                            // board window
         required_col = width+2;
     }
-    if(required_col < N_FORMS*form_size + N_FORMS + 1) {
+    if(required_col < N_FORMS*form_size + N_FORMS + 1) {    // form windows
         required_col = N_FORMS*form_size + N_FORMS + 1;
     }
     required_col *= 2;  // 2 columns per square
@@ -76,16 +78,21 @@ void gameWindow::init_windows()
         std::terminate();
     }
 
+    // upper left corner of the used space
+    start_row = (row - required_row)/2;
+    start_col = (col - required_col)/2;
+
     // create windows
-    borderWindow = newwin(required_row, required_col, 0, (col-required_col)/2);
+    borderWindow = newwin(required_row, required_col,
+                          start_row, start_col);
     // score window is as large as possible
-    scoreWindow = newwin(SCORE_WINDOW_HEIGHT, required_col-4,
-                         1, (col-required_col+4)/2);
+    scoreWindow = newwin(SCORE_WINDOW_HEIGHT, required_col - 4,
+                         start_row + 1, start_col + 2);
     boardWindow = newwin(height, width*2,
-                         SCORE_WINDOW_HEIGHT + 2, (col - width*2)/2);
+                         start_row + SCORE_WINDOW_HEIGHT + 2, col/2 - width);
     for(size_t i=0; i<N_FORMS; i++) {
         formWindow[i] = newwin(form_size, form_size*2,
-                               height + SCORE_WINDOW_HEIGHT + 3,
+                               start_row + height + SCORE_WINDOW_HEIGHT + 3,
                                col/2 + (2*i - N_FORMS)*(form_size+1) + 1);
     }
 
