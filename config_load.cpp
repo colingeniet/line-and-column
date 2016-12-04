@@ -2,8 +2,19 @@
 #include "color.h"
 
 #include <iostream>
-#include <exception>
 
+
+syntax_exception::syntax_exception() :
+    msg("Invalid syntax")
+{}
+
+syntax_exception::syntax_exception(const std::string &detail) :
+    msg("Invalid syntax : " + detail)
+{}
+
+const char* syntax_exception::what() const throw() {
+    return msg.c_str();
+}
 
 
 bool blank_only(const std::string &str)
@@ -71,22 +82,22 @@ std::string getblock(std::string &input)
     // find delimiters
     size_t start = input.find('{');
     if(start == std::string::npos) {
-        std::cerr << "Invalid block syntax : missing {" << std::endl;
-        std::terminate();
+        syntax_exception excpt("missing {");
+        throw excpt;
         return std::string();
     }
     size_t end = input.find('}', start);
     if(start == std::string::npos) {
-        std::cerr << "Invalid block syntax : missing }" << std::endl;
-        std::terminate();
+        syntax_exception excpt("missing }");
+        throw excpt;
         return std::string();
     }
 
     // check for blank only before {
     block = input.substr(0, start);
     if(!blank_only(block)) {
-        std::cerr << "Invalid block syntax : input before {" << std::endl;
-        std::terminate();
+        syntax_exception excpt("unexcepted input before {");
+        throw excpt;
         return std::string();
     }
 

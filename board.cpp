@@ -189,7 +189,8 @@ void Board::read(const std::string &str) {
         for(int x=0; x<width; x++) {
             int color = word_to_color(getword(str_copy));
             if(color == -1) {
-                std::terminate();
+                syntax_exception excpt("Invalid color name");
+                throw excpt;
             }
             board[x][y] = color;
         }

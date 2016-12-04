@@ -67,6 +67,11 @@ bool mainWindow::input(int ch)
         case menuWindow::RETURN_RESUME:
             current_window = WINDOW_GAME;
             break;
+        case menuWindow::RETURN_UPDATE_GAME:
+            // this code means that the game board was modified in a way that
+            // that require other windows to be warned.
+            setgame(*game);
+            break;
         case menuWindow::RETURN_SCORES:
             current_window = WINDOW_SCORE;
             break;

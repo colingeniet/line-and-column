@@ -3,7 +3,19 @@
 
 
 #include <string>
+#include <exception>
 
+
+class syntax_exception : public std::exception {
+public:
+    syntax_exception();
+    syntax_exception(const std::string&);
+
+    virtual const char* what() const throw();
+
+private:
+    std::string msg;
+};
 
 
 /* return true if string contain only spaces, tabs and newlines */

@@ -214,59 +214,50 @@ mainGame mainGame::read(const std::string &str)
         if(line.size() == 0) continue;
 
         if( !get_key_value(line, key, value) ) {
-            std::cerr << "Invalid line in game configuration :\n"
-                      << line << std::endl;
-            std::terminate();
+            syntax_exception excpt("invalid line in save file");
+            throw excpt;
         } else if(key == "WIDTH") {
             if(new_width != -1) {
-                std::cerr << "Redefinition of width in game \
-configuration is illegal" << std::endl;
-                std::terminate();
+                syntax_exception excpt("illegal redefinition of width");
+                throw excpt;
             }
             new_width = stoi(value);
             if(new_width < 0) {
-                std::cerr << "Negative width value in game configuration !"
-                          << std::endl;
-                std::terminate();
+                syntax_exception excpt("negative width value");
+                throw excpt;
             }
         } else if(key == "HEIGHT") {
             if(new_height != -1) {
-                std::cerr << "Redefinition of height in game \
-configuration is illegal" << std::endl;
-                std::terminate();
+                syntax_exception excpt("illegal redefinition of height");
+                throw excpt;
             }
             new_height = stoi(value);
             if(new_height < 0) {
-                std::cerr << "Negative height value in game configuration !"
-                          << std::endl;
-                std::terminate();
+                syntax_exception excpt("negative height value");
+                throw excpt;
             }
         } else if(key == "FORM_SIZE") {
             if(new_form_size != -1) {
-                std::cerr << "Redefinition of form size in game \
-configuration is illegal" << std::endl;
-                std::terminate();
+                syntax_exception excpt("illegal redefinition of form size");
+                throw excpt;
             }
             new_form_size = stoi(value);
             if(new_form_size < 0) {
-                std::cerr << "Negative form size value in game configuration !"
-                          << std::endl;
-                std::terminate();
+                syntax_exception excpt("negative form_size value");
+                throw excpt;
             }
         } else {
             // any other entry is illegal if game is not initialized
             if(!initialized) {
-                std::cerr << "Game configuration require WIDTH, HEIGHT and \
-FORM_SIZE befor anything else." << std::endl;
-                std::terminate();
+                syntax_exception excpt("width, height and form size must be defined before any other input");
+                throw excpt;
             }
 
             if(key == "FORM") {
                 int color = word_to_color(value);
                 if(color == COLOR_BLACK) {
-                    std::cerr << "Forms can not be defined with color black"
-                              << std::endl;
-                    std::terminate();
+                    syntax_exception excpt("Forms can not be defined with color black");
+                    throw excpt;
                 }
                 Form new_form;
                 new_form.read(getblock(str_copy));
@@ -283,9 +274,8 @@ FORM_SIZE befor anything else." << std::endl;
             } else if(key == "COMBO") {
                 game.combo = stoi(value);
             } else {
-                std::cerr << "Invalid key in game configuration : "
-                          << key << std::endl;
-                std::terminate();
+                syntax_exception excpt("invalid key name");
+                throw excpt;
             }
         }
 
@@ -298,9 +288,8 @@ FORM_SIZE befor anything else." << std::endl;
     }
 
     if(!initialized) {
-        std::cerr << "Height, width and form size definition is required \
-in game configuration" << std::endl;
-        std::terminate();
+        syntax_exception excpt("width, height and form size must be defined");
+        throw excpt;
     }
 
     return game;

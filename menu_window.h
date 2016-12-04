@@ -19,6 +19,7 @@ public:
     {
         RETURN_NONE,
         RETURN_RESUME,
+        RETURN_UPDATE_GAME,
         RETURN_SCORES,
         RETURN_QUIT,
         RETURN_MAX
@@ -55,6 +56,10 @@ private:
 
     // perform actions corresponding to an entry and return the appropriate code
     returnValue excecute_entry(int);
+
+    std::string prompt(const std::string&) const;
+    void save() const;
+    bool load();
 };
 
 #endif // MENU_WINDOW_H_INCLUDED

@@ -1,6 +1,7 @@
 #include "menu_window.h"
 
 #include <iostream>
+#include <fstream>
 #include <exception>
 
 
@@ -64,6 +65,7 @@ menuWindow::returnValue menuWindow::input(int ch)
         else selected_entry++;
         break;
     case '\n':
+    case '\r':
         return excecute_entry(selected_entry);
         break;
     case KEY_MOUSE:
@@ -110,10 +112,12 @@ menuWindow::returnValue menuWindow::excecute_entry(int entry)
         return RETURN_RESUME;
         break;
     case ENTRY_SAVE:
+        save();
         return RETURN_NONE;
         break;
     case ENTRY_LOAD:
-        return RETURN_RESUME;
+        if(load()) return RETURN_UPDATE_GAME;
+        else return RETURN_NONE;
         break;
     case ENTRY_SCORES:
         return RETURN_SCORES;
@@ -126,4 +130,121 @@ menuWindow::returnValue menuWindow::excecute_entry(int entry)
         std::terminate();
         break;
     }
+}
+
+
+std::string menuWindow::prompt(const std::string &prompt) const
+{
+    std::string name;
+    int maxx, x;
+    getmaxyx(window, x, maxx);
+
+    for(;;) {
+        wclear(window);
+        x = maxx/2 - prompt.size();
+        mvwprintw(window, 1, x, "%s %s", prompt.c_str(), name.c_str());
+        wnoutrefresh(window);
+        doupdate();
+
+        int ch = getch();
+        if(ch == '\n' || ch == '\r') {
+            if(name.size() > 0) break;
+        } else if(ch == '\b' || ch == 127) {
+            if(name.size() > 0) name.pop_back();
+        } else {
+            name += ch;
+        }
+    }
+
+    return name;
+}
+
+void menuWindow::save() const
+{
+    std::string prompt_msg = "Save in :";
+    std::string success_msg = "Save successfull - press any key";
+    std::string error_msg = "Save failed - press any key";
+    int maxx, maxy;
+    getmaxyx(window, maxy, maxx);
+
+    std::ofstream output(prompt(prompt_msg));
+    if(!output.is_open()) {
+        wclear(window);
+        mvwprintw(window, maxy/2, (maxx-error_msg.size())/2,
+                  "%s", error_msg.c_str());
+        wnoutrefresh(window);
+        doupdate();
+    } else {
+        game->stream_write(output);
+        wclear(window);
+        mvwprintw(window, maxy/2, (maxx-success_msg.size())/2,
+                  "%s", success_msg.c_str());
+        wnoutrefresh(window);
+        doupdate();
+    }
+    output.close();
+
+    int ch;
+    do {
+        ch = getch();
+    } while(ch == KEY_MOUSE);
+}
+
+bool menuWindow::load()
+{
+    std::string prompt_msg = "Load file :";
+    std::string success_msg = "Save successfully loaded - press any key";
+    std::string error_open_msg = "Failed to open save - press any key";
+    std::string error_read_msg = "Save invalid - press any key";
+    int maxx, maxy;
+    getmaxyx(window, maxy, maxx);
+
+    std::ifstream input(prompt(prompt_msg));
+    if(!input.is_open()) {
+        wclear(window);
+        mvwprintw(window, maxy/2, (maxx-error_open_msg.size())/2,
+                  "%s", error_open_msg.c_str());
+        wnoutrefresh(window);
+        doupdate();
+    } else {
+        mainGame tmp;
+        try {
+            tmp = mainGame::stream_read(input);
+            *game = tmp;
+
+            input.close();
+
+            wclear(window);
+            mvwprintw(window, maxy/2, (maxx-success_msg.size())/2,
+                      "%s", success_msg.c_str());
+            wnoutrefresh(window);
+            doupdate();
+
+            int ch;
+            do {
+                ch = getch();
+            } while(ch == KEY_MOUSE);
+
+            return true;
+        }
+        catch(std::exception &excpt) {
+            input.close();
+
+            std::string error(excpt.what());
+            wclear(window);
+            mvwprintw(window, maxy/2, (maxx-error.size())/2,
+                      "%s", error.c_str());
+            mvwprintw(window, maxy/2 + 1, (maxx-error_read_msg.size())/2,
+                      "%s", error_read_msg.c_str());
+            wnoutrefresh(window);
+            doupdate();
+        }
+    }
+
+    int ch;
+    do {
+        ch = getch();
+    } while(ch == KEY_MOUSE);
+
+    return false;
 }

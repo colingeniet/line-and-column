@@ -116,8 +116,12 @@ void scoreWindow::add_score(int score)
             doupdate();
 
             int ch = getch();
-            if(ch == '\n' && name.size() > 0) {
-                break;
+            if(ch == '\n' || ch == '\r') {
+                if(name.size() > 0) break;
+            } else if(ch == '\b' || ch == 127) {
+                if(name.size() > 0) name.pop_back();
+            } else if('A' <= ch && ch <= 'Z') {
+                name += ch;
             } else if('a' <= ch && ch <= 'z') {
                 name += ch - 'a' + 'A';
             }
