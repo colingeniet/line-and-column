@@ -8,14 +8,18 @@
 mainWindow::mainWindow() :
     game(new mainGame()),
     current_window(WINDOW_GAME),
-    game_window(game)
+    game_window(game),
+    menu_window(game),
+    score_window()
 {
 }
 
 mainWindow::mainWindow(const mainGame &newgame) :
     game(new mainGame(newgame)),
     current_window(WINDOW_GAME),
-    game_window(game)
+    game_window(game),
+    menu_window(game),
+    score_window()
 {
 }
 
@@ -23,6 +27,7 @@ void mainWindow::setgame(const mainGame &newgame)
 {
     *game = newgame;
     game_window.setgame(game);
+    menu_window.setgame(game);
 }
 
 mainWindow::~mainWindow()
@@ -62,10 +67,6 @@ bool mainWindow::input(int ch)
         case menuWindow::RETURN_RESUME:
             current_window = WINDOW_GAME;
             break;
-        case menuWindow::RETURN_RESTART:
-            game->restart();
-            current_window = WINDOW_GAME;
-            break;
         case menuWindow::RETURN_SCORES:
             current_window = WINDOW_SCORE;
             break;
@@ -79,7 +80,9 @@ bool mainWindow::input(int ch)
         }
         break;
     case WINDOW_SCORE:
-        current_window = WINDOW_MENU;
+        // the only thing to do when in the score window is to quit
+        // so there is no proper input method for it
+        if(ch != KEY_MOUSE) current_window = WINDOW_MENU;
         break;
     default:
         std::cerr << "Incorrect window code" << std::endl;
