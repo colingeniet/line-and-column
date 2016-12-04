@@ -1,7 +1,7 @@
 #include "game_window.h"
 
-#include <iostream>
-#include <exception>
+#include <iostream>     // errors
+#include <exception>    // terminate
 
 
 #define SCORE_WINDOW_WIDTH 8

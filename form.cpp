@@ -1,6 +1,6 @@
 #include "form.h"
 
-#include "config_load.h"
+#include "config_load.h"    // config file i/o
 
 
 Form::Form() :
@@ -125,8 +125,8 @@ void Form::read(const std::string &str)
     int x, y;
     clean_config_input(str_copy);
     while(str_copy.size() > 0) {
-        x = stoi(getword(str_copy));
-        y = stoi(getword(str_copy));
+        x = std::stoi(getword(str_copy));
+        y = std::stoi(getword(str_copy));
         add(x, y);
     }
 }

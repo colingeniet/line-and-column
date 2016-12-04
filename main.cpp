@@ -1,11 +1,11 @@
-#include "main_window.h"
-#include "color.h"
+#include "main_window.h"    // main class
+#include "color.h"          // init_color_pairs()
 
-#include <ncurses.h>
+#include <ncurses.h>        // ncurses initialization
 
-#include <cstdlib>
-#include <ctime>
-#include <exception>
+#include <cstdlib>          // srand()
+#include <ctime>            // for srand()
+#include <exception>        // terminate setting
 
 
 

@@ -1,12 +1,12 @@
 #ifndef MENU_WINDOW_H_INCLUDED
 #define MENU_WINDOW_H_INCLUDED
 
-#include "main_game.h"
+#include "main_game.h"  // used by menuWindow
 
-#include <ncurses.h>
+#include <ncurses.h>    // used by menuWindow
 
-#include <string>
-#include <cstddef>
+#include <string>       // used by menuWindow
+#include <cstddef>      // size_t
 
 #define DEFAULT_BOARD "default_board"
 #define AUTOSAVE_FILE "autosave"

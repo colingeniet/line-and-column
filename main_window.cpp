@@ -1,8 +1,10 @@
 #include "main_window.h"
 
-#include <iostream>
-#include <fstream>
-#include <exception>
+#include <ncurses.h>    // doupdate() - some definition
+
+#include <iostream>     // errors
+#include <fstream>      // autosave on exit
+#include <exception>    // terminate
 
 
 

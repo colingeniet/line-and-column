@@ -1,12 +1,12 @@
 #ifndef GAME_WINDOW_H_INCLUDED
 #define GAME_WINDOW_H_INCLUDED
 
-#include "main_game.h"
-#include "color.h"
+#include "main_game.h"  // used by gameWindow
+#include "color.h"      // used for printing
 
-#include <ncurses.h>
+#include <ncurses.h>    // used by gameWindow
 
-#include <cstddef>
+#include <cstddef>      // size_t
 
 
 /* main game display

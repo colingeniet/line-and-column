@@ -1,8 +1,8 @@
 #ifndef FORM_H_INCLUDED
 #define FORM_H_INCLUDED
 
-#include <cstddef>
-#include <string>
+#include <cstddef>      // size_t
+#include <string>       // i/o
 
 
 struct Point

@@ -10,7 +10,7 @@
 
 
 CC = g++
-CFLAGS = -Wall -pedantic -std=c++11
+CFLAGS = -Wall -Wextra -pedantic -std=c++11
 LIBFLAGS = -lncurses
 
 PROGRAM = line-and-column

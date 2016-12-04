@@ -2,11 +2,11 @@
 #define BOARD_H_INCLUDED
 
 
-#include "color.h"
-#include "form.h"
+#include "color.h"  // for color definitions
+#include "form.h"   // add / collide
 
-#include <cstddef>
-#include <string>
+#include <cstddef>  // size_t
+#include <string>   // i/o
 
 
 /* This class defines the main 1010 board. It mostly is the array of squares

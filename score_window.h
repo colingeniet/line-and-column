@@ -1,9 +1,9 @@
 #ifndef SCORE_WINDOW_H_INCLUDED
 #define SCORE_WINDOW_H_INCLUDED
 
-#include <ncurses.h>
+#include <ncurses.h>    // used by scoreWindow
 
-#include <string>
+#include <string>       // used by scoreWindow
 
 #define SCORE_NUMBER 5
 #define SCORE_FILE ".highscores"

@@ -1,8 +1,8 @@
 #include "menu_window.h"
 
-#include <iostream>
-#include <fstream>
-#include <exception>
+#include <iostream>     // errors
+#include <fstream>      // save / load
+#include <exception>    // terminate / std::exception
 
 
 menuWindow::menuWindow(mainGame *newgame) :
@@ -164,7 +164,10 @@ std::string menuWindow::prompt(const std::string &prompt) const
         doupdate();
 
         int ch = getch();
-        if(ch == '\n' || ch == '\r' || ch == KEY_ENTER) {
+        if(ch == 24) {                          // cancel - ^X
+            name = "";
+            break;
+        } else if(ch == '\n' || ch == '\r' || ch == KEY_ENTER) {
             break;
         } else if(ch == '\b' || ch == 127 ||    // 127 is delete
                   ch == KEY_BACKSPACE || ch == KEY_DC) {

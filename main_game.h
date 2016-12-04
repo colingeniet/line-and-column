@@ -1,13 +1,13 @@
 #ifndef MAIN_GAME_H_INCLUDED
 #define MAIN_GAME_H_INCLUDED
 
-#include "board.h"
-#include "form.h"
+#include "board.h"      // used by mainGame
+#include "form.h"       // used by mainGame
 
-#include <cstddef>
-#include <vector>
-#include <string>
-#include <iostream>
+#include <cstddef>      // size_t
+#include <vector>       // used by mainGame
+#include <string>       // i/o
+#include <iostream>     // stream i/o
 
 
 #define N_FORMS 3

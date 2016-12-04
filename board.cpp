@@ -1,8 +1,6 @@
 #include "board.h"
 
-#include "config_load.h"
-
-#include <exception>
+#include "config_load.h"    // config file i/o
 
 
 Board::Board(int _width, int _height) :

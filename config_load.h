@@ -3,7 +3,7 @@
 
 
 #include <string>
-#include <exception>
+#include <exception>    // std::exception
 
 
 class syntax_exception : public std::exception {

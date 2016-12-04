@@ -1,10 +1,10 @@
 #include "main_game.h"
 
-#include "config_load.h"
+#include "config_load.h"    // config file read
 
-#include <cstdlib>
-#include <iostream>
-#include <exception>
+#include <cstdlib>          // rand()
+#include <iostream>         // errors
+#include <exception>        // terminate
 
 
 mainGame::mainGame() :
@@ -242,7 +242,7 @@ mainGame mainGame::read(const std::string &str)
                 syntax_exception excpt("illegal redefinition of width");
                 throw excpt;
             }
-            new_width = stoi(value);
+            new_width = std::stoi(value);
             if(new_width < 0) {
                 syntax_exception excpt("negative width value");
                 throw excpt;
@@ -252,7 +252,7 @@ mainGame mainGame::read(const std::string &str)
                 syntax_exception excpt("illegal redefinition of height");
                 throw excpt;
             }
-            new_height = stoi(value);
+            new_height = std::stoi(value);
             if(new_height < 0) {
                 syntax_exception excpt("negative height value");
                 throw excpt;
@@ -262,7 +262,7 @@ mainGame mainGame::read(const std::string &str)
                 syntax_exception excpt("illegal redefinition of form size");
                 throw excpt;
             }
-            new_form_size = stoi(value);
+            new_form_size = std::stoi(value);
             if(new_form_size < 0) {
                 syntax_exception excpt("negative form_size value");
                 throw excpt;
@@ -287,13 +287,13 @@ mainGame mainGame::read(const std::string &str)
                 game.board.read(getblock(str_copy));
             } else if(key == "SELECTED_FORM") {
                 size_t index, form_index;
-                index = stoul(getword(value))-1;
-                form_index = stoul(getword(value))-1;
+                index = std::stoul(getword(value))-1;
+                form_index = std::stoul(getword(value))-1;
                 game.form[index] = form_index;
             } else if(key == "SCORE") {
-                game.score = stoi(value);
+                game.score = std::stoi(value);
             } else if(key == "COMBO") {
-                game.combo = stoi(value);
+                game.combo = std::stoi(value);
             } else {
                 syntax_exception excpt("invalid key name");
                 throw excpt;

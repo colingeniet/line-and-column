@@ -1,12 +1,10 @@
 #include "score_window.h"
 
-#include "config_load.h"
+#include "config_load.h"    // file i/o
 
-#include <cstdlib>
-#include <cstddef>
-#include <iostream>
-#include <fstream>
-#include <exception>
+#include <cstddef>          // size_t
+#include <iostream>         // errors
+#include <fstream>          // file i/o
 
 
 scoreWindow::scoreWindow() :
@@ -39,7 +37,7 @@ scoreWindow::scoreWindow() :
             get_key_value(line, name, score);
 
             names[i] = name;
-            scores[i] = stoi(score);
+            scores[i] = std::stoi(score);
         }
     }
 

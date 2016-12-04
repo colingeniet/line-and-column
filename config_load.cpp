@@ -1,7 +1,7 @@
 #include "config_load.h"
-#include "color.h"
+#include "color.h"      // color definitions
 
-#include <iostream>
+#include <iostream>     // errors
 
 
 syntax_exception::syntax_exception() :

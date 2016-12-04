@@ -1,14 +1,11 @@
 #ifndef MAIN_WINDOW_H_INCLUDED
 #define MAIN_WINDOW_H_INCLUDED
 
-#include "main_game.h"
-#include "game_window.h"
-#include "menu_window.h"
-#include "score_window.h"
+#include "main_game.h"      // used by mainWindow
+#include "game_window.h"    // same
+#include "menu_window.h"    // same
+#include "score_window.h"   // same
 
-#include <ncurses.h>
-
-#include <iostream>
 
 /* This class handle interaction between all GUI parts
  * Because copying ncurses windows does not make sense, this class
