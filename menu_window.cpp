@@ -168,11 +168,11 @@ std::string menuWindow::prompt(const std::string &prompt) const
 
         int ch = getch();
         if(ch == '\n' || ch == '\r' || ch == KEY_ENTER) {
-            if(name.size() > 0) break;
+            break;
         } else if(ch == '\b' || ch == 127 ||
                   ch == KEY_BACKSPACE || ch == KEY_DC) {
             if(name.size() > 0) name.pop_back();
-        } else {
+        } else if(ch < 256) {   // only accept proper characters
             name += ch;
         }
     }
@@ -184,6 +184,9 @@ std::string menuWindow::prompt(const std::string &prompt) const
 
 void menuWindow::save(const char *file, bool verbose) const
 {
+    // empty path is considered as cancel
+    if(!file[0]) return;
+
     std::string success_msg = "Save successfull - press any key";
     std::string error_msg = "Save failed - press any key";
     int maxx, maxy;
@@ -224,6 +227,9 @@ void menuWindow::save(const char *file, bool verbose) const
 
 bool menuWindow::load(const char *file, bool verbose)
 {
+    // empty path is considered as cancel
+    if(!file[0]) return false;
+
     std::string success_msg = "Save successfully loaded - press any key";
     std::string error_open_msg = "Failed to open save - press any key";
     std::string error_read_msg = "Save invalid - press any key";

@@ -108,14 +108,14 @@ FORM : MAGENTA
 0 -1
 }
 
-FORM : CYAN 
+FORM : GREEN
 {
 0 0
 1 0
 0 1
 }
 
-FORM : CYAN
+FORM : GREEN
 {
 0 0
 -1 0
