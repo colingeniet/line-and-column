@@ -14,6 +14,8 @@
 
 void ncurses_quit()
 {
+    clear();
+    refresh();
     endwin();
 }
 

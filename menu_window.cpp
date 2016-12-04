@@ -68,6 +68,7 @@ menuWindow::returnValue menuWindow::input(int ch)
         break;
     case '\n':
     case '\r':
+    case KEY_ENTER:
         return excecute_entry(selected_entry);
         break;
     case KEY_MOUSE:
@@ -155,6 +156,9 @@ std::string menuWindow::prompt(const std::string &prompt) const
     int maxx, x;
     getmaxyx(window, x, maxx);
 
+    // reactivate cursor visibility
+    curs_set(1);
+
     for(;;) {
         wclear(window);
         x = maxx/2 - prompt.size();
@@ -163,14 +167,17 @@ std::string menuWindow::prompt(const std::string &prompt) const
         doupdate();
 
         int ch = getch();
-        if(ch == '\n' || ch == '\r') {
+        if(ch == '\n' || ch == '\r' || ch == KEY_ENTER) {
             if(name.size() > 0) break;
-        } else if(ch == '\b' || ch == 127) {
+        } else if(ch == '\b' || ch == 127 ||
+                  ch == KEY_BACKSPACE || ch == KEY_DC) {
             if(name.size() > 0) name.pop_back();
         } else {
             name += ch;
         }
     }
+
+    curs_set(0);
 
     return name;
 }

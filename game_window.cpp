@@ -142,6 +142,7 @@ gameWindow::returnValue gameWindow::input(int ch)
         break;
     case '\n':
     case '\r':
+    case KEY_ENTER:
         game->add_form(selected_form, cursor_x, cursor_y);
         break;
     case KEY_MOUSE:
