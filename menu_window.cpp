@@ -14,8 +14,8 @@ menuWindow::menuWindow(mainGame *newgame) :
     entry[ENTRY_RESTART] = "restart";
     entry[ENTRY_SAVE] = "save game";
     entry[ENTRY_LOAD] = "load game";
-    entry[ENTRY_LAST_SAVE] = "load last game";
-    entry[ENTRY_DEFAULT_SETTING] = "reset game rules";
+    entry[ENTRY_LAST_SAVE] = "load autosave";
+    entry[ENTRY_DEFAULT_SETTING] = "default rules";
     entry[ENTRY_SCORES] = "highscores";
     entry[ENTRY_QUIT] = "quit";
 }

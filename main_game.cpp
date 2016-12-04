@@ -69,6 +69,7 @@ bool mainGame::add_form(size_t n, int x, int y)
 
     // add
     board.addForm(form_set[form[n]], x, y, form_color[form[n]]);
+    score += form_set[form[n]].getsize();
     // clean updating score
     int lines=0, columns=0;
     board.clean(lines, columns);
@@ -157,7 +158,7 @@ void mainGame::reset()
 
 void mainGame::update_score(int lines, int columns)
 {
-    score +=  lines + columns;
+    score +=  board.getwidth()*lines + board.getheight()*columns;
     combo = lines + columns;
 }
 
