@@ -2,15 +2,18 @@
 
 #include "config_load.h"
 
+#include <cstdlib>
+#include <cstddef>
 #include <iostream>
 #include <fstream>
-#include <cstdlib>
 #include <exception>
 
 
 scoreWindow::scoreWindow() :
     window(newwin(0,0,0,0))
 {
+    wattrset(window, A_BOLD);
+
     for(size_t i=0; i<SCORE_NUMBER; i++) {
         scores[i] = 0;
     }

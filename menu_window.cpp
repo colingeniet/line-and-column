@@ -18,6 +18,8 @@ menuWindow::menuWindow(mainGame *newgame) :
     entry[ENTRY_DEFAULT_SETTING] = "default rules";
     entry[ENTRY_SCORES] = "highscores";
     entry[ENTRY_QUIT] = "quit";
+
+    wattrset(window, A_BOLD);
 }
 
 menuWindow::~menuWindow()
@@ -39,8 +41,6 @@ void menuWindow::print()
     getmaxyx(window, maxy, maxx);
 
     y = (maxy - ENTRY_MAX + 1)/2;
-
-    wattrset(window, A_BOLD);
 
     for(size_t i=0; i<ENTRY_MAX; i++) {
         x = (maxx - entry[i].size() + 1)/2;
@@ -153,23 +153,20 @@ menuWindow::returnValue menuWindow::excecute_entry(int entry)
 std::string menuWindow::prompt(const std::string &prompt) const
 {
     std::string name;
-    int maxx, x;
-    getmaxyx(window, x, maxx);
 
     // reactivate cursor visibility
     curs_set(1);
 
     for(;;) {
         wclear(window);
-        x = maxx/2 - prompt.size();
-        mvwprintw(window, 1, x, "%s %s", prompt.c_str(), name.c_str());
+        mvwprintw(window, 1, 1, "%s %s", prompt.c_str(), name.c_str());
         wnoutrefresh(window);
         doupdate();
 
         int ch = getch();
         if(ch == '\n' || ch == '\r' || ch == KEY_ENTER) {
             break;
-        } else if(ch == '\b' || ch == 127 ||
+        } else if(ch == '\b' || ch == 127 ||    // 127 is delete
                   ch == KEY_BACKSPACE || ch == KEY_DC) {
             if(name.size() > 0) name.pop_back();
         } else if(ch < 256) {   // only accept proper characters

@@ -1,13 +1,10 @@
 #include "main_window.h"
-#include "main_game.h"
 #include "color.h"
 
 #include <ncurses.h>
 
 #include <cstdlib>
 #include <ctime>
-#include <iostream>
-#include <fstream>
 #include <exception>
 
 

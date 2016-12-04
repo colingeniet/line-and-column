@@ -98,9 +98,9 @@ void gameWindow::init_windows()
 
     // initialise colors
     if(has_colors()) {
-        wattron(scoreWindow, A_BOLD | COLOR_PAIR(BLUE_BLACK));
+        wattrset(scoreWindow, A_BOLD | COLOR_PAIR(RED_BLACK));
     } else {
-        wattron(scoreWindow, A_BOLD);
+        wattrset(scoreWindow, A_BOLD);
     }
 }
 
