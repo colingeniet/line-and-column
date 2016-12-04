@@ -104,14 +104,23 @@ void scoreWindow::add_score(int score)
 {
     if(score > scores[SCORE_NUMBER-1]) {
         std::string name;
+        std::string game_over = "GAME OVER";
+        std::string score_disp = "score :";
         std::string prompt = "Enter name :";
-        int maxx, x;
-        getmaxyx(window, x, maxx);
+        int maxx, maxy, x, y;
+        getmaxyx(window, maxy, maxx);
 
         for(;;) {
             wclear(window);
+            x = (maxx - game_over.size())/2;
+            y = maxy/2 - 1;
+            mvwprintw(window, y, x, "%s", game_over.c_str());
+            x = maxx/2 - score_disp.size();
+            y = maxy/2;
+            mvwprintw(window, y, x, "%s %i", score_disp.c_str(), score);
             x = maxx/2 - prompt.size();
-            mvwprintw(window, 1, x, "%s %s", prompt.c_str(), name.c_str());
+            y = maxy/2 + 1;
+            mvwprintw(window, y, x, "%s %s", prompt.c_str(), name.c_str());
             wnoutrefresh(window);
             doupdate();
 

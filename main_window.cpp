@@ -1,6 +1,7 @@
 #include "main_window.h"
 
 #include <iostream>
+#include <fstream>
 #include <exception>
 
 
@@ -12,6 +13,14 @@ mainWindow::mainWindow() :
     menu_window(game),
     score_window()
 {
+    if(!menu_window.load(DEFAULT_BOARD, false)) {
+        std::cerr << "Default configuration file is invalid - please redownload it"
+                  << std::endl;
+        std::terminate();
+    } else {
+        setgame(*game);
+        initialize_game();
+    }
 }
 
 mainWindow::mainWindow(const mainGame &newgame) :
@@ -21,6 +30,7 @@ mainWindow::mainWindow(const mainGame &newgame) :
     menu_window(game),
     score_window()
 {
+    initialize_game();
 }
 
 void mainWindow::setgame(const mainGame &newgame)
@@ -32,6 +42,11 @@ void mainWindow::setgame(const mainGame &newgame)
 
 mainWindow::~mainWindow()
 {
+    // don't bother with errors doing autosave
+    std::ofstream output(AUTOSAVE_FILE);
+    if(output.is_open()) {
+        game->stream_write(output);
+    }
     delete game;
 }
 
@@ -71,6 +86,8 @@ bool mainWindow::input(int ch)
             // this code means that the game board was modified in a way that
             // that require other windows to be warned.
             setgame(*game);
+            initialize_game();
+            current_window = WINDOW_GAME;
             break;
         case menuWindow::RETURN_SCORES:
             current_window = WINDOW_SCORE;
@@ -123,28 +140,4 @@ void mainWindow::print()
 void mainWindow::initialize_game()
 {
     game->random_select_forms(false);
-}
-
-
-void mainWindow::write(std::ostream &os) const
-{
-    game->stream_write(os);
-}
-
-void mainWindow::read(std::istream &is)
-{
-    setgame(mainGame::stream_read(is));
-}
-
-
-std::ostream& operator<<(std::ostream &os, const mainWindow &win)
-{
-    win.write(os);
-    return os;
-}
-
-std::istream& operator>>(std::istream &is, mainWindow &win)
-{
-    win.read(is);
-    return is;
 }

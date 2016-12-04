@@ -55,16 +55,6 @@ int main(int argc, char** argv)
 
     mainWindow win;
 
-    std::ifstream input;
-    if(argc == 2)
-        input.open(argv[1]);
-    else
-        input.open("default_board");
-
-    input >> win;
-    win.initialize_game();
-
-
     bool quit = false;
     // main loop
     while(!quit)
@@ -80,10 +70,6 @@ int main(int argc, char** argv)
     }
 
     ncurses_quit();
-
-    std::ofstream output("autosave");
-    output << win;
-    output.close();
 
     return 0;
 }

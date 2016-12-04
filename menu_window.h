@@ -8,6 +8,9 @@
 #include <string>
 #include <cstddef>
 
+#define DEFAULT_BOARD "default_board"
+#define AUTOSAVE_FILE "autosave"
+
 
 /* Because copying ncurses windows does not make sense, this class
  * is not designed to be copied. */
@@ -34,6 +37,9 @@ public:
 
     returnValue input(int);
 
+    // if verbose is false, no output is produced if operation is successfull
+    void save(const char *file, bool verbose) const;
+    bool load(const char *file, bool verbose);
 
 private:
     WINDOW *window;
@@ -46,6 +52,8 @@ private:
         ENTRY_RESTART,
         ENTRY_SAVE,
         ENTRY_LOAD,
+        ENTRY_LAST_SAVE,
+        ENTRY_DEFAULT_SETTING,
         ENTRY_SCORES,
         ENTRY_QUIT,
         ENTRY_MAX
@@ -58,8 +66,6 @@ private:
     returnValue excecute_entry(int);
 
     std::string prompt(const std::string&) const;
-    void save() const;
-    bool load();
 };
 
 #endif // MENU_WINDOW_H_INCLUDED

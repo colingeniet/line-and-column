@@ -17,6 +17,7 @@ class mainWindow
 {
 public:
     mainWindow();
+    mainWindow(const char *file);
     mainWindow(const mainGame&);
 
     ~mainWindow();
@@ -27,13 +28,6 @@ public:
     bool input(int);
 
     void print();
-
-    // perform required action to make the game playable after
-    // modification via setgame() or read()
-    void initialize_game();
-
-    void write(std::ostream&) const;
-    void read(std::istream&);
 
 private:
     mainGame *game;
@@ -50,10 +44,10 @@ private:
     gameWindow game_window;
     menuWindow menu_window;
     scoreWindow score_window;
+
+    // perform required action to make the game playable after
+    // modification via setgame() or read()
+    void initialize_game();
 };
-
-
-std::ostream& operator<<(std::ostream&, const mainWindow&);
-std::istream& operator>>(std::istream&, mainWindow&);
 
 #endif // MAIN_WINDOW_H_INCLUDED
