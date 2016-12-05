@@ -24,8 +24,9 @@ menuWindow::menuWindow(mainGame *newgame) :
 
 menuWindow::~menuWindow()
 {
-    delwin(window);
+    if(window) delwin(window);
 }
+
 
 void menuWindow::setgame(mainGame *newgame)
 {

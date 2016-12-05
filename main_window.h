@@ -19,6 +19,10 @@ public:
 
     ~mainWindow();
 
+    // copying makes no sense
+    mainWindow(const mainWindow&) = delete;
+    mainWindow& operator=(const mainWindow&) = delete;
+
     // change the mainGame used
     void setgame(const mainGame&);
 

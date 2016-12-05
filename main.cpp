@@ -47,7 +47,7 @@ void ncurses_init()
     std::set_terminate(ncurses_terminate);
 }
 
-int main(int argc, char** argv)
+int main(int, char**)
 {
     ncurses_init();
     srand(time(NULL));

@@ -74,7 +74,7 @@ scoreWindow::~scoreWindow()
         }
     }
 
-    delwin(window);
+    if(window) delwin(window);
 }
 
 

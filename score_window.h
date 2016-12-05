@@ -14,6 +14,10 @@ public:
     scoreWindow();
     ~scoreWindow();
 
+    // copying makes no sense
+    scoreWindow(const scoreWindow&) = delete;
+    scoreWindow& operator=(const scoreWindow&) = delete;
+
     void print();
     // add new score with name prompt (only if it is better than current scores)
     void add_score(int);

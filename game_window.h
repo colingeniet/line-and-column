@@ -27,6 +27,10 @@ public:
     gameWindow(mainGame*);
     ~gameWindow();
 
+    // copying makes no sense
+    gameWindow(const gameWindow&) = delete;
+    gameWindow& operator=(const gameWindow&) = delete;
+
     void setgame(mainGame*);
 
     void print();

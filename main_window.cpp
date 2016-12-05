@@ -9,7 +9,7 @@
 
 
 mainWindow::mainWindow() :
-    game(new mainGame()),
+    game(new mainGame),
     current_window(WINDOW_GAME),
     game_window(game),
     menu_window(game),
@@ -36,6 +36,14 @@ mainWindow::mainWindow(const mainGame &newgame) :
     initialize_game();
 }
 
+mainWindow::~mainWindow()
+{
+    if(game) {
+        menu_window.save(AUTOSAVE_FILE, false);
+        delete game;
+    }
+}
+
 void mainWindow::setgame(const mainGame &newgame)
 {
     // all Window subclass share the reference to the same mainGame object
@@ -44,12 +52,6 @@ void mainWindow::setgame(const mainGame &newgame)
     *game = newgame;            // here game is changed for all classes
     game_window.setgame(game);  // tell other classes about it
     menu_window.setgame(game);
-}
-
-mainWindow::~mainWindow()
-{
-    menu_window.save(AUTOSAVE_FILE, false);
-    delete game;
 }
 
 

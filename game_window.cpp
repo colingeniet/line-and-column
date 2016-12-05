@@ -21,12 +21,14 @@ gameWindow::gameWindow(mainGame *newgame) :
 
 gameWindow::~gameWindow()
 {
-    delwin(borderWindow);
-    delwin(boardWindow);
+    if(borderWindow) delwin(borderWindow);
+    if(boardWindow) delwin(boardWindow);
+    if(scoreWindow) delwin(scoreWindow);
     for(size_t i=0; i<N_FORMS; i++) {
-        delwin(formWindow[i]);
+        if(formWindow[i]) delwin(formWindow[i]);
     }
 }
+
 
 void gameWindow::setgame(mainGame *newgame)
 {

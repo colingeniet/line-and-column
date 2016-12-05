@@ -31,6 +31,10 @@ public:
     menuWindow(mainGame*);
     ~menuWindow();
 
+    // copying makes no sense
+    menuWindow(const menuWindow&) = delete;
+    menuWindow& operator=(const menuWindow&) = delete;
+
     void setgame(mainGame*);
 
     void print();
