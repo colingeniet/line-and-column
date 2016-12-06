@@ -24,6 +24,7 @@ enum colorPair
     BLACK_WHITE,
     RED_BLACK,
     BLUE_BLACK,
+    YELLOW_BLACK,
     MAX_PAIR
 };
 

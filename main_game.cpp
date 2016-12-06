@@ -11,7 +11,8 @@ mainGame::mainGame() :
     board(0, 0),
     form_size(0),
     score(0),
-    combo(0)
+    combo(0),
+    max_score(0)
 {
     for(size_t i=0; i<N_FORMS; i++) form[i] = (size_t)-1;
 }
@@ -20,7 +21,8 @@ mainGame::mainGame(int _width, int _height, int _form_size) :
     board(_width, _height),
     form_size(_form_size),
     score(0),
-    combo(0)
+    combo(0),
+    max_score(0)
 {
     for(size_t i=0; i<N_FORMS; i++) form[i] = (size_t)-1;
 }
@@ -46,6 +48,15 @@ int mainGame::getscore() const {
 int mainGame::getcombo() const {
     return combo;
 }
+
+int mainGame::getmax_score() const {
+    return max_score;
+}
+
+void mainGame::setmax_score(int n) {
+    max_score = n;
+}
+
 
 const int* mainGame::operator[](int n) const {
     return board[n];
@@ -74,6 +85,8 @@ bool mainGame::add_form(size_t n, int x, int y)
     int lines=0, columns=0;
     board.clean(lines, columns);
     update_score(lines, columns);
+
+    if(score > max_score) max_score = score;
 
     // remove the added form
     form[n] = (size_t) -1;

@@ -12,6 +12,7 @@ void init_color_pairs()
 
     init_pair(RED_BLACK, COLOR_RED, COLOR_BLACK);
     init_pair(BLUE_BLACK, COLOR_BLUE, COLOR_BLACK);
+    init_pair(YELLOW_BLACK, COLOR_YELLOW, COLOR_BLACK);
 }
 
 

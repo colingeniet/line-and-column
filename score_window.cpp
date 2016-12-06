@@ -7,8 +7,9 @@
 #include <fstream>          // file i/o
 
 
-scoreWindow::scoreWindow() :
-    window(newwin(0,0,0,0))
+scoreWindow::scoreWindow(mainGame *newgame) :
+    window(newwin(0,0,0,0)),
+    game(newgame)
 {
     wattrset(window, A_BOLD);
 
@@ -20,6 +21,11 @@ scoreWindow::scoreWindow() :
 scoreWindow::~scoreWindow()
 {
     if(window) delwin(window);
+}
+
+void scoreWindow::setgame(mainGame *newgame)
+{
+    game = newgame;
 }
 
 
@@ -96,6 +102,8 @@ void scoreWindow::add_score(int score)
         }
         scores[i] = score;
         names[i] = name;
+
+        updatemax_score();
     }
 }
 
@@ -162,6 +170,16 @@ bool scoreWindow::load(const char *file)
             }
         }
 
+        updatemax_score();
+
         return true;
+    }
+}
+
+
+void scoreWindow::updatemax_score()
+{
+    if(scores[0] > game->getmax_score()) {
+        game->setmax_score(scores[0]);
     }
 }

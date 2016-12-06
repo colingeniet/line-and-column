@@ -28,6 +28,9 @@ public:
 
     int getscore() const;
     int getcombo() const;
+    int getmax_score() const;
+
+    void setmax_score(int);
 
     Form getform(size_t) const;
     int getform_color(size_t) const;
@@ -74,7 +77,7 @@ private:
 
     void update_score(int, int);
 
-    int score, combo;
+    int score, combo, max_score;
 };
 
 

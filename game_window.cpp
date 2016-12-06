@@ -1,10 +1,11 @@
 #include "game_window.h"
 
+#include <string>       // for score display
 #include <iostream>     // errors
 #include <exception>    // terminate
 
 
-#define SCORE_WINDOW_WIDTH 8
+#define SCORE_WINDOW_WIDTH 17
 #define SCORE_WINDOW_HEIGHT 3
 
 
@@ -97,13 +98,6 @@ void gameWindow::init_windows()
         formWindow[i] = newwin(form_size, form_size*2,
                                start_row + height + SCORE_WINDOW_HEIGHT + 3,
                                col/2 + (2*i - N_FORMS)*(form_size+1) + 1);
-    }
-
-    // initialise colors
-    if(has_colors()) {
-        wattrset(scoreWindow, A_BOLD | COLOR_PAIR(RED_BLACK));
-    } else {
-        wattrset(scoreWindow, A_BOLD);
     }
 }
 
@@ -229,12 +223,30 @@ void gameWindow::print()
 
 void gameWindow::print_score()
 {
+    int x,y;
+    getmaxyx(scoreWindow, y, x);
+    std::string str;
+
     wclear(scoreWindow);
-    mvwprintw(scoreWindow, 1, 1,
-              "%i", game->getscore());
-    if(game->getcombo() >= 2) {
-        wprintw(scoreWindow, " X%i", game->getcombo());
+    wattron(scoreWindow, A_BOLD);
+    if(has_colors()) {
+        wattron(scoreWindow, COLOR_PAIR(RED_BLACK));
     }
+
+    str = "SCORE : " + std::to_string(game->getscore());
+    if(game->getcombo() >= 2) {
+        str += " x" + std::to_string(game->getcombo());
+    }
+
+    mvwprintw(scoreWindow, 1, 1, "%s", str.c_str());
+
+    str = "BEST : " + std::to_string(game->getmax_score());
+
+    if(has_colors()) {
+        wattron(scoreWindow, COLOR_PAIR(YELLOW_BLACK));
+    }
+
+    mvwprintw(scoreWindow, 1, x-str.size()-1, "%s", str.c_str());
 }
 
 void gameWindow::print_board()

@@ -13,7 +13,7 @@ mainWindow::mainWindow() :
     current_window(WINDOW_GAME),
     game_window(game),
     menu_window(game),
-    score_window()
+    score_window(game)
 {
 }
 
@@ -22,7 +22,7 @@ mainWindow::mainWindow(const mainGame &newgame) :
     current_window(WINDOW_GAME),
     game_window(game),
     menu_window(game),
-    score_window()
+    score_window(game)
 {
     initialize_game();
 }
@@ -40,6 +40,7 @@ void mainWindow::setgame(const mainGame &newgame)
     *game = newgame;            // here game is changed for all classes
     game_window.setgame(game);  // tell other classes about it
     menu_window.setgame(game);
+    score_window.setgame(game);
 }
 
 
