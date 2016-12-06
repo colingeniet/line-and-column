@@ -22,7 +22,8 @@ void ncurses_terminate()
 {
     ncurses_quit();
     std::cerr << "terminate called : exiting ncurses and aborting" << std::endl;
-    exit(EXIT_FAILURE);     // destroy objects, flush streams ...
+    // may as well try to destroy objects and close streams
+    exit(EXIT_FAILURE);
 }
 
 
@@ -48,16 +49,30 @@ void ncurses_init()
     std::set_terminate(ncurses_terminate);
 }
 
-int main(int, char**)
+int main(int argc, char** argv)
 {
+    if(argc > 2) {
+        std::cerr << "Only one file may be passed as parameter" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+
     ncurses_init();
     srand(time(NULL));
 
     mainWindow win;
-    if(!win.load(DEFAULT_BOARD, menuWindow::MESSAGE_ERROR)) {
-        std::cerr << "Default configuration file is invalid" << std::endl;
-        std::terminate();
+    if(argc == 2) {
+        if(!win.load(argv[1], menuWindow::MESSAGE_ERROR)) {
+            std::cerr << "configuration file  " << argv[1]
+                      << " is invalid" << std::endl;
+            std::terminate();
+        }
+    } else {
+        if(!win.load(DEFAULT_BOARD, menuWindow::MESSAGE_ERROR)) {
+            std::cerr << "Default configuration file is invalid" << std::endl;
+            std::terminate();
+        }
     }
+    win.load_scores();
 
     bool quit = false;
     // main loop
@@ -74,6 +89,7 @@ int main(int, char**)
     }
 
     win.save(AUTOSAVE_FILE, menuWindow::MESSAGE_NONE);
+    win.save_scores();
 
     ncurses_quit();
 

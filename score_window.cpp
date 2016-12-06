@@ -15,65 +15,10 @@ scoreWindow::scoreWindow() :
     for(size_t i=0; i<SCORE_NUMBER; i++) {
         scores[i] = 0;
     }
-
-    // load scores from file
-    std::ifstream input(SCORE_FILE);
-    if(!input.is_open()) {
-        std::cerr << "Unable to open file " << SCORE_FILE
-                  << " for reading - ignored" << std::endl;
-        input.close();
-    } else {
-        std::string input_str, line;
-        while(!input.eof()) {
-            std::getline(input, line);
-            input_str += line + '\n';
-        }
-        input.close();
-
-        for(size_t i=0; i<SCORE_NUMBER && !blank_only(input_str); i++) {
-            std::string name, score;
-            line = getline(input_str);
-            clean_config_input(line);
-            get_key_value(line, name, score);
-
-            names[i] = name;
-            scores[i] = std::stoi(score);
-        }
-    }
-
-    // never trust the file ! sort yourself
-    for(size_t i=0; i<SCORE_NUMBER; i++) {
-        int score = scores[i];
-        std::string name = names[i];
-        size_t j = i;
-        while(j > 0 && score > scores[j-1]) {
-            scores[j] = scores[j-1];
-            names[j] = names[j-1];
-            j--;
-        }
-        scores[j] = score;
-        names[j] = name;
-    }
 }
 
 scoreWindow::~scoreWindow()
 {
-    // write scores to file
-    std::ofstream output(SCORE_FILE);
-
-    if(!output.is_open()) {
-        std::cerr << "Unable to open file " << SCORE_FILE
-                  << " for writing - ignored" << std::endl;
-        output.close();
-    } else {
-        for(size_t i=0; i<SCORE_NUMBER; i++) {
-            // score of 0 is an empty entry
-            if(scores[i] > 0) {
-                output << names[i] << " : " << scores[i] << std::endl;
-            }
-        }
-    }
-
     if(window) delwin(window);
 }
 
@@ -92,7 +37,8 @@ void scoreWindow::print()
 
     y += 2;
 
-    // because scores are sorted, as soon as one is 0, the following are too
+    // score of 0 is an empty entry, and scores are sorted so
+    // if one is null, the following do to
     for(size_t i=0; i<SCORE_NUMBER && scores[i] > 0; i++) {
         x = maxx/2 - names[i].size();
         mvwprintw(window, y, x, "%s %i", names[i].c_str(), scores[i]);
@@ -150,5 +96,72 @@ void scoreWindow::add_score(int score)
         }
         scores[i] = score;
         names[i] = name;
+    }
+}
+
+
+bool scoreWindow::save(const char *file) const
+{
+    std::ofstream output(file);
+
+    if(!output.is_open()) {
+        std::cerr << "Unable to open file " << file
+                  << " for writing" << std::endl;
+        output.close();
+        return false;
+    } else {
+        // score of 0 is an empty entry, and scores are sorted so
+        // if one is null, the following do to
+        for(size_t i=0; i<SCORE_NUMBER && scores[i] > 0; i++) {
+            if(scores[i] > 0) {
+                output << names[i] << " : " << scores[i] << std::endl;
+            }
+        }
+        output.close();
+        return true;
+    }
+}
+
+bool scoreWindow::load(const char *file)
+{
+    // load scores from file
+    std::ifstream input(file);
+    if(!input.is_open()) {
+        std::cerr << "Unable to open file " << file
+                  << " for reading" << std::endl;
+        input.close();
+        return false;
+    } else {
+        std::string input_str, line;
+
+        while(!input.eof()) {
+            std::getline(input, line);
+            input_str += line + '\n';
+        }
+        input.close();
+
+        for(size_t i=0; i<SCORE_NUMBER && !blank_only(input_str); i++) {
+            std::string name, score_str;
+            int score;
+            line = getline(input_str);
+            clean_config_input(line);
+            get_key_value(line, name, score_str);
+
+            score = std::stoi(score_str);
+
+            // insert in proper position
+            if(score > scores[SCORE_NUMBER-1]) {
+                size_t i=SCORE_NUMBER-1;
+                while(i>0 && scores[i-1] < score) {
+                    scores[i] = scores[i-1];
+                    names[i] = names[i-1];
+                    i--;
+                }
+                scores[i] = score;
+                names[i] = name;
+            }
+        }
+
+        return true;
     }
 }

@@ -12,8 +12,9 @@ public:
     syntax_exception();
     syntax_exception(const std::string &detail, size_t line = (size_t)-1);
 
+    // if those functions throw an exception, something has gone horribly wrong
     const char* what() const throw();
-    size_t getline() const;
+    size_t getline() const throw();
 
 private:
     std::string msg;

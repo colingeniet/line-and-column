@@ -151,6 +151,16 @@ bool mainWindow::load(const char *file, menuWindow::messageLevel verbose)
     return success;
 }
 
+bool mainWindow::save_scores(const char *file) const
+{
+    return score_window.save(file);
+}
+
+bool mainWindow::load_scores(const char *file)
+{
+    return score_window.load(file);
+}
+
 
 void mainWindow::initialize_game()
 {

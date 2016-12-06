@@ -22,6 +22,9 @@ public:
     // add new score with name prompt (only if it is better than current scores)
     void add_score(int);
 
+    bool save(const char*) const;
+    bool load(const char*);
+
 private:
     WINDOW *window;
     std::string names[SCORE_NUMBER];

@@ -17,7 +17,7 @@ const char* syntax_exception::what() const  throw() {
     return msg.c_str();
 }
 
-size_t syntax_exception::getline() const {
+size_t syntax_exception::getline() const throw() {
     return line;
 }
 

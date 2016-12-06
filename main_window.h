@@ -36,6 +36,9 @@ public:
     bool save(const char *file, menuWindow::messageLevel verbose) const;
     bool load(const char *file, menuWindow::messageLevel verbose);
 
+    bool save_scores(const char *file = SCORE_FILE) const;
+    bool load_scores(const char *file = SCORE_FILE);
+
 private:
     mainGame *game;
 
