@@ -8,18 +8,63 @@ syntax_exception::syntax_exception() :
     msg("Invalid syntax")
 {}
 
-syntax_exception::syntax_exception(const std::string &detail) :
-    msg("Invalid syntax : " + detail)
+syntax_exception::syntax_exception(const std::string &detail, size_t line) :
+    msg((line == (size_t)-1 ? "" : "line " + std::to_string(line) + " : ")
+        + detail)
 {}
 
-const char* syntax_exception::what() const throw() {
+const char* syntax_exception::what() const  throw() {
     return msg.c_str();
+}
+
+size_t syntax_exception::getline() const {
+    return line;
 }
 
 
 bool blank_only(const std::string &str)
 {
     return str.find_first_not_of(" \t\n") == std::string::npos;
+}
+
+size_t count_occurences(const std::string &input, const std::string &ch) {
+    size_t cpt = 0;
+    for(size_t pos = 0;; cpt++) {
+        pos = input.find_first_of(ch, pos);
+        if(pos == std::string::npos) break;
+        pos++;
+    }
+    return cpt;
+}
+
+size_t count_occurences(const std::string &input, const char *ch) {
+    size_t cpt = 0;
+    for(size_t pos = 0;; cpt++) {
+        pos = input.find_first_of(ch, pos);
+        if(pos == std::string::npos) break;
+        pos++;
+    }
+    return cpt;
+}
+
+size_t count_occurences(const std::string &input, const char *ch, size_t n) {
+    size_t cpt = 0;
+    for(size_t pos = 0;; cpt++) {
+        pos = input.find_first_of(ch, pos, n);
+        if(pos == std::string::npos) break;
+        pos++;
+    }
+    return cpt;
+}
+
+size_t count_occurences(const std::string &input, char ch) {
+    size_t cpt = 0;
+    for(size_t pos = 0;; cpt++) {
+        pos = input.find_first_of(ch, pos);
+        if(pos == std::string::npos) break;
+        pos++;
+    }
+    return cpt;
 }
 
 
@@ -75,7 +120,7 @@ std::string getline(std::string &input)
     return line;
 }
 
-std::string getblock(std::string &input)
+std::string getblock(std::string &input, size_t *line)
 {
     std::string block;
 
@@ -94,6 +139,7 @@ std::string getblock(std::string &input)
     }
 
     // check for blank only before {
+    // block is temporarly assigned the input before the actual block
     block = input.substr(0, start);
     if(!blank_only(block)) {
         syntax_exception excpt("unexcepted input before {");
@@ -101,6 +147,7 @@ std::string getblock(std::string &input)
         return std::string();
     }
 
+    if(line) *line = count_occurences(input.substr(0, end+1), '\n');
     block = input.substr(start+1, end-start-1);
     input = input.substr(end+1);
     return block;
@@ -151,17 +198,17 @@ void set_case(std::string &str, bool lower)
 
 int word_to_color(const std::string& input)
 {
-    std::string word = input;
-    if(word == "BLACK")         return COLOR_BLACK;
-    else if(word == "RED")      return COLOR_RED;
-    else if(word == "GREEN")    return COLOR_GREEN;
-    else if(word == "YELLOW")   return COLOR_YELLOW;
-    else if(word == "BLUE")     return COLOR_BLUE;
-    else if(word == "MAGENTA")  return COLOR_MAGENTA;
-    else if(word == "CYAN")     return COLOR_CYAN;
-    else if(word == "WHITE")    return COLOR_WHITE;
+    if(input == "BLACK")         return COLOR_BLACK;
+    else if(input == "RED")      return COLOR_RED;
+    else if(input == "GREEN")    return COLOR_GREEN;
+    else if(input == "YELLOW")   return COLOR_YELLOW;
+    else if(input == "BLUE")     return COLOR_BLUE;
+    else if(input == "MAGENTA")  return COLOR_MAGENTA;
+    else if(input == "CYAN")     return COLOR_CYAN;
+    else if(input == "WHITE")    return COLOR_WHITE;
     else {
-        std::cerr << "Invalid color name : " << input << std::endl;
+        syntax_exception excpt("invalid color name : " + input);
+        throw excpt;
         return -1;
     }
 }
@@ -196,7 +243,7 @@ std::string color_to_word(int color)
         return "WHITE";
         break;
     default:
-        std::cerr << "Invalid color code : " << color << std::endl;
+        std::cerr << "invalid color code : " << color << std::endl;
         return "";
         break;
     }

@@ -2,6 +2,8 @@
 
 #include "config_load.h"    // config file i/o
 
+#include <exception>        // std::exception
+
 
 Form::Form() :
     size(0),
@@ -122,11 +124,35 @@ std::string Form::write() const
 void Form::read(const std::string &str)
 {
     std::string str_copy = str;
+    std::string word;
+    size_t pos;
     int x, y;
     clean_config_input(str_copy);
     while(str_copy.size() > 0) {
-        x = std::stoi(getword(str_copy));
-        y = std::stoi(getword(str_copy));
+        word = getword(str_copy);
+        try {
+            x = std::stoi(word, &pos);
+        }
+        catch(std::exception &e) {
+            syntax_exception excpt("invalid input : " + word);
+            throw excpt;
+        }
+        if(!blank_only(word.substr(pos))) {
+            syntax_exception excpt("invalid input : " + word);
+            throw excpt;
+        }
+        word = getword(str_copy);
+        try {
+            y = std::stoi(word, &pos);
+        }
+        catch(std::exception &e) {
+            syntax_exception excpt("invalid input : " + word);
+            throw excpt;
+        }
+        if(!blank_only(word.substr(pos))) {
+            syntax_exception excpt("invalid input : " + word);
+            throw excpt;
+        }
         add(x, y);
     }
 }

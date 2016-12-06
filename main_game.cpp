@@ -224,78 +224,177 @@ mainGame mainGame::read(const std::string &str)
     std::string str_copy = str;
     std::string line, key, value;
     mainGame game;
+    // false until width, height and form_size are provided to initialize game
     bool initialized = false;
     int new_width=-1, new_height=-1, new_form_size=-1;
+
+    size_t n_line = 0, block_line = 0;
+    size_t pos;         // used for stoi()
 
     while(str_copy.size() > 0)
     {
         line = getline(str_copy);
+        n_line++;
         clean_config_input(line);
 
         if(line.size() == 0) continue;
 
         if( !get_key_value(line, key, value) ) {
-            syntax_exception excpt("invalid line in save file");
+            syntax_exception excpt("invalid line in save file : " + line, n_line);
             throw excpt;
         } else if(key == "WIDTH") {
             if(new_width != -1) {
-                syntax_exception excpt("illegal redefinition of width");
+                syntax_exception excpt("illegal redefinition of width", n_line);
                 throw excpt;
             }
-            new_width = std::stoi(value);
+            try {
+                new_width = std::stoi(value, &pos);
+            }
+            catch(std::exception&) {
+                syntax_exception excpt("invalid input : " + line, n_line);
+                throw excpt;
+            }
             if(new_width < 0) {
-                syntax_exception excpt("negative width value");
+                syntax_exception excpt("negative width value", n_line);
+                throw excpt;
+            }
+            if(!blank_only(value.substr(pos))) {
+                syntax_exception excpt("invalid input : " + line, n_line);
                 throw excpt;
             }
         } else if(key == "HEIGHT") {
             if(new_height != -1) {
-                syntax_exception excpt("illegal redefinition of height");
+                syntax_exception excpt("illegal redefinition of height", n_line);
                 throw excpt;
             }
-            new_height = std::stoi(value);
+            try {
+                new_height = std::stoi(value, &pos);
+            }
+            catch(std::exception&) {
+                syntax_exception excpt("invalid input : " + line, n_line);
+                throw excpt;
+            }
             if(new_height < 0) {
-                syntax_exception excpt("negative height value");
+                syntax_exception excpt("negative height value", n_line);
+                throw excpt;
+            }
+            if(!blank_only(value.substr(pos))) {
+                syntax_exception excpt("invalid input : " + line, n_line);
                 throw excpt;
             }
         } else if(key == "FORM_SIZE") {
             if(new_form_size != -1) {
-                syntax_exception excpt("illegal redefinition of form size");
+                syntax_exception excpt("illegal redefinition of form size", n_line);
                 throw excpt;
             }
-            new_form_size = std::stoi(value);
+            try {
+                new_form_size = std::stoi(value, &pos);
+            }
+            catch(std::exception&) {
+                syntax_exception excpt("invalid input : " + line, n_line);
+                throw excpt;
+            }
             if(new_form_size < 0) {
-                syntax_exception excpt("negative form_size value");
+                syntax_exception excpt("negative form_size value", n_line);
+                throw excpt;
+            }
+            if(!blank_only(value.substr(pos))) {
+                syntax_exception excpt("invalid input : " + line, n_line);
                 throw excpt;
             }
         } else {
             // any other entry is illegal if game is not initialized
             if(!initialized) {
-                syntax_exception excpt("width, height and form size must be defined before any other input");
+                syntax_exception excpt("width, height and form size must be defined before any other input", n_line);
                 throw excpt;
             }
 
             if(key == "FORM") {
-                int color = word_to_color(value);
+                int color;
+                try {
+                    color = word_to_color(value);
+                }
+                catch(std::exception &e) {
+                    syntax_exception excpt(e.what(), n_line);
+                    throw excpt;
+                }
                 if(color == COLOR_BLACK) {
-                    syntax_exception excpt("Forms can not be defined with color black");
+                    syntax_exception excpt("forms can not be defined with color black", n_line);
                     throw excpt;
                 }
                 Form new_form;
-                new_form.read(getblock(str_copy));
+                try {
+                    new_form.read(getblock(str_copy, &block_line));
+                }
+                catch(std::exception &e) {
+                    syntax_exception excpt(e.what(), n_line);
+                    throw excpt;
+                }
                 game.add_form_to_set(new_form, color);
+                n_line += block_line;
             } else if(key == "BOARD") {
-                game.board.read(getblock(str_copy));
+                try {
+                    game.board.read(getblock(str_copy, &block_line));
+                }
+                catch(std::exception &e) {
+                    syntax_exception excpt(e.what(), n_line);
+                    throw excpt;
+                }
+                n_line += block_line;
             } else if(key == "SELECTED_FORM") {
                 size_t index, form_index;
-                index = std::stoul(getword(value))-1;
-                form_index = std::stoul(getword(value))-1;
+
+                std::string word = getword(value);
+                try {
+                    index = std::stoul(word, &pos) - 1;
+                }
+                catch(std::exception &e) {
+                    syntax_exception excpt("invalid input : " + line, n_line);
+                    throw excpt;
+                }
+                if(!blank_only(word.substr(pos))) {
+                    syntax_exception excpt("invalid input : " + line, n_line);
+                    throw excpt;
+                }
+                try {
+                    form_index = std::stoul(value, &pos)-1;
+                }
+                catch(std::exception &e) {
+                    syntax_exception excpt("invalid input : " + line, n_line);
+                    throw excpt;
+                }
+                if(!blank_only(value.substr(pos))) {
+                    syntax_exception excpt("invalid input : " + line, n_line);
+                    throw excpt;
+                }
+
                 game.form[index] = form_index;
             } else if(key == "SCORE") {
-                game.score = std::stoi(value);
+                try {
+                    game.score = std::stoi(value, &pos);
+                }
+                catch(std::exception &e) {
+                    syntax_exception excpt("invalid input : " + line, n_line);
+                    throw excpt;
+                }
+                if(!blank_only(value.substr(pos))) {
+                    syntax_exception excpt("invalid input : " + line, n_line);
+                    throw excpt;
+                }
             } else if(key == "COMBO") {
-                game.combo = std::stoi(value);
+                try {
+                    game.combo = std::stoi(value, &pos);
+                }
+                catch(std::exception &e) {
+                    syntax_exception excpt("invalid input : " + line, n_line);
+                    throw excpt;
+                }
+                if(!blank_only(value.substr(pos))) {
+                    syntax_exception excpt("invalid input : " + line, n_line);
+                    throw excpt;
+                }
             } else {
-                syntax_exception excpt("invalid key name");
+                syntax_exception excpt("invalid key name : " + line, n_line);
                 throw excpt;
             }
         }

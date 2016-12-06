@@ -180,17 +180,19 @@ std::string Board::write() const
 }
 
 void Board::read(const std::string &str) {
+    Board tmp(width, height);
     std::string str_copy = str;
     clean_config_input(str_copy);
 
     for(int y=0; y<height; y++) {
         for(int x=0; x<width; x++) {
             int color = word_to_color(getword(str_copy));
-            if(color == -1) {
-                syntax_exception excpt("Invalid color name");
-                throw excpt;
-            }
-            board[x][y] = color;
+            tmp.board[x][y] = color;
         }
     }
+    if(!blank_only(str_copy)) {
+        syntax_exception excpt("unexcepected input : " + str_copy);
+        throw excpt;
+    }
+    *this = tmp;
 }

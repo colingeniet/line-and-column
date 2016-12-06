@@ -2,6 +2,7 @@
 #define CONFIG_LOAD_H_INCLUDED
 
 
+#include <cstddef>      // size_t
 #include <string>
 #include <exception>    // std::exception
 
@@ -9,17 +10,27 @@
 class syntax_exception : public std::exception {
 public:
     syntax_exception();
-    syntax_exception(const std::string&);
+    syntax_exception(const std::string &detail, size_t line = (size_t)-1);
 
-    virtual const char* what() const throw();
+    const char* what() const throw();
+    size_t getline() const;
 
 private:
     std::string msg;
+    size_t line;
 };
 
 
 /* return true if string contain only spaces, tabs and newlines */
 bool blank_only(const std::string&);
+
+// count occurences of any of the characters in a string
+// character set (second argument) is passed as in string::find_first_of()
+size_t count_occurences(const std::string&, const std::string&);
+size_t count_occurences(const std::string&, const char*);
+size_t count_occurences(const std::string&, const char*, size_t);
+size_t count_occurences(const std::string&, char);
+
 
 
 /* standard config input cleaning function :
@@ -38,8 +49,9 @@ std::string getline(std::string&);
 
 /* get a block between '{' and '}' at the begining of input.
  * before first '{' shall only be blank. return the block and
- * remove it as well as { } from input. */
-std::string getblock(std::string&);
+ * remove it as well as { } from input. line is set to the
+ * number of lines removed from input */
+std::string getblock(std::string &input, size_t *line = nullptr);
 
 /* look for the sequence " : " in a string. If found, set key to the first part
  * (before : ) and value to the second (after : ) and return true.
