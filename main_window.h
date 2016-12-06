@@ -32,6 +32,10 @@ public:
     // print the current active window
     void print();
 
+    // return true if successfull, verbose control message printing
+    bool save(const char *file, menuWindow::messageLevel verbose) const;
+    bool load(const char *file, menuWindow::messageLevel verbose);
+
 private:
     mainGame *game;
 

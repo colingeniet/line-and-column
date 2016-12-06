@@ -41,9 +41,17 @@ public:
 
     returnValue input(int);
 
+    enum messageLevel
+    {
+        MESSAGE_NONE,
+        MESSAGE_ERROR,
+        MESSAGE_ALL,
+        MESSAGE_MAX
+    };
+
     // return true if successfull, verbose control message printing
-    bool save(const char *file, bool verbose) const;
-    bool load(const char *file, bool verbose);
+    bool save(const char *file, messageLevel verbose) const;
+    bool load(const char *file, messageLevel verbose);
 
 private:
     WINDOW *window;

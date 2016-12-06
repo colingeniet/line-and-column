@@ -5,7 +5,8 @@
 
 #include <cstdlib>          // srand(), exit()
 #include <ctime>            // for srand()
-#include <exception>        // terminate setting
+#include <iostream>         // errors
+#include <exception>        // terminate setting, terminate
 
 
 
@@ -53,6 +54,10 @@ int main(int, char**)
     srand(time(NULL));
 
     mainWindow win;
+    if(!win.load(DEFAULT_BOARD, menuWindow::MESSAGE_ERROR)) {
+        std::cerr << "Default configuration file is invalid" << std::endl;
+        std::terminate();
+    }
 
     bool quit = false;
     // main loop
@@ -67,6 +72,8 @@ int main(int, char**)
             quit = true;
         }
     }
+
+    win.save(AUTOSAVE_FILE, menuWindow::MESSAGE_NONE);
 
     ncurses_quit();
 

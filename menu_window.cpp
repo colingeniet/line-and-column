@@ -122,23 +122,23 @@ menuWindow::returnValue menuWindow::excecute_entry(int entry)
         return RETURN_RESUME;
         break;
     case ENTRY_SAVE:
-        save( prompt("Save as :").c_str(), true);
+        save( prompt("Save as :").c_str(), MESSAGE_ALL);
         return RETURN_NONE;
         break;
     case ENTRY_LOAD:
-        if(load( prompt("Load file :").c_str(), true ))
+        if(load( prompt("Load file :").c_str(), MESSAGE_ALL ))
             return RETURN_UPDATE_GAME;
         else
             return RETURN_NONE;
         break;
     case ENTRY_LAST_SAVE:
-        if(load(AUTOSAVE_FILE, false))
+        if(load(AUTOSAVE_FILE, MESSAGE_ERROR))
             return RETURN_UPDATE_GAME;
         else
             return RETURN_NONE;
         break;
     case ENTRY_DEFAULT_SETTING:
-        if(load(DEFAULT_BOARD, false))
+        if(load(DEFAULT_BOARD, MESSAGE_ERROR))
             return RETURN_UPDATE_GAME;
         else
             return RETURN_NONE;
@@ -192,12 +192,13 @@ std::string menuWindow::prompt(const std::string &prompt) const
     return name;
 }
 
-bool menuWindow::save(const char *file, bool verbose) const
+bool menuWindow::save(const char *file, menuWindow::messageLevel verbose) const
 {
     // empty path is considered as cancel
     if(!file[0]) return false;
 
     bool success = false;
+    bool wait = false;
     std::string success_msg = "Save successfull - press any key";
     std::string error_msg = "Save failed - press any key";
     int maxx, maxy;
@@ -213,20 +214,22 @@ bool menuWindow::save(const char *file, bool verbose) const
         {
             mvwprintw(window, maxy/2, (maxx-error_msg.size())/2,
                       "%s", error_msg.c_str());
+            wait = true;
         }
     } else {
         game->stream_write(output);
         success = true;
-        if(verbose)
+        if(verbose == MESSAGE_ALL)
         {
             mvwprintw(window, maxy/2, (maxx-success_msg.size())/2,
                       "%s", success_msg.c_str());
+            wait = true;
         }
     }
     output.close();
 
     // wait after message
-    if(verbose)
+    if(wait)
     {
         wrefresh(window);
         int ch;
@@ -241,12 +244,13 @@ bool menuWindow::save(const char *file, bool verbose) const
     return success;
 }
 
-bool menuWindow::load(const char *file, bool verbose)
+bool menuWindow::load(const char *file, menuWindow::messageLevel verbose)
 {
     // empty path is considered as cancel
     if(!file[0]) return false;
 
     bool success = false;
+    bool wait = false;
     std::string success_msg = "Save successfully loaded - press any key";
     std::string error_open_msg = "Failed to open save - press any key";
     std::string error_read_msg = "Save invalid - press any key";
@@ -263,20 +267,21 @@ bool menuWindow::load(const char *file, bool verbose)
         {
             mvwprintw(window, maxy/2, (maxx-error_open_msg.size())/2,
                       "%s", error_open_msg.c_str());
+            wait = true;
         }
     } else {
         mainGame tmp;
         try {
             tmp = mainGame::stream_read(input);
             *game = tmp;
+            success = true;
 
-            if(verbose)
+            if(verbose == MESSAGE_ALL)
             {
                 mvwprintw(window, maxy/2, (maxx-success_msg.size())/2,
                           "%s", success_msg.c_str());
+                wait = true;
             }
-
-            success = true;
         }
         catch(std::exception &excpt) {
             if(verbose)
@@ -286,6 +291,7 @@ bool menuWindow::load(const char *file, bool verbose)
                           "%s", error.c_str());
                 mvwprintw(window, maxy/2 + 1, (maxx-error_read_msg.size())/2,
                           "%s", error_read_msg.c_str());
+                wait = true;
             }
         }
     }
@@ -293,7 +299,7 @@ bool menuWindow::load(const char *file, bool verbose)
     input.close();
 
     // wait after message
-    if(verbose)
+    if(wait)
     {
         wrefresh(window);
         int ch;

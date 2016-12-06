@@ -15,15 +15,6 @@ mainWindow::mainWindow() :
     menu_window(game),
     score_window()
 {
-    // open default config file
-    if(!menu_window.load(DEFAULT_BOARD, false)) {
-        std::cerr << "Default configuration file is invalid - please redownload it"
-                  << std::endl;
-        std::terminate();
-    } else {
-        setgame(*game);
-        initialize_game();
-    }
 }
 
 mainWindow::mainWindow(const mainGame &newgame) :
@@ -38,10 +29,7 @@ mainWindow::mainWindow(const mainGame &newgame) :
 
 mainWindow::~mainWindow()
 {
-    if(game) {
-        menu_window.save(AUTOSAVE_FILE, false);
-        delete game;
-    }
+    if(game) delete game;
 }
 
 void mainWindow::setgame(const mainGame &newgame)
@@ -145,6 +133,22 @@ void mainWindow::print()
 
     // and refresh screen
     doupdate();
+}
+
+
+bool mainWindow::save(const char *file, menuWindow::messageLevel verbose) const
+{
+    return menu_window.save(file, verbose);
+}
+
+bool mainWindow::load(const char *file, menuWindow::messageLevel verbose)
+{
+    bool success = menu_window.load(file, verbose);
+    if(success) {
+        setgame(*game);
+        initialize_game();
+    }
+    return success;
 }
 
 
