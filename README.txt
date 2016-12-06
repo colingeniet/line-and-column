@@ -2,10 +2,10 @@ LINE AND COLUMN
 A 1010 clone on Unix terminal
 by Colin Geniet, Youcef Cherfaoui, Victor Hueca and Alexandre Ribeyre
 
-version 1.1.0
+version 2.0.0
 
 -------------------------------------------------------------------------------
-USAGE :
+Usage :
 
 compile : 
 	make all
@@ -27,7 +27,13 @@ controls :
 	- previous / next page to select previous / next form
 	- enter to confirm location
 	- q to quit
-The game quit as soon as no move are possible
+	- use Ctrl-X to quit save/load menu
+
+save system :
+	The save files allow both to define the environment (set of forms)
+	and to save the games. Refer to exemple_board for syntax details.
+	A save file can be given as parameter. By default, default_board will
+	be loaded.
 
 mouse support -EXPERIMENTAL- :
 	To be playable with mouse, your terminal needs to report all mouse
@@ -39,6 +45,12 @@ mouse support -EXPERIMENTAL- :
 
 -------------------------------------------------------------------------------
 version history :
+
+v 2.0.0 :
+	- added menu
+	- added save
+	- added highscores
+	- added experimental mouse support
 
 v 1.1.0 :
 	- fixed tearing
