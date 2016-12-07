@@ -50,6 +50,7 @@ public:
     };
 
     // return true if successfull, verbose control message printing
+    // suppressed error message are printed to stderr instead
     bool save(const char *file, messageLevel verbose) const;
     bool load(const char *file, messageLevel verbose);
 

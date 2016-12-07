@@ -223,8 +223,7 @@ void gameWindow::print()
 
 void gameWindow::print_score()
 {
-    int x,y;
-    getmaxyx(scoreWindow, y, x);
+    int x = getmaxx(scoreWindow);
     std::string str;
 
     wclear(scoreWindow);
