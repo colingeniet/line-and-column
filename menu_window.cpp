@@ -210,17 +210,17 @@ bool menuWindow::save(const char *file, menuWindow::messageLevel verbose) const
 
     std::ofstream output(file);
     if(!output.is_open()) {
-        if(verbose)
-        {
+        if(verbose) {
             mvwprintw(window, maxy/2, (maxx-error_msg.size())/2,
                       "%s", error_msg.c_str());
             wait = true;
         }
+        std::cerr << "Unable to open file " << file
+                  << " for writing" << std::endl;
     } else {
         game->stream_write(output);
         success = true;
-        if(verbose == MESSAGE_ALL)
-        {
+        if(verbose == MESSAGE_ALL) {
             mvwprintw(window, maxy/2, (maxx-success_msg.size())/2,
                       "%s", success_msg.c_str());
             wait = true;
@@ -263,12 +263,13 @@ bool menuWindow::load(const char *file, menuWindow::messageLevel verbose)
 
     std::ifstream input(file);
     if(!input.is_open()) {
-        if(verbose)
-        {
+        if(verbose) {
             mvwprintw(window, maxy/2, (maxx-error_open_msg.size())/2,
                       "%s", error_open_msg.c_str());
             wait = true;
         }
+        std::cerr << "Unable to open file " << file
+                  << " for writing" << std::endl;
     } else {
         mainGame tmp;
         try {
@@ -276,16 +277,14 @@ bool menuWindow::load(const char *file, menuWindow::messageLevel verbose)
             *game = tmp;
             success = true;
 
-            if(verbose == MESSAGE_ALL)
-            {
+            if(verbose == MESSAGE_ALL) {
                 mvwprintw(window, maxy/2, (maxx-success_msg.size())/2,
                           "%s", success_msg.c_str());
                 wait = true;
             }
         }
         catch(std::exception &excpt) {
-            if(verbose)
-            {
+            if(verbose) {
                 std::string error(excpt.what());
                 mvwprintw(window, maxy/2, (maxx-error.size())/2,
                           "%s", error.c_str());
@@ -293,6 +292,8 @@ bool menuWindow::load(const char *file, menuWindow::messageLevel verbose)
                           "%s", error_read_msg.c_str());
                 wait = true;
             }
+            std::cerr << "In file " << file << " :\n"
+                      << excpt.what() << std::endl;
         }
     }
 

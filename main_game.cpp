@@ -191,7 +191,9 @@ void mainGame::reset()
 
 void mainGame::update_score(int lines, int columns)
 {
-    score +=  board.getwidth()*lines + board.getheight()*columns;
+    score +=    lines*(lines+1)/2 * board.getwidth() +
+                columns*(columns+1)/2 * board.getheight() +
+                lines*columns * (board.getwidth() + board.getheight());
     combo = lines + columns;
 }
 
