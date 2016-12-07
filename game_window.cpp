@@ -1,8 +1,9 @@
 #include "game_window.h"
 
-#include <string>       // for score display
-#include <iostream>     // errors
-#include <exception>    // terminate
+#include "global_log.h"     // errors
+
+#include <string>           // for score display
+#include <exception>        // terminate
 
 
 #define SCORE_WINDOW_WIDTH 17
@@ -76,9 +77,9 @@ void gameWindow::init_windows()
     if(row < required_row || col < required_col)
     {
         endwin();
-        std::cerr << "Terminal is too small : " << col << "x" << row
-                  << " available, " << required_col << "x"
-                  << required_row << " required." << std::endl;
+        mlog << "Terminal is too small : " << col << "x" << row
+             << " available, " << required_col << "x"
+             << required_row << " required." << std::endl;
         std::terminate();
     }
 

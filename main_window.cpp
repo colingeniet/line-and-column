@@ -1,8 +1,9 @@
 #include "main_window.h"
 
+#include "global_log.h" // errors
+
 #include <ncurses.h>    // doupdate() - some definition
 
-#include <iostream>     // errors
 #include <fstream>      // autosave on exit
 #include <exception>    // terminate
 
@@ -65,7 +66,7 @@ bool mainWindow::input(int ch)
             current_window = WINDOW_SCORE;
             break;
         default:
-            std::cerr << "Unknown return code" << std::endl;
+            mlog << "Unknown return code" << std::endl;
             std::terminate();
             break;
         }
@@ -92,7 +93,7 @@ bool mainWindow::input(int ch)
             return false;
             break;
         default:
-            std::cerr << "Unknown return code" << std::endl;
+            mlog << "Unknown return code" << std::endl;
             std::terminate();
             break;
         }
@@ -103,7 +104,7 @@ bool mainWindow::input(int ch)
         if(ch != KEY_MOUSE) current_window = WINDOW_MENU;
         break;
     default:
-        std::cerr << "Incorrect window code" << std::endl;
+        mlog << "Incorrect window code" << std::endl;
         std::terminate();
         break;
     }
@@ -127,7 +128,7 @@ void mainWindow::print()
         score_window.print();
         break;
     default:
-        std::cerr << "Incorrect window code" << std::endl;
+        mlog << "Incorrect window code" << std::endl;
         std::terminate();
         break;
     }

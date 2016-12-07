@@ -1,9 +1,9 @@
 #include "score_window.h"
 
 #include "config_load.h"    // file i/o
+#include "global_log.h"     // errors
 
 #include <cstddef>          // size_t
-#include <iostream>         // errors
 #include <fstream>          // file i/o
 
 
@@ -113,8 +113,8 @@ bool scoreWindow::save(const char *file) const
     std::ofstream output(file);
 
     if(!output.is_open()) {
-        std::cerr << "Unable to open file " << file
-                  << " for writing" << std::endl;
+        mlog << "Unable to open file " << file
+             << " for writing" << std::endl;
         output.close();
         return false;
     } else {
@@ -135,8 +135,8 @@ bool scoreWindow::load(const char *file)
     // load scores from file
     std::ifstream input(file);
     if(!input.is_open()) {
-        std::cerr << "Unable to open file " << file
-                  << " for reading" << std::endl;
+        mlog << "Unable to open file " << file
+             << " for reading" << std::endl;
         input.close();
         return false;
     } else {

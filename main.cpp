@@ -1,5 +1,6 @@
 #include "main_window.h"    // main class
 #include "color.h"          // init_color_pairs()
+#include "global_log.h"     // error stream initialization
 
 #include <ncurses.h>        // ncurses initialization
 
@@ -8,6 +9,8 @@
 #include <iostream>         // errors
 #include <exception>        // terminate setting, terminate
 
+
+#define GLOBAL_LOG_FILE "log.txt"
 
 
 void ncurses_quit()
@@ -21,8 +24,9 @@ void ncurses_quit()
 void ncurses_terminate()
 {
     ncurses_quit();
-    std::cerr << "terminate called : exiting ncurses and aborting" << std::endl;
-    // may as well try to destroy objects and close streams
+    mlog << "terminate called : exiting ncurses and aborting" << std::endl;
+    mlog.close();
+    // may as well try to destroy other objects and close streams
     exit(EXIT_FAILURE);
 }
 
@@ -46,6 +50,9 @@ void ncurses_init()
         init_color_pairs();
     }
 
+    // initialize log error stream
+    mlog.setfile(GLOBAL_LOG_FILE);
+
     std::set_terminate(ncurses_terminate);
 }
 
@@ -62,13 +69,13 @@ int main(int argc, char** argv)
     mainWindow win;
     if(argc == 2) {
         if(!win.load(argv[1], menuWindow::MESSAGE_ERROR)) {
-            std::cerr << "configuration file  " << argv[1]
-                      << " is invalid" << std::endl;
+            mlog << "configuration file  " << argv[1]
+                 << " is invalid" << std::endl;
             std::terminate();
         }
     } else {
         if(!win.load(DEFAULT_BOARD, menuWindow::MESSAGE_ERROR)) {
-            std::cerr << "Default configuration file is invalid" << std::endl;
+            mlog << "Default configuration file is invalid" << std::endl;
             std::terminate();
         }
     }

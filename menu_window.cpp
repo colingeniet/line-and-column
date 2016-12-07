@@ -1,8 +1,9 @@
 #include "menu_window.h"
 
-#include <iostream>     // errors
-#include <fstream>      // save / load
-#include <exception>    // terminate / std::exception
+#include "global_log.h"     // errors
+
+#include <fstream>          // save / load
+#include <exception>        // terminate / std::exception
 
 
 menuWindow::menuWindow(mainGame *newgame) :
@@ -150,7 +151,7 @@ menuWindow::returnValue menuWindow::excecute_entry(int entry)
         return RETURN_QUIT;
         break;
     default:
-        std::cerr << "Incorrect menu code" << std::endl;
+        mlog << "Incorrect menu code" << std::endl;
         std::terminate();
         break;
     }
@@ -215,8 +216,8 @@ bool menuWindow::save(const char *file, menuWindow::messageLevel verbose) const
                       "%s", error_msg.c_str());
             wait = true;
         }
-        std::cerr << "Unable to open file " << file
-                  << " for writing" << std::endl;
+        mlog << "Unable to open file " << file
+             << " for writing" << std::endl;
     } else {
         game->stream_write(output);
         success = true;
@@ -268,8 +269,8 @@ bool menuWindow::load(const char *file, menuWindow::messageLevel verbose)
                       "%s", error_open_msg.c_str());
             wait = true;
         }
-        std::cerr << "Unable to open file " << file
-                  << " for writing" << std::endl;
+        mlog << "Unable to open file " << file
+             << " for writing" << std::endl;
     } else {
         mainGame tmp;
         try {
@@ -292,8 +293,8 @@ bool menuWindow::load(const char *file, menuWindow::messageLevel verbose)
                           "%s", error_read_msg.c_str());
                 wait = true;
             }
-            std::cerr << "In file " << file << " :\n"
-                      << excpt.what() << std::endl;
+            mlog << "In file " << file << " :\n"
+                 << excpt.what() << std::endl;
         }
     }
 

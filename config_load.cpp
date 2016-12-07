@@ -1,7 +1,7 @@
 #include "config_load.h"
-#include "color.h"      // color definitions
 
-#include <iostream>     // errors
+#include "color.h"          // color definitions
+#include "global_log.h"     // errors
 
 
 syntax_exception::syntax_exception() :
@@ -243,7 +243,7 @@ std::string color_to_word(int color)
         return "WHITE";
         break;
     default:
-        std::cerr << "invalid color code : " << color << std::endl;
+        mlog << "invalid color code : " << color << std::endl;
         return "";
         break;
     }
