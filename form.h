@@ -1,7 +1,8 @@
 #ifndef FORM_H_INCLUDED
 #define FORM_H_INCLUDED
 
-#include <cstddef>
+#include <cstddef>      // size_t
+#include <string>       // i/o
 
 
 struct Point
@@ -36,6 +37,11 @@ public:
     Point operator[](size_t) const;
     Point getboxmin() const;
     Point getboxmax() const;
+
+    // I/O
+    std::string write() const;
+    // keep old squares
+    void read(const std::string&);
 
 private:
     size_t size, capacity;

@@ -11,11 +11,11 @@ compiler :
 	make all
 La librairie ncurses est requise. Elle devrait être disponible sur la plupart
 des systèmes UNIX. Elle peut être obtenue à
-ftp://ftp.gnu.org/pub/gnu/ncurses/ncurses.tar.gz
+http://ftp.gnu.org/pub/gnu/ncurses/
 
 supprimer les fichiers crées à la compilation :
 	make clean
-Aucun fichier n'est crée à l'extérieur du dossier principal. Pour tout 
+Aucun fichier n'est créé à l'extérieur du dossier principal. Pour tout 
 désinstaller, il suffit de le supprimer.
 
 
@@ -23,19 +23,41 @@ lancer :
 	./line-and-column
 
 contrôles :
-	flèches directionelles pour déplacer le curseur
-	1-2-3 pour selectionner une des formes
-	entrée pour comfirmer l'emplacement
-	q pour quitter
-Le jeu s'arrète des qu'aucun mouvement est possible.
+	- flèches directionelles pour déplacer le curseur
+	- x-c-v ou 1-2-3 pour sélectionner une des formes
+	- page précédante / suivante pour sélectionner la
+	  forme précédante / suivante
+	- entrée pour comfirmer l'emplacement
+	- q pour quitter
+	- Ctrl-X pour quitter les menus de sauvegardes
+	
+sauvegardes :
+	Les fichiers de sauvegarde permettent à la fois de définir
+	l'environnement (ensemble de formes) et de sauvegarder.
+	La syntaxe est décrite dans le fichier exemple_board.
+	Un fichier de sauvegarde peut être passé en paramètre au jeu.
+	Par défaut, default_board est chargé.
+
+support de la souris -EXPERIMENTAL- :
+	Pour pouvoir jouer à la souris, il faut que le terminal transmette
+	tous les mouvements de la souris, ce qui n'est pas standard.
+	Sur xterm et ses dérivés, essayez avec
+	TERM=xterm-1003 ./line-and-column
+	
 	
 	
 ----------------------------------------------------------------------------
 Historique des versions :
+
+v 2.0.0 :
+	- ajout du menu
+	- ajout des sauvegardes
+	- ajout des scores
+	- ajout de la souris (experimental)
 
 v 1.1.0
 	- problème de rafraichissement fixé
 	- les formes ne peuvent plus 'sortir' du plateau
 
 v 1.0.0
-	-version initiale
+	- version initiale

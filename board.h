@@ -2,13 +2,14 @@
 #define BOARD_H_INCLUDED
 
 
-#include "color.h"
-#include "form.h"
+#include "color.h"  // for color definitions
+#include "form.h"   // add / collide
 
-#include <cstddef>
+#include <cstddef>  // size_t
+#include <string>   // i/o
 
 
-/* Tihs class defines the main 1010 board. It mostly is the array of squares
+/* This class defines the main 1010 board. It mostly is the array of squares
  * with all method required to manipulate it */
 class Board
 {
@@ -37,6 +38,10 @@ public:
     const int *operator[](int) const;
     int getwidth() const;
     int getheight() const;
+
+    // I/O
+    std::string write() const;
+    void read(const std::string&);
 
 private:
     int width, height;

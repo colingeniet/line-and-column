@@ -5,18 +5,19 @@
 # clean / nettoyage :
 # 	make clean
 # delete all files created during compilation /
-# supprime tous les fichiers créer à la compilation
+# supprime tous les fichiers créés à la compilation
 ###
 
 
 CC = g++
-CFLAGS = -Wall -pedantic 
+CFLAGS = -Wall -Wextra -pedantic -std=c++11
 LIBFLAGS = -lncurses
 
 PROGRAM = line-and-column
 # add new .cpp files here
-SRCS = main.cpp color.cpp form.cpp board.cpp main_game.cpp \
-       main_window.cpp 
+SRCS = main.cpp color.cpp form.cpp board.cpp main_game.cpp config_load.cpp \
+       main_window.cpp game_window.cpp menu_window.cpp score_window.cpp
+
 
 OBJS = $(SRCS:.cpp=.o)
 

@@ -1,198 +1,170 @@
 #include "main_window.h"
 
-#include <iostream>
-#include <exception>
+#include <ncurses.h>    // doupdate() - some definition
+
+#include <iostream>     // errors
+#include <fstream>      // autosave on exit
+#include <exception>    // terminate
 
 
 
-mainWindow::mainWindow(int width, int height, int form_size) :
-    cursor_x(width/2),
-    cursor_y(height/2),
-    selected_form(0)
+mainWindow::mainWindow() :
+    game(new mainGame),
+    current_window(WINDOW_GAME),
+    game_window(game),
+    menu_window(game),
+    score_window(game)
 {
-    // Windows placement
-    int row, col, required_row, required_col;
-    getmaxyx(stdscr, row, col);
-
-    required_row = height + form_size + 7;
-
-    required_col = 8;
-    if(required_col < width+2) {
-        required_col = width+2;
-    }
-    if(required_col < N_FORMS*form_size + N_FORMS + 1) {
-        required_col = N_FORMS*form_size + N_FORMS + 1;
-    }
-    required_col *= 2;
-
-    if(row < required_row || col < required_col)
-    {
-        endwin();
-        std::cerr << "Terminal is too small : " << col << "x" << row
-                  << " available, " << required_col << "x"
-                  << required_row << " required." << std::endl;
-        std::terminate();
-    }
-
-    // create windows
-    borderWindow = newwin(required_row, required_col, 0, (col-required_col)/2);
-    scoreWindow = newwin(3, required_col-4, 1, (col-required_col+4)/2);
-    boardWindow = newwin(height, width*2, 5, (col - width*2)/2);
-    for(size_t i=0; i<N_FORMS; i++) {
-        formWindow[i] = newwin(form_size, form_size*2, height+6,
-                               col/2 + (2*i - N_FORMS)*(form_size+1) + 1);
-    }
-
-
-    // initialise colors
-    wbkgd(borderWindow, A_REVERSE);
-
-    if(has_colors())
-    {
-        wattron(scoreWindow, A_BOLD | COLOR_PAIR(BLUE_BLACK));
-    }
-    else
-    {
-        wattron(scoreWindow, A_BOLD);
-    }
-
-    board = new mainGame(width, height, form_size);
 }
 
+mainWindow::mainWindow(const mainGame &newgame) :
+    game(new mainGame(newgame)),
+    current_window(WINDOW_GAME),
+    game_window(game),
+    menu_window(game),
+    score_window(game)
+{
+    initialize_game();
+}
 
 mainWindow::~mainWindow()
 {
-    delwin(borderWindow);
-    delwin(boardWindow);
-    for(size_t i=0; i<N_FORMS; i++) {
-        delwin(formWindow[i]);
-    }
-    delete board;
+    if(game) delete game;
 }
 
-
-bool mainWindow::add_form_to_set(const Form &form, int color)
+void mainWindow::setgame(const mainGame &newgame)
 {
-    return board->add_form_to_set(form, color);
+    // all Window subclass share the reference to the same mainGame object
+    // but some require to be warned if it is changed
+    // specifically, gameWindow needs to rebuild WINDOWS if dimention changed
+    *game = newgame;            // here game is changed for all classes
+    game_window.setgame(game);  // tell other classes about it
+    menu_window.setgame(game);
+    score_window.setgame(game);
 }
 
 
 bool mainWindow::input(int ch)
 {
-    switch(ch)
+    // transfer input to the current active window and preform required
+    // action depending on return code
+    switch(current_window)
     {
-        // no bound testing here, done below
-    case KEY_UP:
-        cursor_y--;
+    case WINDOW_GAME:
+        switch(game_window.input(ch))
+        {
+        case gameWindow::RETURN_NONE:
+            break;
+        case gameWindow::RETURN_QUIT:
+            current_window = WINDOW_MENU;
+            break;
+        case gameWindow::RETURN_NO_MOVE:
+            // game over : save score and reinitialize game
+            score_window.add_score(game->getscore());
+            game->restart();
+            current_window = WINDOW_SCORE;
+            break;
+        default:
+            std::cerr << "Unknown return code" << std::endl;
+            std::terminate();
+            break;
+        }
         break;
-    case KEY_DOWN:
-        cursor_y++;
+    case WINDOW_MENU:
+        switch(menu_window.input(ch))
+        {
+        case menuWindow::RETURN_NONE:
+            break;
+        case menuWindow::RETURN_RESUME:
+            current_window = WINDOW_GAME;
+            break;
+        case menuWindow::RETURN_UPDATE_GAME:
+            // this code means that the game board was modified in a way that
+            // require other windows to be warned (cf mainWindow::setgame())
+            setgame(*game);
+            initialize_game();
+            current_window = WINDOW_GAME;
+            break;
+        case menuWindow::RETURN_SCORES:
+            current_window = WINDOW_SCORE;
+            break;
+        case menuWindow::RETURN_QUIT:
+            return false;
+            break;
+        default:
+            std::cerr << "Unknown return code" << std::endl;
+            std::terminate();
+            break;
+        }
         break;
-    case KEY_LEFT:
-        cursor_x--;
-        break;
-    case KEY_RIGHT:
-        cursor_x++;
-        break;
-    case '1':
-        selected_form = 0;
-        break;
-    case '2':
-        selected_form = 1;
-        break;
-    case '3':
-        selected_form = 2;
-        break;
-    case '\n':
-        board->add_form(selected_form, cursor_x, cursor_y);
-        if( !board->move_available() ) return false;
-        break;
-    case 'q':
-        return false;
+    case WINDOW_SCORE:
+        // the only thing to do when in the score window is to quit
+        // so there is no proper input method for it
+        if(ch != KEY_MOUSE) current_window = WINDOW_MENU;
         break;
     default:
+        std::cerr << "Incorrect window code" << std::endl;
+        std::terminate();
         break;
     }
-    // since various command may affect bounds, testing is done here
-    int minx = - board->getform(selected_form).getboxmin().x;
-    int miny = - board->getform(selected_form).getboxmin().y;
-    int maxx = board->getwidth()
-                - board->getform(selected_form).getboxmax().x - 1;
-    int maxy = board->getheight()
-                - board->getform(selected_form).getboxmax().y - 1;
-    if(cursor_x < minx) cursor_x = minx;
-    if(cursor_y < miny) cursor_y = miny;
-    if(cursor_x > maxx) cursor_x = maxx;
-    if(cursor_y > maxy) cursor_y = maxy;
-
     return true;
-}
-
-void mainWindow::random_select_forms()
-{
-    board->random_select_forms();
 }
 
 void mainWindow::print()
 {
-    print_score();
-    print_board();
-    for(size_t i=0; i<N_FORMS; i++) {
-        print_form(i);
+    wclear(stdscr);
+    wnoutrefresh(stdscr);
+    // just call print() for current active window
+    switch(current_window)
+    {
+    case WINDOW_GAME:
+        game_window.print();
+        break;
+    case WINDOW_MENU:
+        menu_window.print();
+        break;
+    case WINDOW_SCORE:
+        score_window.print();
+        break;
+    default:
+        std::cerr << "Incorrect window code" << std::endl;
+        std::terminate();
+        break;
     }
 
-    wnoutrefresh(borderWindow);
-    wnoutrefresh(scoreWindow);
-    wnoutrefresh(boardWindow);
-    for(size_t i=0; i<N_FORMS; i++) {
-        wnoutrefresh(formWindow[i]);
-    }
+    // and refresh screen
     doupdate();
 }
 
-void mainWindow::print_score()
+
+bool mainWindow::save(const char *file, menuWindow::messageLevel verbose) const
 {
-    wclear(scoreWindow);
-    mvwprintw(scoreWindow, 1, 1,
-              "%i", board->getscore());
-    if(board->getcombo() >= 2) {
-        wprintw(scoreWindow, " X%i", board->getcombo());
-    }
+    return menu_window.save(file, verbose);
 }
 
-void mainWindow::print_board()
+bool mainWindow::load(const char *file, menuWindow::messageLevel verbose)
 {
-    wclear(boardWindow);
-    for(int x=0; x<board->getwidth(); x++) {
-        for(int y=0; y<board->getheight(); y++) {
-            int attr = get_attr_color( (*board)[x][y] );
-            wattron(boardWindow, attr);
-            mvwprintw(boardWindow, y, 2*x, "  ");
-            wattroff(boardWindow, attr);
-        }
+    bool success = menu_window.load(file, verbose);
+    if(success) {
+        setgame(*game);
+        initialize_game();
     }
-
-    Form form = board->getform(selected_form);
-    wattron(boardWindow, get_attr_color(board->getform_color(selected_form)));
-    for(size_t i=0; i<form.getsize(); i++) {
-        int x = cursor_x + form[i].x;
-        int y = cursor_y + form[i].y;
-        if(0<=x && x<board->getwidth() && 0<=y && y<board->getheight()) {
-            mvwprintw(boardWindow, y, 2*x, "  ");
-        }
-    }
-    wattroff(boardWindow, get_attr_color(board->getform_color(selected_form)));
+    return success;
 }
 
-void mainWindow::print_form(size_t n)
+bool mainWindow::save_scores(const char *file) const
 {
-    Form form = board->getform(n);
-    wclear(formWindow[n]);
-    wattron(formWindow[n], get_attr_color(board->getform_color(n)));
-    for(size_t i=0; i<form.getsize(); i++) {
-        mvwprintw(formWindow[n],
-                  form[i].y + board->getform_size()/2,
-                  2*form[i].x + (board->getform_size()/2)*2, "  ");
-    }
-    wattroff(formWindow[n], get_attr_color(board->getform_color(n)));
+    return score_window.save(file);
+}
+
+bool mainWindow::load_scores(const char *file)
+{
+    return score_window.load(file);
+}
+
+
+void mainWindow::initialize_game()
+{
+    // a loaded game may not have forms selected
+    game->random_select_forms(false);
 }

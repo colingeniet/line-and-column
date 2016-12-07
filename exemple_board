@@ -1,0 +1,82 @@
+# exemple of game save / starting environment configuration
+# you should copy this file before editing
+
+# general syntax :
+# 	- comments start with '#' and end at the newline
+# 	- all superflous blank (space, tab and newline) are ignored
+# 	- each entry ust be on a separate line
+# 	- key : value entries require blank before and after ':'
+# 	  if value is empty, blank after ':' may be omitted
+
+# this header is required and must be before anything else
+# this 3 parameters must not be redefined
+# it define the board width/height and the maximum size of used forms
+WIDTH : 10 
+HEIGHT : 10
+FORM_SIZE : 5
+
+# everything else is optional
+# order is irelevant (except for header) and entry
+# may be redefined, in which case only the later is used
+
+# define the set of forms used
+# valid colors are RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE
+# use of BLACK is not allowed
+# inside the {} block are squares coordonates pair as x y
+# they must be in the -FORM_SIZE/2, (FORM_SIZE+1)/2 range 
+#
+# each form entry define a new form that will be used
+
+FORM : WHITE
+{
+0 0
+}
+
+FORM : RED
+{
+0 0
+1 0
+0 1
+1 1
+}
+
+
+# following options are used for saves and shall not be used
+# to define the game environment
+
+# set curently selected forms (the choice of forms to place that
+# are displayed at the bottom of the screen)
+#
+# the value field must be a pair of positive numbers
+# the first is the position to put the selected form (its place 
+# at the bottom of the screen)
+# the second is the form to select, refering to its order in the
+# FORM : section
+#
+# WARNING : both numerotation start at 1
+SELECTED_FORM : 1 2
+# here, the 1st form (leftmost) will be the 2x2 square, added second
+
+
+# current board state
+# all squares must be present (so width x height)
+# colors allowed are the same as for FORM, plus BLACK, 
+# which stands for empty
+BOARD :
+{
+BLACK BLACK RED RED RED RED RED BLACK BLACK BLACK
+BLACK BLACK BLACK BLACK BLACK BLACK BLACK BLACK BLACK BLACK
+BLACK BLACK BLUE BLUE BLACK BLACK BLACK BLACK BLACK BLACK
+BLACK BLACK BLACK BLACK BLACK BLACK RED RED BLACK BLACK
+BLACK BLACK YELLOW BLACK BLACK BLACK RED RED BLACK BLACK
+BLACK BLACK YELLOW BLACK BLACK BLACK BLACK BLACK BLACK BLACK
+BLACK BLACK YELLOW BLACK BLACK GREEN GREEN GREEN BLACK BLACK
+BLACK BLACK YELLOW BLACK BLACK BLACK BLACK BLACK BLACK BLACK
+BLACK BLACK BLACK BLACK YELLOW YELLOW YELLOW YELLOW BLACK BLACK
+BLACK BLACK BLACK BLACK BLACK BLACK BLACK BLACK BLACK BLACK
+}
+
+
+# editing that ? little cheater
+SCORE : 9000
+COMBO : 9000

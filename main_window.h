@@ -1,42 +1,64 @@
 #ifndef MAIN_WINDOW_H_INCLUDED
 #define MAIN_WINDOW_H_INCLUDED
 
-#include "main_game.h"
-#include "color.h"
-
-#include <ncurses.h>
-
-#include <cstddef>
+#include "main_game.h"      // used by mainWindow
+#include "game_window.h"    // same
+#include "menu_window.h"    // same
+#include "score_window.h"   // same
 
 
-/* main GUI class, link the GUI with the main game class */
+/* This class handle interaction between all GUI parts
+ * Because copying ncurses windows does not make sense, this class
+ * is not designed to be copied. */
 class mainWindow
 {
 public:
-    /* parameters : width, height (main board), maximum form size */
-    mainWindow(int, int, int);
+    mainWindow();
+    mainWindow(const char *file);
+    mainWindow(const mainGame&);
+
     ~mainWindow();
 
-    void print();
+    // copying makes no sense
+    mainWindow(const mainWindow&) = delete;
+    mainWindow& operator=(const mainWindow&) = delete;
 
+    // change the mainGame used
+    void setgame(const mainGame&);
+
+    // take a getch() input. return false if the game shall quit
     bool input(int);
 
-    bool add_form_to_set(const Form&, int);
+    // print the current active window
+    void print();
 
-    void random_select_forms();
+    // return true if successfull, verbose control message printing
+    bool save(const char *file, menuWindow::messageLevel verbose) const;
+    bool load(const char *file, menuWindow::messageLevel verbose);
+
+    bool save_scores(const char *file = SCORE_FILE) const;
+    bool load_scores(const char *file = SCORE_FILE);
 
 private:
-    WINDOW *borderWindow, *boardWindow, *scoreWindow;
-    WINDOW *formWindow[N_FORMS];
-    mainGame *board;
+    mainGame *game;
 
-    void print_score();
-    void print_board();
-    void print_form(size_t);
+    // indicate which of the Window subclass is active
+    enum Window
+    {
+        WINDOW_GAME,
+        WINDOW_MENU,
+        WINDOW_SCORE,
+        WINDOW_MAX
+    };
+    Window current_window;
 
-    int cursor_x, cursor_y;
-    size_t selected_form;
+    gameWindow game_window;
+    menuWindow menu_window;
+    scoreWindow score_window;
+
+    // perform required action to make the game playable after
+    // modification via setgame()
+    void initialize_game();
 };
-
 
 #endif // MAIN_WINDOW_H_INCLUDED

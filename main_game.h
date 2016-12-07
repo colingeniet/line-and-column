@@ -1,11 +1,13 @@
 #ifndef MAIN_GAME_H_INCLUDED
 #define MAIN_GAME_H_INCLUDED
 
-#include "board.h"
-#include "form.h"
+#include "board.h"      // used by mainGame
+#include "form.h"       // used by mainGame
 
-#include <cstddef>
-#include <vector>
+#include <cstddef>      // size_t
+#include <vector>       // used by mainGame
+#include <string>       // i/o
+#include <iostream>     // stream i/o
 
 
 #define N_FORMS 3
@@ -16,6 +18,7 @@ class mainGame
 {
 public:
     /* parameters : width, height (main board), max form size */
+    mainGame();
     mainGame(int, int, int);
 
     // accessors
@@ -25,6 +28,9 @@ public:
 
     int getscore() const;
     int getcombo() const;
+    int getmax_score() const;
+
+    void setmax_score(int);
 
     Form getform(size_t) const;
     int getform_color(size_t) const;
@@ -43,9 +49,23 @@ public:
     // add a form to the set of forms used
     bool add_form_to_set(const Form&, int);
 
-    // choose 3 differents forms from the forms set
-    void random_select_forms();
+    /* choose 3 forms from the form set if none are currently selected
+     * if force is true, always reselect. If the form set is empty, reset
+     * all 3 forms to unselected */
+    void random_select_forms(bool force=false);
 
+
+    // clean the board and redo random selection (keep the form set)
+    void restart();
+    // reset everything
+    void reset();
+
+
+    std::string write() const;
+    static mainGame read(const std::string&);
+
+    void stream_write(std::ostream&) const;
+    static mainGame stream_read(std::istream&);
 
 private:
     Board board;
@@ -57,7 +77,7 @@ private:
 
     void update_score(int, int);
 
-    int score, combo;
+    int score, combo, max_score;
 };
 
 
