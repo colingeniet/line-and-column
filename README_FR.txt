@@ -29,7 +29,14 @@ contrôles :
 	  forme précédante / suivante
 	- entrée pour comfirmer l'emplacement
 	- q pour quitter
-Le jeu s'arrète des qu'aucun mouvement n'est possible.
+	- Ctrl-X pour quitter les menus de sauvegardes
+	
+sauvegardes :
+	Les fichiers de sauvegarde permettent à la fois de définir
+	l'environnement (ensemble de formes) et de sauvegarder.
+	La syntaxe est décrite dans le fichier exemple_board.
+	Un fichier de sauvegarde peut être passé en paramètre au jeu.
+	Par défaut, default_board est chargé.
 
 support de la souris -EXPERIMENTAL- :
 	Pour pouvoir jouer à la souris, il faut que le terminal transmette
@@ -38,8 +45,15 @@ support de la souris -EXPERIMENTAL- :
 	TERM=xterm-1003 ./line-and-column
 	
 	
+	
 ----------------------------------------------------------------------------
 Historique des versions :
+
+v 2.0.0 :
+	- ajout du menu
+	- ajout des sauvegardes
+	- ajout des scores
+	- ajout de la souris (experimental)
 
 v 1.1.0
 	- problème de rafraichissement fixé
