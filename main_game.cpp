@@ -227,7 +227,6 @@ std::string mainGame::write() const
 
     str += "BOARD :\n{\n" + board.write() + "}\n\n\n";
     str += "SCORE : " + std::to_string(score) + "\n";
-    str += "COMBO : " + std::to_string(combo) + "\n";
 
     return str;
 }
@@ -414,18 +413,6 @@ mainGame mainGame::read(const std::string &str)
             } else if(key == "SCORE") {
                 try {
                     game.score = std::stoi(value, &pos);
-                }
-                catch(std::exception &e) {
-                    syntax_exception excpt("invalid input : " + line, n_line);
-                    throw excpt;
-                }
-                if(!blank_only(value.substr(pos))) {
-                    syntax_exception excpt("invalid input : " + line, n_line);
-                    throw excpt;
-                }
-            } else if(key == "COMBO") {
-                try {
-                    game.combo = std::stoi(value, &pos);
                 }
                 catch(std::exception &e) {
                     syntax_exception excpt("invalid input : " + line, n_line);

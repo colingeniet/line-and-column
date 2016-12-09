@@ -171,7 +171,7 @@ gameWindow::returnValue gameWindow::input(int ch)
         }
         break;
     case 'Z':
-        if(history_pos < history.size()-1) {
+        if(history_pos+1 < history.size()) {
             history_pos++;
             // game in history have same dimensions...
             // -> no need to give notice to other classes
