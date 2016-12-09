@@ -104,9 +104,12 @@ bool mainGame::move_available() const
     {
         if(form[i] != (size_t) -1)
         {
-            for(int x=0; x<board.getwidth(); x++) {
-                for(int y=0; y<board.getheight(); y++) {
-                    if( !board.formCollide(form_set[form[i]], x, y) ) {
+            Form f = form_set[form[i]];
+            for(int x = - f.getboxmin().x;
+                x < board.getwidth() - f.getboxmax().x; x++) {
+                for(int y = - f.getboxmin().y;
+                    y < board.getheight() - f.getboxmax().y; y++) {
+                    if( !board.formCollide(f, x, y) ) {
                         return true;
                     }
                 }
@@ -188,7 +191,7 @@ void mainGame::update_score(int lines, int columns)
 {
     score +=    lines*(lines+1)/2 * board.getwidth() +
                 columns*(columns+1)/2 * board.getheight() +
-                lines*columns * (board.getwidth() + board.getheight());
+                lines*columns * (board.getwidth() + board.getheight())/2;
     combo = lines + columns;
 }
 
