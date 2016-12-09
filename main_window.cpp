@@ -13,8 +13,7 @@ mainWindow::mainWindow() :
     game(new mainGame),
     current_window(WINDOW_GAME),
     game_window(game),
-    menu_window(game),
-    score_window(game)
+    menu_window(game)
 {
 }
 
@@ -22,8 +21,7 @@ mainWindow::mainWindow(const mainGame &newgame) :
     game(new mainGame(newgame)),
     current_window(WINDOW_GAME),
     game_window(game),
-    menu_window(game),
-    score_window(game)
+    menu_window(game)
 {
     initialize_game();
 }
@@ -41,7 +39,6 @@ void mainWindow::setgame(const mainGame &newgame)
     *game = newgame;            // here game is changed for all classes
     game_window.setgame(game);  // tell other classes about it
     menu_window.setgame(game);
-    score_window.setgame(game);
 }
 
 
@@ -61,9 +58,9 @@ bool mainWindow::input(int ch)
             break;
         case gameWindow::RETURN_NO_MOVE:
             // game over : save score and reinitialize game
-            score_window.add_score(game->getscore());
+            menu_window.add_score(game->getscore());
             game->restart();
-            current_window = WINDOW_SCORE;
+            menu_window.print_score();
             break;
         default:
             mlog << "Unknown return code" << std::endl;
@@ -86,9 +83,6 @@ bool mainWindow::input(int ch)
             initialize_game();
             current_window = WINDOW_GAME;
             break;
-        case menuWindow::RETURN_SCORES:
-            current_window = WINDOW_SCORE;
-            break;
         case menuWindow::RETURN_QUIT:
             return false;
             break;
@@ -97,11 +91,6 @@ bool mainWindow::input(int ch)
             std::terminate();
             break;
         }
-        break;
-    case WINDOW_SCORE:
-        // the only thing to do when in the score window is to quit
-        // so there is no proper input method for it
-        if(ch != KEY_MOUSE) current_window = WINDOW_MENU;
         break;
     default:
         mlog << "Incorrect window code" << std::endl;
@@ -123,9 +112,6 @@ void mainWindow::print()
         break;
     case WINDOW_MENU:
         menu_window.print();
-        break;
-    case WINDOW_SCORE:
-        score_window.print();
         break;
     default:
         mlog << "Incorrect window code" << std::endl;
@@ -155,12 +141,12 @@ bool mainWindow::load(const char *file, menuWindow::messageLevel verbose)
 
 bool mainWindow::save_scores(const char *file) const
 {
-    return score_window.save(file);
+    return menu_window.save_score(file);
 }
 
 bool mainWindow::load_scores(const char *file)
 {
-    return score_window.load(file);
+    return menu_window.load_score(file);
 }
 
 

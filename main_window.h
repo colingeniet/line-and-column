@@ -4,7 +4,6 @@
 #include "main_game.h"      // used by mainWindow
 #include "game_window.h"    // same
 #include "menu_window.h"    // same
-#include "score_window.h"   // same
 
 
 /* This class handle interaction between all GUI parts
@@ -47,14 +46,12 @@ private:
     {
         WINDOW_GAME,
         WINDOW_MENU,
-        WINDOW_SCORE,
         WINDOW_MAX
     };
     Window current_window;
 
     gameWindow game_window;
     menuWindow menu_window;
-    scoreWindow score_window;
 
     // perform required action to make the game playable after
     // modification via setgame()
