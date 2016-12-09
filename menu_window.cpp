@@ -270,7 +270,7 @@ bool menuWindow::load(const char *file, menuWindow::messageLevel verbose)
             wait = true;
         }
         mlog << "Unable to open file " << file
-             << " for writing" << std::endl;
+             << " for reading" << std::endl;
     } else {
         mainGame tmp;
         try {

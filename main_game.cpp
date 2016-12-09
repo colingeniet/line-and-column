@@ -146,29 +146,9 @@ void mainGame::random_select_forms(bool force)
         for(size_t i=0; i<N_FORMS; i++) {
             form[i] = (size_t) -1;
         }
-    } else if(form_set.size() < N_FORMS) {
-        // set is too small to have no identic selected forms
+    } else {
         for(size_t i=0; i<N_FORMS; i++) {
             form[i] = rand() % form_set.size();
-        }
-    } else {
-        // set is big enough : never select the same form twice
-
-        /* algorithm : form_sorted contain the same values as form, sorted.
-         * each form slot is selected smaller than  max - i, which is exactly
-         * the number of value it can take (as 'i' are already taken).
-         * the inner loop transform  n -> the nth not taken value  while
-         * inserting it. */
-        size_t form_sorted[N_FORMS];
-        for(size_t i=0; i<N_FORMS; i++) {
-            form[i] = rand() % (form_set.size() - i);
-            size_t j=i;
-            while(j>0 && form[i] >= form_sorted[j-1]) {
-                form_sorted[j] = form_sorted[j-1];
-                form[i]++;
-                j--;
-            }
-            form_sorted[j] = form[i];
         }
     }
 }
