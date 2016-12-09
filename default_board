@@ -7,12 +7,12 @@ HEIGHT : 10
 FORM_SIZE : 5
 
 
-FORM : WHITE
+FORM : WHITE 2
 {
 0 0
 }
 
-FORM : RED
+FORM : RED 6
 {
 0 0
 1 0
@@ -20,7 +20,7 @@ FORM : RED
 1 1
 }
 
-FORM : CYAN
+FORM : CYAN 2
 {
 -1 -1
 -1 0
@@ -33,33 +33,33 @@ FORM : CYAN
 1 1
 }
 
-FORM : BLUE
+FORM : BLUE 3
 {
 0 0
 0 -1
 }
 
-FORM : BLUE
+FORM : BLUE 3
 {
 0 0
 -1 0
 }
 
-FORM : GREEN
+FORM : GREEN 3
 {
 0 -1
 0 0
 0 1
 }
 
-FORM : GREEN
+FORM : GREEN 3
 {
 -1 0
 0 0
 1 0
 }
 
-FORM : YELLOW
+FORM : YELLOW 2
 {
 0 -2
 0 -1
@@ -67,7 +67,7 @@ FORM : YELLOW
 0 1
 }
 
-FORM : YELLOW
+FORM : YELLOW 2
 {
 -2 0
 -1 0
@@ -75,7 +75,7 @@ FORM : YELLOW
 1 0
 }
 
-FORM : RED
+FORM : RED 2
 {
 0 -2
 0 -1
@@ -84,7 +84,7 @@ FORM : RED
 0 2
 }
 
-FORM : RED
+FORM : RED 2
 {
 -2 0
 -1 0
@@ -93,28 +93,28 @@ FORM : RED
 2 0
 }
 
-FORM : MAGENTA
+FORM : MAGENTA 2
 {
 0 0
 -1 0
 0 1
 }
 
-FORM : MAGENTA
+FORM : MAGENTA 2
 {
 0 0
 1 0
 0 -1
 }
 
-FORM : GREEN
+FORM : GREEN 2
 {
 0 0
 1 0
 0 1
 }
 
-FORM : GREEN
+FORM : GREEN 2
 {
 0 0
 -1 0
@@ -123,7 +123,7 @@ FORM : GREEN
 
 
 
-FORM : BLUE
+FORM : BLUE 1
 {
 -1 -1
 -1 0
@@ -132,7 +132,7 @@ FORM : BLUE
 1 1
 }
 
-FORM : BLUE
+FORM : BLUE 1
 {
 -1 -1
 0 -1
@@ -141,7 +141,7 @@ FORM : BLUE
 1 1
 }
 
-FORM : YELLOW
+FORM : YELLOW 1
 {
 -1 1
 -1 0
@@ -150,7 +150,7 @@ FORM : YELLOW
 1 -1
 }
 
-FORM : YELLOW
+FORM : YELLOW 1
 {
 -1 1
 0 1

@@ -10,6 +10,7 @@
 mainGame::mainGame() :
     board(0, 0),
     form_size(0),
+    total_weight(0),
     score(0),
     combo(0),
     max_score(0)
@@ -20,6 +21,7 @@ mainGame::mainGame() :
 mainGame::mainGame(int _width, int _height, int _form_size) :
     board(_width, _height),
     form_size(_form_size),
+    total_weight(0),
     score(0),
     combo(0),
     max_score(0)
@@ -114,7 +116,7 @@ bool mainGame::move_available() const
     return false;
 }
 
-bool mainGame::add_form_to_set(const Form &form, int color)
+bool mainGame::add_form_to_set(const Form &form, int color, unsigned int weight)
 {
     // (x+1)/2 and (x/2) always sum up to x (unlike (x/2)*2)
     if(form.getboxmax().x > (form_size+1)/2 ||
@@ -125,7 +127,9 @@ bool mainGame::add_form_to_set(const Form &form, int color)
     }
 
     form_set.push_back(form);
+    form_weight.push_back(weight);
     form_color.push_back(color);
+    total_weight += weight;
     return true;
 }
 
@@ -148,7 +152,16 @@ void mainGame::random_select_forms(bool force)
         }
     } else {
         for(size_t i=0; i<N_FORMS; i++) {
-            form[i] = rand() % form_set.size();
+            /* the form array is parsed and each weight are substracted to n
+             * the parsing stops when n<0, that weight, the probability to stop
+             * on a particular form is proportional to its weight */
+            int n = rand() % total_weight;
+            size_t j = 0;
+            while(n >= 0) {
+                n -= form_weight[j];
+                j++;
+            }
+            form[i] = j-1;
         }
     }
 }
@@ -164,7 +177,9 @@ void mainGame::reset()
 {
     board = Board(board.getwidth(), board.getheight());
     form_set.clear();
+    form_weight.clear();
     form_color.clear();
+    total_weight = 0;
     random_select_forms(true);
     score = 0; combo = 0;
 }
@@ -305,9 +320,11 @@ mainGame mainGame::read(const std::string &str)
             }
 
             if(key == "FORM") {
+                // extract color
                 int color;
+                int weight=1;
                 try {
-                    color = word_to_color(value);
+                    color = word_to_color(getword(value));
                 }
                 catch(std::exception &e) {
                     syntax_exception excpt(e.what(), n_line);
@@ -317,6 +334,25 @@ mainGame mainGame::read(const std::string &str)
                     syntax_exception excpt("forms can not be defined with color black", n_line);
                     throw excpt;
                 }
+                // extract weight (optional)
+                if(!blank_only(value)) {
+                    try {
+                        weight = std::stoi(value, &pos);
+                    }
+                    catch(std::exception&) {
+                        syntax_exception excpt("invalid input : " + line, n_line);
+                        throw excpt;
+                    }
+                    if(!blank_only(value.substr(pos))) {
+                        syntax_exception excpt("invalid input : " + line, n_line);
+                        throw excpt;
+                    }
+                    if(weight < 0) {
+                        syntax_exception excpt("negative weight : " + line, n_line);
+                        throw excpt;
+                    }
+                }
+                // parse the block with form definition
                 Form new_form;
                 try {
                     new_form.read(getblock(str_copy, &block_line));
@@ -325,7 +361,7 @@ mainGame mainGame::read(const std::string &str)
                     syntax_exception excpt(e.what(), n_line);
                     throw excpt;
                 }
-                game.add_form_to_set(new_form, color);
+                game.add_form_to_set(new_form, color, weight);
                 n_line += block_line;
             } else if(key == "BOARD") {
                 try {
@@ -337,11 +373,11 @@ mainGame mainGame::read(const std::string &str)
                 }
                 n_line += block_line;
             } else if(key == "SELECTED_FORM") {
-                size_t index, form_index;
+                int index, form_index;
 
                 std::string word = getword(value);
                 try {
-                    index = std::stoul(word, &pos) - 1;
+                    index = std::stoi(word, &pos) - 1;
                 }
                 catch(std::exception &e) {
                     syntax_exception excpt("invalid input : " + line, n_line);
@@ -351,8 +387,12 @@ mainGame mainGame::read(const std::string &str)
                     syntax_exception excpt("invalid input : " + line, n_line);
                     throw excpt;
                 }
+                if(index < 0) {
+                    syntax_exception excpt("negative index : " + line, n_line);
+                    throw excpt;
+                }
                 try {
-                    form_index = std::stoul(value, &pos)-1;
+                    form_index = std::stoi(value, &pos)-1;
                 }
                 catch(std::exception &e) {
                     syntax_exception excpt("invalid input : " + line, n_line);
@@ -360,6 +400,10 @@ mainGame mainGame::read(const std::string &str)
                 }
                 if(!blank_only(value.substr(pos))) {
                     syntax_exception excpt("invalid input : " + line, n_line);
+                    throw excpt;
+                }
+                if(form_index < 0) {
+                    syntax_exception excpt("negative index : " + line, n_line);
                     throw excpt;
                 }
 

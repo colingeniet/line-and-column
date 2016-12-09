@@ -22,12 +22,17 @@ FORM_SIZE : 5
 # define the set of forms used
 # valid colors are RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE
 # use of BLACK is not allowed
+#
+# the number after the color is a weight used for random selection.
+# probability of selecting this form is proportional to this weight.
+# it is optional and default to 1. Obviouly, it must be positive
+#
 # inside the {} block are squares coordonates pair as x y
 # they must be in the -FORM_SIZE/2, (FORM_SIZE+1)/2 range 
 #
 # each form entry define a new form that will be used
 
-FORM : WHITE
+FORM : WHITE 2	# this one will be selected twice as often
 {
 0 0
 }
