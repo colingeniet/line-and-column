@@ -28,7 +28,7 @@ public:
     gameWindow(mainGame*);
     ~gameWindow();
 
-    // copying makes no sense
+    // copying makes no sense : ncurses windows can not be copied
     gameWindow(const gameWindow&) = delete;
     gameWindow& operator=(const gameWindow&) = delete;
 

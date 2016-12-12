@@ -98,7 +98,7 @@ bool Board::formCollide(const Form &form, int x, int y) const
 
 void Board::clean(int &n_line, int &n_column)
 {
-    // first mark full lines / columns
+    // first mark full lines / rows
     bool *lines = new bool[height];
     bool *columns = new bool[width];
 
@@ -130,8 +130,8 @@ void Board::clean(int &n_line, int &n_column)
         }
     }
 
-    // the clean. we can't do both at once obviously as it would delete
-    // squares before tests
+    // cleaning must be done after testing all lines/rows to avoid
+    // deleting some squares before tests
     for(int y=0; y<height; y++) {
         if(lines[y]) {
             for(int x=0; x<width; x++) {

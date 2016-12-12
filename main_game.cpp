@@ -226,16 +226,21 @@ std::string mainGame::write() const
     return str;
 }
 
+
+/* HERE BE DRAGONS */
+
 mainGame mainGame::read(const std::string &str)
 {
-    std::string str_copy = str;
+    std::string str_copy = str;     // work on a copy
     std::string line, key, value;
     mainGame game;
+
     // false until width and height are provided to initialize game
     bool initialized = false;
+
     int new_width=-1, new_height=-1;
-    size_t n_line = 0, block_line = 0;
-    size_t pos;         // used for stoi()
+    size_t n_line = 0, block_line = 0;  // line counter for errors
+    size_t pos;                         // used for stoi()
 
     while(str_copy.size() > 0)
     {
@@ -416,6 +421,9 @@ mainGame mainGame::read(const std::string &str)
 
     return game;
 }
+
+/* END OF DRAGONS */
+
 
 void mainGame::stream_write(std::ostream &os) const
 {

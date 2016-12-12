@@ -18,7 +18,7 @@ public:
 
     ~mainWindow();
 
-    // copying makes no sense
+    // copying makes no sense : ncurses windows can not be copied
     mainWindow(const mainWindow&) = delete;
     mainWindow& operator=(const mainWindow&) = delete;
 

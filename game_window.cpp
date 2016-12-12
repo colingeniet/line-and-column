@@ -157,6 +157,7 @@ gameWindow::returnValue gameWindow::input(int ch)
         // add current state
         history.push_back(*game);
         history_pos++;
+
         game->add_form(selected_form, cursor_x, cursor_y);
         break;
     case 'z':
@@ -165,16 +166,16 @@ gameWindow::returnValue gameWindow::input(int ch)
                 history.push_back(*game);
             }
             history_pos--;
-            // game in history have same dimensions...
-            // -> no need to give notice to other classes
+            // game in history have same dimensions
+            // -> no need to warn to other classes
             *game = history[history_pos];
         }
         break;
     case 'Z':
         if(history_pos+1 < history.size()) {
             history_pos++;
-            // game in history have same dimensions...
-            // -> no need to give notice to other classes
+            // game in history have same dimensions
+            // -> no need to warn to other classes
             *game = history[history_pos];
         }
         break;
@@ -200,15 +201,28 @@ gameWindow::returnValue gameWindow::input(int ch)
                     // add current state
                     history.push_back(*game);
                     history_pos++;
+
                     game->add_form(selected_form, cursor_x, cursor_y);
                 }
             }
             else
             {
-                for(size_t i=0; i<N_FORMS; i++) {
-                    if(wenclose(formWindow[i], event.y, event.x) &&
-                       (event.bstate & BUTTON1_PRESSED) ) {
-                        selected_form = i;
+                // test for form selection
+                int startx, starty;
+                getbegyx(formWindow[0], starty, startx);
+                int x = event.x - startx;
+
+                // mouse is inside bottom area
+                if(starty <= event.y &&
+                   event.y < starty + game->getform_size() &&
+                   x >= 0 && x < N_FORMS * (game->getform_size()+1)*2)
+                {
+                    int n = x/((game->getform_size()+1)*2);
+
+                    // check that the mouse is not in the band between windows
+                    x %= (game->getform_size()+1)*2;
+                    if(x < game->getform_size()*2) {
+                        if(event.bstate & BUTTON1_PRESSED) selected_form = n;
                     }
                 }
             }
@@ -304,9 +318,7 @@ void gameWindow::print_board()
     for(size_t i=0; i<form.getsize(); i++) {
         int x = cursor_x + form[i].x;
         int y = cursor_y + form[i].y;
-        if(0<=x && x<game->getwidth() && 0<=y && y<game->getheight()) {
-            mvwprintw(boardWindow, y, 2*x, "  ");
-        }
+        mvwprintw(boardWindow, y, 2*x, "  ");
     }
     wattroff(boardWindow, get_attr_color(game->getform_color(selected_form)));
 }
@@ -319,7 +331,7 @@ void gameWindow::print_form(size_t n)
     for(size_t i=0; i<form.getsize(); i++) {
         mvwprintw(formWindow[n],
                   form[i].y + game->getform_size()/2,
-                  2*form[i].x + (game->getform_size()/2)*2, "  ");
+                  2*(form[i].x + game->getform_size()/2), "  ");
     }
     wattroff(formWindow[n], get_attr_color(game->getform_color(n)));
 }

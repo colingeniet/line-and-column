@@ -34,10 +34,10 @@ mainWindow::~mainWindow()
 void mainWindow::setgame(const mainGame &newgame)
 {
     // all Window subclass share the reference to the same mainGame object
-    // but some require to be warned if it is changed
-    // specifically, gameWindow needs to rebuild WINDOWS if dimention changed
+    // but some require to be warned of changes
+    // specifically, gameWindow needs to rebuild WINDOWS if dimentions changed
     *game = newgame;            // here game is changed for all classes
-    game_window.setgame(game);  // tell other classes about it
+    game_window.setgame(game);  // but we still tell other classes about it
     menu_window.setgame(game);
 }
 
@@ -152,6 +152,6 @@ bool mainWindow::load_scores(const char *file)
 
 void mainWindow::initialize_game()
 {
-    // a loaded game may not have forms selected
+    // a loaded game may not have no forms selected
     game->random_select_forms(false);
 }

@@ -34,7 +34,7 @@ public:
     menuWindow(mainGame*);
     ~menuWindow();
 
-    // copying makes no sense
+    // copying makes no sense : ncurses windows can not be copied
     menuWindow(const menuWindow&) = delete;
     menuWindow& operator=(const menuWindow&) = delete;
 
