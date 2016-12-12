@@ -9,11 +9,9 @@
 # 	  if value is empty, blank after ':' may be omitted
 
 # this header is required and must be before anything else
-# this 3 parameters must not be redefined
-# it define the board width/height and the maximum size of used forms
+# it define the board width/height
 WIDTH : 10 
 HEIGHT : 10
-FORM_SIZE : 5
 
 # everything else is optional
 # order is irelevant (except for header) and entry

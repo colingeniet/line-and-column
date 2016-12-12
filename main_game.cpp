@@ -18,9 +18,9 @@ mainGame::mainGame() :
     for(size_t i=0; i<N_FORMS; i++) form[i] = (size_t)-1;
 }
 
-mainGame::mainGame(int _width, int _height, int _form_size) :
+mainGame::mainGame(int _width, int _height) :
     board(_width, _height),
-    form_size(_form_size),
+    form_size(0),
     total_weight(0),
     score(0),
     combo(0),
@@ -119,21 +119,17 @@ bool mainGame::move_available() const
     return false;
 }
 
-bool mainGame::add_form_to_set(const Form &form, int color, unsigned int weight)
+void mainGame::add_form_to_set(const Form &form, int color, unsigned int weight)
 {
-    // (x+1)/2 and (x/2) always sum up to x (unlike (x/2)*2)
-    if(form.getboxmax().x > (form_size+1)/2 ||
-       form.getboxmax().y > (form_size+1)/2 ||
-       form.getboxmin().x < -(form_size/2) ||
-       form.getboxmin().y < -(form_size/2) ) {
-        return false;
-    }
+    if(form.getboxmax().x*2 +1 > form_size) form_size = form.getboxmax().x*2 +1;
+    if(form.getboxmax().y*2 +1 > form_size) form_size = form.getboxmax().y*2 +1;
+    if(-form.getboxmin().x*2 +1 > form_size) form_size = -form.getboxmin().x*2 +1;
+    if(-form.getboxmin().y*2 +1 > form_size) form_size = -form.getboxmin().y*2 +1;
 
     form_set.push_back(form);
     form_weight.push_back(weight);
     form_color.push_back(color);
     total_weight += weight;
-    return true;
 }
 
 
@@ -203,7 +199,6 @@ std::string mainGame::write() const
     // header
     str += "WIDTH : " + std::to_string(board.getwidth()) + "\n";
     str += "HEIGHT : " + std::to_string(board.getheight()) + "\n";
-    str += "FORM_SIZE : " + std::to_string(form_size) + "\n";
     str += "\n\n";
 
     // form set
@@ -236,10 +231,9 @@ mainGame mainGame::read(const std::string &str)
     std::string str_copy = str;
     std::string line, key, value;
     mainGame game;
-    // false until width, height and form_size are provided to initialize game
+    // false until width and height are provided to initialize game
     bool initialized = false;
-    int new_width=-1, new_height=-1, new_form_size=-1;
-
+    int new_width=-1, new_height=-1;
     size_t n_line = 0, block_line = 0;
     size_t pos;         // used for stoi()
 
@@ -294,30 +288,10 @@ mainGame mainGame::read(const std::string &str)
                 syntax_exception excpt("invalid input : " + line, n_line);
                 throw excpt;
             }
-        } else if(key == "FORM_SIZE") {
-            if(new_form_size != -1) {
-                syntax_exception excpt("illegal redefinition of form size", n_line);
-                throw excpt;
-            }
-            try {
-                new_form_size = std::stoi(value, &pos);
-            }
-            catch(std::exception&) {
-                syntax_exception excpt("invalid input : " + line, n_line);
-                throw excpt;
-            }
-            if(new_form_size < 0) {
-                syntax_exception excpt("negative form_size value", n_line);
-                throw excpt;
-            }
-            if(!blank_only(value.substr(pos))) {
-                syntax_exception excpt("invalid input : " + line, n_line);
-                throw excpt;
-            }
         } else {
             // any other entry is illegal if game is not initialized
             if(!initialized) {
-                syntax_exception excpt("width, height and form size must be defined before any other input", n_line);
+                syntax_exception excpt("width and height must be defined before any other input", n_line);
                 throw excpt;
             }
 
@@ -429,15 +403,14 @@ mainGame mainGame::read(const std::string &str)
         }
 
         // create game if required info is given
-        if(!initialized && new_width >= 0 &&
-           new_height >= 0 && new_form_size >= 0) {
-            game = mainGame(new_width, new_height, new_form_size);
+        if(!initialized && new_width >= 0 && new_height >= 0) {
+            game = mainGame(new_width, new_height);
             initialized = true;
         }
     }
 
     if(!initialized) {
-        syntax_exception excpt("width, height and form size must be defined");
+        syntax_exception excpt("width and height must be defined");
         throw excpt;
     }
 
