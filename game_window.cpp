@@ -17,7 +17,7 @@ gameWindow::gameWindow(mainGame *newgame) :
     cursor_x(game->getwidth()/2),
     cursor_y(game->getheight()/2),
     selected_form(0),
-    history_pos(0)
+    history_pos(history.end())
 {
     init_windows();
 }
@@ -47,7 +47,7 @@ void gameWindow::setgame(mainGame *newgame)
     cursor_y = game->getheight()/2;
     selected_form = 0;
     history.clear();
-    history_pos = 0;
+    history_pos = history.end();
 
     init_windows();
 }
@@ -151,32 +151,33 @@ gameWindow::returnValue gameWindow::input(int ch)
     case '\r':
     case KEY_ENTER:
         // only keep history strictly before current position
-        if(history_pos < history.size()) {
-            history.resize(history_pos);
-        }
+        history.erase(history_pos, history.end());
         // add current state
         history.push_back(*game);
-        history_pos++;
+        history_pos = history.end();
 
         game->add_form(selected_form, cursor_x, cursor_y);
         break;
     case 'z':
-        if(history_pos > 0) {
-            if(history_pos == history.size()) {
+        // going back in history :
+        // check not at the begining
+        if(history_pos != history.begin()) {
+            // if at the end, current state must be saved
+            if(history_pos == history.end()) {
                 history.push_back(*game);
             }
-            history_pos--;
             // game in history have same dimensions
-            // -> no need to warn to other classes
-            *game = history[history_pos];
+            // -> no need to warn to other classes from change
+            *game = *--history_pos;
         }
         break;
     case 'Z':
-        if(history_pos+1 < history.size()) {
-            history_pos++;
+        // going forward in history
+        if(history_pos != history.end() &&
+           history_pos != --history.end() ) {
             // game in history have same dimensions
-            // -> no need to warn to other classes
-            *game = history[history_pos];
+            // -> no need to warn to other classes from change
+            *game = *++history_pos;
         }
         break;
     case KEY_MOUSE:
@@ -195,12 +196,10 @@ gameWindow::returnValue gameWindow::input(int ch)
                 if(event.bstate & BUTTON1_PRESSED)
                 {
                     // only keep history strictly before current position
-                    if(history_pos < history.size()) {
-                        history.resize(history_pos);
-                    }
+                    history.erase(history_pos, history.end());
                     // add current state
                     history.push_back(*game);
-                    history_pos++;
+                    history_pos = history.end();
 
                     game->add_form(selected_form, cursor_x, cursor_y);
                 }

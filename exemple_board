@@ -4,18 +4,18 @@
 # general syntax :
 # 	- comments start with '#' and end at the newline
 # 	- all superflous blank (space, tab and newline) are ignored
-# 	- each entry ust be on a separate line
-# 	- key : value entries require blank before and after ':'
+# 	- each entry must be on a separate line
+# 	- key : value 	entries require blank before and after ':'
 # 	  if value is empty, blank after ':' may be omitted
 
 # this header is required and must be before anything else
-# it define the board width/height
+# it defines the board width/height
 WIDTH : 10 
 HEIGHT : 10
 
 # everything else is optional
-# order is irelevant (except for header) and entry
-# may be redefined, in which case only the later is used
+# order is mostly irrelevant (except for header) and entries
+# may be redefined, in which case only the last is used
 
 # define the set of forms used
 # valid colors are RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE
@@ -26,21 +26,31 @@ HEIGHT : 10
 # it is optional and default to 1. Obviouly, it must be positive
 #
 # inside the {} block are squares coordonates pair as x y
-# they must be in the -FORM_SIZE/2, (FORM_SIZE+1)/2 range 
+# x is toward the right and y toward the bottom
 #
 # each form entry define a new form that will be used
 
+# small white square
 FORM : WHITE 2	# this one will be selected twice as often
 {
 0 0
 }
 
+# bigger red square
 FORM : RED
 {
 0 0
 1 0
 0 1
 1 1
+}
+
+# blue horizontal line
+FORM : BLUE
+{
+-1 0
+0 0
+1 0
 }
 
 

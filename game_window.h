@@ -7,7 +7,7 @@
 #include <ncurses.h>    // used by gameWindow
 
 #include <cstddef>      // size_t
-#include <vector>       // for move history
+#include <list>         // for move history
 
 
 /* main game display
@@ -47,8 +47,8 @@ private:
     int cursor_x, cursor_y;
     size_t selected_form;
 
-    std::vector<mainGame> history;
-    size_t history_pos;
+    std::list<mainGame> history;
+    std::list<mainGame>::iterator history_pos;
 
     // create all WINDOW objects (size calculation)
     void init_windows();

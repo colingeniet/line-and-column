@@ -3,6 +3,7 @@
 
 globalLog mlog;
 
+
 globalLog::globalLog(const char *file) {
     if(file) log_file.open(file);
 }

@@ -39,11 +39,15 @@ void ncurses_init()
     keypad(stdscr, true);       // recieve functions key input
     noecho();                   // no input echo
     curs_set(0);                // cursor invisible
+
     // enable mouse
     mousemask(BUTTON1_PRESSED | REPORT_MOUSE_POSITION, NULL);
     mouseinterval(0);           // disable click resolution to avoid input delay
+
     // refresh is required after initialization or windows won't display
     refresh();
+
+    // use colors if available (compatibility, all that stuff ...)
     if(has_colors())
     {
         start_color();

@@ -12,7 +12,7 @@
 #define DEFAULT_BOARD "default_board"
 #define AUTOSAVE_FILE "autosave"
 
-#define SCORE_NUMBER 5
+#define SCORE_NUMBER 10
 #define SCORE_FILE ".highscores"
 
 
