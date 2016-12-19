@@ -165,6 +165,10 @@ gameWindow::returnValue gameWindow::input(int ch)
             // if at the end, current state must be saved
             if(history_pos == history.end()) {
                 history.push_back(*game);
+                // and set history_pos to the current state :
+                // without this, history_pos was history.end(), and would still
+                // be after push_back() due to the way lists works
+                --history_pos;
             }
             // game in history have same dimensions
             // -> no need to warn to other classes from change
