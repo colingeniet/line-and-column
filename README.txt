@@ -2,7 +2,7 @@ LINE AND COLUMN
 A 1010 clone on Unix terminal
 by Colin Geniet, Youcef Cherfaoui, Victor Hueca and Alexandre Ribeyre
 
-version 2.0.0
+version 2.1.0
 
 -------------------------------------------------------------------------------
 Usage :
@@ -27,6 +27,7 @@ controls :
 	- previous / next page to select previous / next form
 	- enter to confirm location
 	- q to quit
+	- Z / shift-Z to undo / redo
 	- use Ctrl-X to quit save/load menu
 
 save system :
@@ -44,7 +45,14 @@ mouse support -EXPERIMENTAL- :
 
 
 -------------------------------------------------------------------------------
-version history :
+versions history :
+
+v 2.1.0 :
+	- added history
+	- tuned game engine to match precisely the original game rules
+	- added a weight in random selection
+	- removed useless entries in save files
+	- added log file
 
 v 2.0.0 :
 	- added menu
