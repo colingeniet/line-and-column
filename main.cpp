@@ -54,36 +54,63 @@ void ncurses_init()
         init_color_pairs();
     }
 
-    // initialize log error stream
-    mlog.setfile(GLOBAL_LOG_FILE);
-
     std::set_terminate(ncurses_terminate);
 }
 
 int main(int argc, char** argv)
 {
-    if(argc > 2) {
-        std::cerr << "Only one file may be passed as parameter" << std::endl;
-        exit(EXIT_FAILURE);
+    // initialize log error stream
+    mlog.setfile(GLOBAL_LOG_FILE);
+
+
+    // initial file to load
+    char *init_save_file = nullptr;
+
+    // command line parameter parsing
+    for(int i=1; i<argc; i++) {
+        if(argv[i][0] == '-') {             // options
+            if(argv[i][1] == '-') {         // long options
+                mlog << "Unknown option : " << argv[i] << std::endl;
+                exit(EXIT_FAILURE);
+            } else {                        // short options
+                mlog << "Unknown option : " << argv[i] << std::endl;
+                exit(EXIT_FAILURE);
+            }
+        } else {                            // other parameters
+            if(init_save_file) {
+                // init_save_file was already set
+                mlog << "Only one save file may be passed as parameter :\n"
+                     << '\'' << argv[i] << "\' and \'"
+                     << init_save_file << "\' are in conflict" << std::endl;
+                exit(EXIT_FAILURE);
+            } else {
+                init_save_file = argv[i];
+            }
+        }
     }
 
+    // initialisation
     ncurses_init();
     srand(time(NULL));
 
+
+    // create main object, load initial state
     mainWindow win;
-    if(argc == 2) {
-        if(!win.load(argv[1], menuWindow::MESSAGE_ERROR)) {
-            mlog << "configuration file  " << argv[1]
+    if(init_save_file) {
+        if(!win.load(init_save_file, menuWindow::MESSAGE_ERROR)) {
+            mlog << "configuration file  " << init_save_file
                  << " is invalid" << std::endl;
             std::terminate();
         }
     } else {
+        // no file was given as parameter, load default one
         if(!win.load(DEFAULT_BOARD, menuWindow::MESSAGE_ERROR)) {
             mlog << "Default configuration file is invalid" << std::endl;
             std::terminate();
         }
     }
     win.load_scores();
+
 
     bool quit = false;
     // main loop
@@ -99,9 +126,11 @@ int main(int argc, char** argv)
         }
     }
 
+    // autosave
     win.save(AUTOSAVE_FILE, menuWindow::MESSAGE_NONE);
     win.save_scores();
 
+    // exit
     ncurses_quit();
 
     return 0;

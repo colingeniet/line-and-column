@@ -1,6 +1,7 @@
 #include "menu_window.h"
 
 #include "global_log.h"     // errors
+#include "config_load.h"    // syntax_exception
 
 #include <fstream>          // save / load
 #include <exception>        // terminate / std::exception
@@ -150,7 +151,7 @@ menuWindow::returnValue menuWindow::excecute_entry(int entry)
         break;
     case ENTRY_RESTART:
         game->restart();
-        return RETURN_RESUME;
+        return RETURN_UPDATE_GAME;
         break;
     case ENTRY_SAVE:
         save( prompt("Save as :").c_str(), MESSAGE_ALL);
@@ -370,7 +371,7 @@ bool menuWindow::load(const char *file, menuWindow::messageLevel verbose)
                 wait = true;
             }
         }
-        catch(std::exception &excpt) {
+        catch(syntax_exception &excpt) {
             if(verbose) {
                 std::string error(excpt.what());
                 mvwprintw(window, maxy/2, (maxx-error.size())/2,
@@ -425,6 +426,7 @@ bool menuWindow::load_score(const char *file)
 {
     // load scores from file
     std::ifstream input(file);
+
     if(!input.is_open()) {
         mlog << "Unable to open file " << file
              << " for reading" << std::endl;
@@ -441,12 +443,28 @@ bool menuWindow::load_score(const char *file)
 
         for(size_t i=0; i<SCORE_NUMBER && !blank_only(input_str); i++) {
             std::string name, score_str;
+            size_t pos;
             int score;
+
             line = getline(input_str);
             clean_config_input(line);
-            get_key_value(line, name, score_str);
 
-            score = std::stoi(score_str);
+            if(!get_key_value(line, name, score_str)) {
+                mlog << "Invalid line in highscore file : " << line << std::endl;
+                return false;
+            }
+
+            try {
+                score = std::stoi(score_str, &pos);
+            }
+            catch(std::exception &e) {
+                mlog << "Invalid line in highscore file : " << line << std::endl;
+                return false;
+            }
+            if(!blank_only(score_str.substr(pos))) {
+                mlog << "Invalid line in highscore file : " << line << std::endl;
+                return false;
+            }
 
             // insert in proper position
             if(score > scores[SCORE_NUMBER-1]) {

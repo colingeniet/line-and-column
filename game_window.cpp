@@ -46,6 +46,8 @@ void gameWindow::setgame(mainGame *newgame)
     cursor_x = game->getwidth()/2;
     cursor_y = game->getheight()/2;
     selected_form = 0;
+
+    // modification which requires call to setgame() make the history invalid
     history.clear();
     history_pos = history.end();
 
