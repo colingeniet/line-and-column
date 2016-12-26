@@ -15,6 +15,14 @@
 class mainWindow
 {
 public:
+    // indicate which of the Window
+    enum Window
+    {
+        WINDOW_GAME,
+        WINDOW_MENU,
+        WINDOW_MAX
+    };
+
     mainWindow();
     mainWindow(const char *file);
     mainWindow(const mainGame&);
@@ -39,10 +47,19 @@ public:
     // print the current active window
     void print();
 
+    // change active window
+    void setwindow(Window);
+
+
+    // if the score is a highscore, prompt a name, add it and return true
+    // else return false
+    bool add_score(int);
+
+    void print_score();
+
     // return true if successfull, verbose control message printing
-    // int is used instead of menuWindow::messageLevel due to cross declarations
-    bool save(const char *file, int verbose) const;
-    bool load(const char *file, int verbose);
+    bool save(const char *file, menuWindow::messageLevel verbose) const;
+    bool load(const char *file, menuWindow::messageLevel verbose);
 
     bool save_scores(const char *file = SCORE_FILE) const;
     bool load_scores(const char *file = SCORE_FILE);
@@ -53,13 +70,6 @@ public:
 private:
     mainGame *game;
 
-    // indicate which of the Window subclass is active
-    enum Window
-    {
-        WINDOW_GAME,
-        WINDOW_MENU,
-        WINDOW_MAX
-    };
     Window current_window;
 
     gameWindow *game_window;

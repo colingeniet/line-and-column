@@ -22,7 +22,7 @@
 #include <cstddef>          // size_t
 
 
-#define SCORE_NUMBER 10
+#define SCORE_NUMBER 5
 
 
 /* Because copying ncurses windows does not make sense, this class
@@ -30,15 +30,6 @@
 class menuWindow
 {
 public:
-    // input() return status to be interpreted by mainWindow::input()
-    enum returnValue
-    {
-        RETURN_NONE,
-        RETURN_RESUME,
-        RETURN_QUIT,
-        RETURN_MAX
-    };
-
     enum messageLevel
     {
         MESSAGE_NONE,
@@ -57,11 +48,12 @@ public:
     void print();
     void print_score();
 
-    returnValue input(int);
+    bool input(int);
 
 
-    // add new score with name prompt (only if it is better than current scores)
-    void add_score(int);
+    // if the score is a highscore, prompt a name, add it and return true
+    // else return false
+    bool add_score(int);
 
     // return true if successfull, verbose control message printing
     // suppressed error message are printed to stderr instead
@@ -96,7 +88,7 @@ private:
     int scores[SCORE_NUMBER];
 
     // perform actions corresponding to an entry and return the appropriate code
-    returnValue excecute_entry(int);
+    bool excecute_entry(int);
 
     // nice prompt window with custom prompt message.
     std::string prompt(const std::string&) const;

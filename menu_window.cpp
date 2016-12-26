@@ -81,7 +81,7 @@ void menuWindow::print_score()
     wrefresh(window);
 }
 
-menuWindow::returnValue menuWindow::input(int ch)
+bool menuWindow::input(int ch)
 {
     MEVENT event;
 
@@ -131,57 +131,73 @@ menuWindow::returnValue menuWindow::input(int ch)
     default:
         break;
     }
-    return RETURN_NONE;
+    return true;
 }
 
-menuWindow::returnValue menuWindow::excecute_entry(int entry)
+bool menuWindow::excecute_entry(int entry)
 {
     // every action will leave the menu, so reset selection for next time
     selected_entry = 0;
     switch(entry)
     {
     case ENTRY_RESUME:
-        return RETURN_RESUME;
+        main_window->setwindow(mainWindow::WINDOW_GAME);
         break;
     case ENTRY_RESTART:
+        if(add_score(main_window->getgame().getscore()))
+        {
+            print_score();
+        }
         {
             mainGame tmp = main_window->getgame();
             tmp.restart();
             main_window->setgame(tmp);
         }
-        return RETURN_RESUME;
+        main_window->setwindow(mainWindow::WINDOW_GAME);
         break;
     case ENTRY_SAVE:
         save( prompt("Save as :").c_str(), MESSAGE_ALL);
         break;
     case ENTRY_LOAD:
+        if(add_score(main_window->getgame().getscore()))
+        {
+            print_score();
+        }
         load( prompt("Load file :").c_str(), MESSAGE_ALL );
-        return RETURN_RESUME;
+        main_window->setwindow(mainWindow::WINDOW_GAME);
         break;
     case ENTRY_LAST_SAVE:
+        if(add_score(main_window->getgame().getscore()))
+        {
+            print_score();
+        }
         load(AUTOSAVE_FILE, MESSAGE_ERROR);
-        return RETURN_RESUME;
+        main_window->setwindow(mainWindow::WINDOW_GAME);
         break;
     case ENTRY_DEFAULT_SETTING:
+        if(add_score(main_window->getgame().getscore()))
+        {
+            print_score();
+        }
         load(DEFAULT_BOARD, MESSAGE_ERROR);
-        return RETURN_RESUME;
+        main_window->setwindow(mainWindow::WINDOW_GAME);
         break;
     case ENTRY_SCORES:
         print_score();
         break;
     case ENTRY_QUIT:
-        return RETURN_QUIT;
+        return false;
         break;
     default:
         mlog << "Incorrect menu code" << std::endl;
         std::terminate();
         break;
     }
-    return RETURN_NONE;
+    return true;
 }
 
 
-void menuWindow::add_score(int score)
+bool menuWindow::add_score(int score)
 {
     if(score > scores[SCORE_NUMBER-1]) {
         std::string name;
@@ -234,7 +250,10 @@ void menuWindow::add_score(int score)
         names[i] = name;
 
         updatemax_score();
+
+        return true;
     }
+    else return false;
 }
 
 

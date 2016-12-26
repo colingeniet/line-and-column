@@ -23,15 +23,6 @@
 class gameWindow
 {
 public:
-    // input() return status
-    enum returnValue
-    {
-        RETURN_NONE,
-        RETURN_NO_MOVE,
-        RETURN_QUIT,
-        RETURN_MAX
-    };
-
     gameWindow(mainWindow*);
     ~gameWindow();
 
@@ -43,7 +34,7 @@ public:
 
     void print();
 
-    returnValue input(int);
+    void input(int);
 
 
 private:

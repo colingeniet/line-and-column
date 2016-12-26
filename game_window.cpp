@@ -107,14 +107,14 @@ void gameWindow::init_windows()
 }
 
 
-gameWindow::returnValue gameWindow::input(int ch)
+void gameWindow::input(int ch)
 {
     MEVENT event;
 
     switch(ch)
     {
     case 'q':
-        return RETURN_QUIT;
+        main_window->setwindow(mainWindow::WINDOW_MENU);
         break;
     case KEY_UP:
         cursor_y--;
@@ -238,8 +238,15 @@ gameWindow::returnValue gameWindow::input(int ch)
 
     cursor_bounds();
 
-    if( !main_window->getgame().move_available() ) return RETURN_NO_MOVE;
-    else return RETURN_NONE;
+    if( !main_window->getgame().move_available() )
+    {
+        main_window->add_score(main_window->getgame().getscore());
+        main_window->print_score();
+
+        mainGame tmp = main_window->getgame();
+        tmp.restart();
+        main_window->setgame(tmp);
+    }
 }
 
 void gameWindow::cursor_bounds()

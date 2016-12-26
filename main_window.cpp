@@ -79,41 +79,10 @@ bool mainWindow::input(int ch)
     switch(current_window)
     {
     case WINDOW_GAME:
-        switch(game_window->input(ch))
-        {
-        case gameWindow::RETURN_NONE:
-            break;
-        case gameWindow::RETURN_QUIT:
-            current_window = WINDOW_MENU;
-            break;
-        case gameWindow::RETURN_NO_MOVE:
-            // game over : save score and reinitialize game
-            menu_window->add_score(game->getscore());
-            game->restart();
-            menu_window->print_score();
-            break;
-        default:
-            mlog << "Unknown return code" << std::endl;
-            std::terminate();
-            break;
-        }
+        game_window->input(ch);
         break;
     case WINDOW_MENU:
-        switch(menu_window->input(ch))
-        {
-        case menuWindow::RETURN_NONE:
-            break;
-        case menuWindow::RETURN_RESUME:
-            current_window = WINDOW_GAME;
-            break;
-        case menuWindow::RETURN_QUIT:
-            return false;
-            break;
-        default:
-            mlog << "Unknown return code" << std::endl;
-            std::terminate();
-            break;
-        }
+        return menu_window->input(ch);
         break;
     default:
         mlog << "Incorrect window code" << std::endl;
@@ -147,14 +116,30 @@ void mainWindow::print()
 }
 
 
-bool mainWindow::save(const char *file, int verbose) const
+void mainWindow::setwindow(mainWindow::Window win)
 {
-    return menu_window->save(file, (menuWindow::messageLevel) verbose);
+    current_window = win;
 }
 
-bool mainWindow::load(const char *file, int verbose)
+
+bool mainWindow::add_score(int score)
 {
-    bool success = menu_window->load(file, (menuWindow::messageLevel) verbose);
+    return menu_window->add_score(score);
+}
+
+void mainWindow::print_score()
+{
+    menu_window->print_score();
+}
+
+bool mainWindow::save(const char *file, menuWindow::messageLevel verbose) const
+{
+    return menu_window->save(file, verbose);
+}
+
+bool mainWindow::load(const char *file, menuWindow::messageLevel verbose)
+{
+    bool success = menu_window->load(file, verbose);
     if(success) {
         initialize_game();
     }
