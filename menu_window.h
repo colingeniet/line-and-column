@@ -1,6 +1,25 @@
 #ifndef MENU_WINDOW_H_INCLUDED
 #define MENU_WINDOW_H_INCLUDED
 
+
+// forward declaration is required due to cross declarations of
+// mainWindow, menuWindow and gameWindow
+class menuWindow;
+
+enum messageLevel
+{
+    MESSAGE_NONE,
+    MESSAGE_ERROR,
+    MESSAGE_ALL,
+    MESSAGE_MAX
+};
+
+#define DEFAULT_BOARD "default_board"
+#define AUTOSAVE_FILE "autosave"
+#define SCORE_FILE ".highscores"
+
+
+#include "main_window.h"    // used by menuWindow
 #include "main_game.h"      // used by menuWindow
 #include "config_load.h"    // used for highscore file
 
@@ -9,11 +28,8 @@
 #include <string>           // used by menuWindow
 #include <cstddef>          // size_t
 
-#define DEFAULT_BOARD "default_board"
-#define AUTOSAVE_FILE "autosave"
 
 #define SCORE_NUMBER 10
-#define SCORE_FILE ".highscores"
 
 
 /* Because copying ncurses windows does not make sense, this class
@@ -26,19 +42,16 @@ public:
     {
         RETURN_NONE,
         RETURN_RESUME,
-        RETURN_UPDATE_GAME,
         RETURN_QUIT,
         RETURN_MAX
     };
 
-    menuWindow(mainGame*);
+    menuWindow(mainWindow*);
     ~menuWindow();
 
     // copying makes no sense : ncurses windows can not be copied
     menuWindow(const menuWindow&) = delete;
     menuWindow& operator=(const menuWindow&) = delete;
-
-    void setgame(mainGame*);
 
     void print();
     void print_score();
@@ -49,13 +62,6 @@ public:
     // add new score with name prompt (only if it is better than current scores)
     void add_score(int);
 
-    enum messageLevel
-    {
-        MESSAGE_NONE,
-        MESSAGE_ERROR,
-        MESSAGE_ALL,
-        MESSAGE_MAX
-    };
     // return true if successfull, verbose control message printing
     // suppressed error message are printed to stderr instead
     bool save(const char *file, messageLevel verbose) const;
@@ -67,7 +73,7 @@ public:
 private:
     WINDOW *window;
 
-    mainGame *game;
+    mainWindow *main_window;
 
     enum menuEntry
     {

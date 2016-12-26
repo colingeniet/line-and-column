@@ -1,13 +1,19 @@
 #ifndef GAME_WINDOW_H_INCLUDED
 #define GAME_WINDOW_H_INCLUDED
 
-#include "main_game.h"  // used by gameWindow
-#include "color.h"      // used for printing
 
-#include <ncurses.h>    // used by gameWindow
+// forward declaration is required due to cross declarations of
+// mainWindow, menuWindow and gameWindow
+class gameWindow;
 
-#include <cstddef>      // size_t
-#include <list>         // for move history
+#include "main_window.h"    // used by gameWindow
+#include "main_game.h"      // used by gameWindow
+#include "color.h"          // used for printing
+
+#include <ncurses.h>        // used by gameWindow
+
+#include <cstddef>          // size_t
+#include <list>             // for move history
 
 
 /* main game display
@@ -25,14 +31,14 @@ public:
         RETURN_MAX
     };
 
-    gameWindow(mainGame*);
+    gameWindow(mainWindow*);
     ~gameWindow();
 
     // copying makes no sense : ncurses windows can not be copied
     gameWindow(const gameWindow&) = delete;
     gameWindow& operator=(const gameWindow&) = delete;
 
-    void setgame(mainGame*);
+    void update_dimensions();
 
     void print();
 
@@ -42,7 +48,8 @@ public:
 private:
     WINDOW *borderWindow, *boardWindow, *scoreWindow;
     WINDOW *formWindow[N_FORMS];
-    mainGame *game;
+
+    mainWindow *main_window;
 
     int cursor_x, cursor_y;
     size_t selected_form;

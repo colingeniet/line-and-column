@@ -1,6 +1,11 @@
 #ifndef MAIN_WINDOW_H_INCLUDED
 #define MAIN_WINDOW_H_INCLUDED
 
+
+// forward declaration is required due to cross declarations of
+// mainWindow, menuWindow and gameWindow
+class mainWindow;
+
 #include "main_game.h"      // used by mainWindow
 #include "game_window.h"    // same
 #include "menu_window.h"    // same
@@ -24,6 +29,11 @@ public:
 
     // change the mainGame used
     void setgame(const mainGame&);
+    // unlike setgame(), it is required that board dimension are not changed
+    // it does not reinitialize everything
+    bool changegame(const mainGame&);
+
+    const mainGame& getgame() const;
 
     // take a getch() input. return false if the game shall quit
     bool input(int);
@@ -32,11 +42,14 @@ public:
     void print();
 
     // return true if successfull, verbose control message printing
-    bool save(const char *file, menuWindow::messageLevel verbose) const;
-    bool load(const char *file, menuWindow::messageLevel verbose);
+    bool save(const char *file, messageLevel verbose) const;
+    bool load(const char *file, messageLevel verbose);
 
     bool save_scores(const char *file = SCORE_FILE) const;
     bool load_scores(const char *file = SCORE_FILE);
+
+    // interface with mainGame
+    bool add_form(size_t, int, int);
 
 private:
     mainGame *game;
@@ -50,8 +63,8 @@ private:
     };
     Window current_window;
 
-    gameWindow game_window;
-    menuWindow menu_window;
+    gameWindow *game_window;
+    menuWindow *menu_window;
 
     // perform required action to make the game playable after
     // modification via setgame()
