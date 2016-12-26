@@ -1,4 +1,4 @@
-#include "game_window.h"
+#include "includeGUI.h"
 
 #include "global_log.h"     // errors
 

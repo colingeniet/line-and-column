@@ -1,25 +1,18 @@
+#ifndef INCLUDEGUI_H_INCLUDED
+// this file shall never be included, includeGUI.h must be used instead
+#include "includeGUI.h"
+
+#else
+
 #ifndef MENU_WINDOW_H_INCLUDED
 #define MENU_WINDOW_H_INCLUDED
 
-
-// forward declaration is required due to cross declarations of
-// mainWindow, menuWindow and gameWindow
-class menuWindow;
-
-enum messageLevel
-{
-    MESSAGE_NONE,
-    MESSAGE_ERROR,
-    MESSAGE_ALL,
-    MESSAGE_MAX
-};
 
 #define DEFAULT_BOARD "default_board"
 #define AUTOSAVE_FILE "autosave"
 #define SCORE_FILE ".highscores"
 
 
-#include "main_window.h"    // used by menuWindow
 #include "main_game.h"      // used by menuWindow
 #include "config_load.h"    // used for highscore file
 
@@ -44,6 +37,14 @@ public:
         RETURN_RESUME,
         RETURN_QUIT,
         RETURN_MAX
+    };
+
+    enum messageLevel
+    {
+        MESSAGE_NONE,
+        MESSAGE_ERROR,
+        MESSAGE_ALL,
+        MESSAGE_MAX
     };
 
     menuWindow(mainWindow*);
@@ -106,4 +107,7 @@ private:
     void hang() const;
 };
 
+
 #endif // MENU_WINDOW_H_INCLUDED
+
+#endif // INCLUDEGUI_H_INCLUDED

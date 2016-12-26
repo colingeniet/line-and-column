@@ -1,15 +1,13 @@
+#ifndef INCLUDEGUI_H_INCLUDED
+// this file shall never be included, includeGUI.h must be used instead
+#include "includeGUI.h"
+
+#else
+
 #ifndef MAIN_WINDOW_H_INCLUDED
 #define MAIN_WINDOW_H_INCLUDED
 
-
-// forward declaration is required due to cross declarations of
-// mainWindow, menuWindow and gameWindow
-class mainWindow;
-
-#include "main_game.h"      // used by mainWindow
-#include "game_window.h"    // same
-#include "menu_window.h"    // same
-
+#include "main_game.h"
 
 /* This class handle interaction between all GUI parts
  * Because copying ncurses windows does not make sense, this class
@@ -42,8 +40,9 @@ public:
     void print();
 
     // return true if successfull, verbose control message printing
-    bool save(const char *file, messageLevel verbose) const;
-    bool load(const char *file, messageLevel verbose);
+    // int is used instead of menuWindow::messageLevel due to cross declarations
+    bool save(const char *file, int verbose) const;
+    bool load(const char *file, int verbose);
 
     bool save_scores(const char *file = SCORE_FILE) const;
     bool load_scores(const char *file = SCORE_FILE);
@@ -72,3 +71,5 @@ private:
 };
 
 #endif // MAIN_WINDOW_H_INCLUDED
+
+#endif // INCLUDEGUI_H_INCLUDED

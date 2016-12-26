@@ -1,4 +1,4 @@
-#include "main_window.h"    // main class
+#include "includeGUI.h"     // main class
 #include "color.h"          // init_color_pairs()
 #include "global_log.h"     // error stream initialization
 
@@ -97,14 +97,14 @@ int main(int argc, char** argv)
     // create main object, load initial state
     mainWindow win;
     if(init_save_file) {
-        if(!win.load(init_save_file, MESSAGE_ERROR)) {
+        if(!win.load(init_save_file, menuWindow::MESSAGE_ERROR)) {
             mlog << "configuration file  " << init_save_file
                  << " is invalid" << std::endl;
             std::terminate();
         }
     } else {
         // no file was given as parameter, load default one
-        if(!win.load(DEFAULT_BOARD, MESSAGE_ERROR)) {
+        if(!win.load(DEFAULT_BOARD, menuWindow::MESSAGE_ERROR)) {
             mlog << "Default configuration file is invalid" << std::endl;
             std::terminate();
         }
@@ -127,7 +127,7 @@ int main(int argc, char** argv)
     }
 
     // autosave
-    win.save(AUTOSAVE_FILE, MESSAGE_NONE);
+    win.save(AUTOSAVE_FILE, menuWindow::MESSAGE_NONE);
     win.save_scores();
 
     // exit

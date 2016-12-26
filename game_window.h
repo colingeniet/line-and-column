@@ -1,12 +1,13 @@
+#ifndef INCLUDEGUI_H_INCLUDED
+// this file shall never be included, includeGUI.h must be used instead
+#include "includeGUI.h"
+
+#else
+
 #ifndef GAME_WINDOW_H_INCLUDED
 #define GAME_WINDOW_H_INCLUDED
 
 
-// forward declaration is required due to cross declarations of
-// mainWindow, menuWindow and gameWindow
-class gameWindow;
-
-#include "main_window.h"    // used by gameWindow
 #include "main_game.h"      // used by gameWindow
 #include "color.h"          // used for printing
 
@@ -71,3 +72,5 @@ private:
 
 
 #endif // GAME_WINDOW_H_INCLUDED
+
+#endif // INCLUDEGUI_H_INCLUDED

@@ -1,4 +1,4 @@
-#include "main_window.h"
+#include "includeGUI.h"
 
 #include "global_log.h" // errors
 
@@ -32,7 +32,7 @@ mainWindow::mainWindow(const char* file) :
     game_window(new gameWindow(this)),
     menu_window(new menuWindow(this))
 {
-    load(file, MESSAGE_ERROR);
+    load(file, menuWindow::MESSAGE_ERROR);
 }
 
 mainWindow::~mainWindow()
@@ -147,14 +147,14 @@ void mainWindow::print()
 }
 
 
-bool mainWindow::save(const char *file, messageLevel verbose) const
+bool mainWindow::save(const char *file, int verbose) const
 {
-    return menu_window->save(file, verbose);
+    return menu_window->save(file, (menuWindow::messageLevel) verbose);
 }
 
-bool mainWindow::load(const char *file, messageLevel verbose)
+bool mainWindow::load(const char *file, int verbose)
 {
-    bool success = menu_window->load(file, verbose);
+    bool success = menu_window->load(file, (menuWindow::messageLevel) verbose);
     if(success) {
         initialize_game();
     }
