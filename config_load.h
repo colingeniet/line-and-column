@@ -7,6 +7,7 @@
 #include <exception>    // std::exception
 
 
+/* exception class for file parsing syntax errors */
 class syntax_exception : public std::exception {
 public:
     syntax_exception();

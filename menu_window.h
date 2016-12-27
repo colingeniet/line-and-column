@@ -1,5 +1,17 @@
+#ifndef INCLUDEGUI_H_INCLUDED
+// this file shall never be included, includeGUI.h must be used instead
+#include "includeGUI.h"
+
+#else
+
 #ifndef MENU_WINDOW_H_INCLUDED
 #define MENU_WINDOW_H_INCLUDED
+
+
+#define DEFAULT_BOARD "default_board"
+#define AUTOSAVE_FILE "autosave"
+#define SCORE_FILE ".highscores"
+
 
 #include "main_game.h"      // used by menuWindow
 #include "config_load.h"    // used for highscore file
@@ -9,11 +21,8 @@
 #include <string>           // used by menuWindow
 #include <cstddef>          // size_t
 
-#define DEFAULT_BOARD "default_board"
-#define AUTOSAVE_FILE "autosave"
 
-#define SCORE_NUMBER 10
-#define SCORE_FILE ".highscores"
+#define SCORE_NUMBER 5
 
 
 /* Because copying ncurses windows does not make sense, this class
@@ -21,34 +30,6 @@
 class menuWindow
 {
 public:
-    // input() return status to be interpreted by mainWindow::input()
-    enum returnValue
-    {
-        RETURN_NONE,
-        RETURN_RESUME,
-        RETURN_UPDATE_GAME,
-        RETURN_QUIT,
-        RETURN_MAX
-    };
-
-    menuWindow(mainGame*);
-    ~menuWindow();
-
-    // copying makes no sense : ncurses windows can not be copied
-    menuWindow(const menuWindow&) = delete;
-    menuWindow& operator=(const menuWindow&) = delete;
-
-    void setgame(mainGame*);
-
-    void print();
-    void print_score();
-
-    returnValue input(int);
-
-
-    // add new score with name prompt (only if it is better than current scores)
-    void add_score(int);
-
     enum messageLevel
     {
         MESSAGE_NONE,
@@ -56,6 +37,24 @@ public:
         MESSAGE_ALL,
         MESSAGE_MAX
     };
+
+    menuWindow(mainWindow*);
+    ~menuWindow();
+
+    // copying makes no sense : ncurses windows can not be copied
+    menuWindow(const menuWindow&) = delete;
+    menuWindow& operator=(const menuWindow&) = delete;
+
+    void print();
+    void print_score();
+
+    bool input(int);
+
+
+    // if the score is a highscore, prompt a name, add it and return true
+    // else return false
+    bool add_score(int);
+
     // return true if successfull, verbose control message printing
     // suppressed error message are printed to stderr instead
     bool save(const char *file, messageLevel verbose) const;
@@ -67,7 +66,7 @@ public:
 private:
     WINDOW *window;
 
-    mainGame *game;
+    mainWindow *main_window;
 
     enum menuEntry
     {
@@ -89,7 +88,7 @@ private:
     int scores[SCORE_NUMBER];
 
     // perform actions corresponding to an entry and return the appropriate code
-    returnValue excecute_entry(int);
+    bool excecute_entry(int);
 
     // nice prompt window with custom prompt message.
     std::string prompt(const std::string&) const;
@@ -100,4 +99,7 @@ private:
     void hang() const;
 };
 
+
 #endif // MENU_WINDOW_H_INCLUDED
+
+#endif // INCLUDEGUI_H_INCLUDED
