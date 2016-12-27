@@ -4,8 +4,6 @@
 #
 # clean / nettoyage :
 # 	make clean
-# delete all files created during compilation /
-# supprime tous les fichiers créés à la compilation
 ###
 
 
