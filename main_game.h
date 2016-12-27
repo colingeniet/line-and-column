@@ -17,9 +17,9 @@
 class mainGame
 {
 public:
-    /* parameters : width, height (main board), max form size */
+    /* parameters : width, height (main board) */
     mainGame();
-    mainGame(int, int, int);
+    mainGame(int, int);
 
     // accessors
     int getform_size() const;
@@ -47,7 +47,7 @@ public:
     bool move_available() const;
 
     // add a form to the set of forms used
-    bool add_form_to_set(const Form&, int);
+    void add_form_to_set(const Form &form, int color, unsigned int weight=1);
 
     /* choose 3 forms from the form set if none are currently selected
      * if force is true, always reselect. If the form set is empty, reset
@@ -71,13 +71,17 @@ private:
     Board board;
 
     int form_size;
+
     std::vector<Form> form_set;
+    std::vector<unsigned int> form_weight;   // weight in random selection
     std::vector<int> form_color;
+    int total_weight;
+
     size_t form[N_FORMS];
 
-    void update_score(int, int);
-
     int score, combo, max_score;
+
+    void update_score(int, int);
 };
 
 

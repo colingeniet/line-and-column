@@ -1,13 +1,15 @@
-#include "menu_window.h"
+#include "includeGUI.h"
 
-#include <iostream>     // errors
-#include <fstream>      // save / load
-#include <exception>    // terminate / std::exception
+#include "global_log.h"     // errors
+#include "config_load.h"    // syntax_exception
+
+#include <fstream>          // save / load
+#include <exception>        // terminate / std::exception
 
 
-menuWindow::menuWindow(mainGame *newgame) :
+menuWindow::menuWindow(mainWindow *_main_window) :
     window(newwin(0,0,0,0)),    // full screen window
-    game(newgame),
+    main_window(_main_window),
     selected_entry(0)
 {
     entry[ENTRY_RESUME] = "resume";
@@ -19,18 +21,16 @@ menuWindow::menuWindow(mainGame *newgame) :
     entry[ENTRY_SCORES] = "highscores";
     entry[ENTRY_QUIT] = "quit";
 
+    for(size_t i=0; i<SCORE_NUMBER; i++) {
+        scores[i] = 0;
+    }
+
     wattrset(window, A_BOLD);
 }
 
 menuWindow::~menuWindow()
 {
     if(window) delwin(window);
-}
-
-
-void menuWindow::setgame(mainGame *newgame)
-{
-    game = newgame;
 }
 
 
@@ -53,7 +53,35 @@ void menuWindow::print()
     wnoutrefresh(window);
 }
 
-menuWindow::returnValue menuWindow::input(int ch)
+void menuWindow::print_score()
+{
+    wclear(window);
+    int maxx, x, y;
+    getmaxyx(window, y, maxx);
+
+    y = 1;
+
+    std::string score_title("HIGH SCORES");
+    x = (maxx - score_title.size() + 1)/2;
+    mvwprintw(window, y, x, "%s", score_title.c_str());
+
+    y += 2;
+
+    // score of 0 is an empty entry, and scores are sorted so
+    // if one is null, the following do to
+    for(size_t i=0; i<SCORE_NUMBER && scores[i] > 0; i++) {
+        x = maxx/2 - names[i].size();
+        mvwprintw(window, y, x, "%s %i", names[i].c_str(), scores[i]);
+        y++;
+    }
+
+    wrefresh(window);
+    hang();
+    wclear(window);
+    wrefresh(window);
+}
+
+bool menuWindow::input(int ch)
 {
     MEVENT event;
 
@@ -103,57 +131,133 @@ menuWindow::returnValue menuWindow::input(int ch)
     default:
         break;
     }
-    return RETURN_NONE;
+    return true;
 }
 
-
-
-menuWindow::returnValue menuWindow::excecute_entry(int entry)
+bool menuWindow::excecute_entry(int entry)
 {
     // every action will leave the menu, so reset selection for next time
     selected_entry = 0;
     switch(entry)
     {
     case ENTRY_RESUME:
-        return RETURN_RESUME;
+        main_window->setwindow(mainWindow::WINDOW_GAME);
         break;
     case ENTRY_RESTART:
-        game->restart();
-        return RETURN_RESUME;
+        if(add_score(main_window->getgame().getscore()))
+        {
+            print_score();
+        }
+        {
+            mainGame tmp = main_window->getgame();
+            tmp.restart();
+            main_window->setgame(tmp);
+        }
+        updatemax_score();
+        main_window->setwindow(mainWindow::WINDOW_GAME);
         break;
     case ENTRY_SAVE:
         save( prompt("Save as :").c_str(), MESSAGE_ALL);
-        return RETURN_NONE;
         break;
     case ENTRY_LOAD:
-        if(load( prompt("Load file :").c_str(), MESSAGE_ALL ))
-            return RETURN_UPDATE_GAME;
-        else
-            return RETURN_NONE;
+        if(add_score(main_window->getgame().getscore()))
+        {
+            print_score();
+        }
+        load( prompt("Load file :").c_str(), MESSAGE_ALL );
+        updatemax_score();
+        main_window->setwindow(mainWindow::WINDOW_GAME);
         break;
     case ENTRY_LAST_SAVE:
-        if(load(AUTOSAVE_FILE, MESSAGE_ERROR))
-            return RETURN_UPDATE_GAME;
-        else
-            return RETURN_NONE;
+        if(add_score(main_window->getgame().getscore()))
+        {
+            print_score();
+        }
+        load(AUTOSAVE_FILE, MESSAGE_ERROR);
+        updatemax_score();
+        main_window->setwindow(mainWindow::WINDOW_GAME);
         break;
     case ENTRY_DEFAULT_SETTING:
-        if(load(DEFAULT_BOARD, MESSAGE_ERROR))
-            return RETURN_UPDATE_GAME;
-        else
-            return RETURN_NONE;
+        if(add_score(main_window->getgame().getscore()))
+        {
+            print_score();
+        }
+        load(DEFAULT_BOARD, MESSAGE_ERROR);
+        updatemax_score();
+        main_window->setwindow(mainWindow::WINDOW_GAME);
         break;
     case ENTRY_SCORES:
-        return RETURN_SCORES;
+        print_score();
         break;
     case ENTRY_QUIT:
-        return RETURN_QUIT;
+        return false;
         break;
     default:
-        std::cerr << "Incorrect menu code" << std::endl;
+        mlog << "Incorrect menu code" << std::endl;
         std::terminate();
         break;
     }
+    return true;
+}
+
+
+bool menuWindow::add_score(int score)
+{
+    if(score > scores[SCORE_NUMBER-1]) {
+        std::string name;
+        std::string game_over = "GAME OVER";
+        std::string score_disp = "score :";
+        std::string prompt = "Enter name :";
+        int maxx, maxy, x, y;
+        getmaxyx(window, maxy, maxx);
+
+        curs_set(1);
+
+        for(;;) {
+            wclear(window);
+            x = (maxx - game_over.size())/2;
+            y = maxy/2 - 1;
+            mvwprintw(window, y, x, "%s", game_over.c_str());
+            x = maxx/2 - score_disp.size();
+            y = maxy/2;
+            mvwprintw(window, y, x, "%s %i", score_disp.c_str(), score);
+            x = maxx/2 - prompt.size();
+            y = maxy/2 + 1;
+            mvwprintw(window, y, x, "%s %s", prompt.c_str(), name.c_str());
+            wrefresh(window);
+
+            int ch = getch();
+            if(ch == '\n' || ch == '\r' || ch == KEY_ENTER) {
+                if(name.size() > 0) break;
+            } else if(ch == '\b' || ch == 127 ||    // 127 is delete
+                      ch == KEY_BACKSPACE || ch == KEY_DC) {
+                if(name.size() > 0) name.pop_back();
+            } else if('A' <= ch && ch <= 'Z') {     // name is caps only
+                name += ch;
+            } else if('a' <= ch && ch <= 'z') {
+                name += ch - 'a' + 'A';
+            }
+        }
+
+        curs_set(0);
+        wclear(window);
+        wrefresh(window);
+
+        // insert in proper position
+        size_t i=SCORE_NUMBER-1;
+        while(i>0 && scores[i-1] < score) {
+            scores[i] = scores[i-1];
+            names[i] = names[i-1];
+            i--;
+        }
+        scores[i] = score;
+        names[i] = name;
+
+        updatemax_score();
+
+        return true;
+    }
+    else return false;
 }
 
 
@@ -192,7 +296,9 @@ std::string menuWindow::prompt(const std::string &prompt) const
     return name;
 }
 
-bool menuWindow::save(const char *file, menuWindow::messageLevel verbose) const
+
+
+bool menuWindow::save(const char *file, messageLevel verbose) const
 {
     // empty path is considered as cancel
     if(!file[0]) return false;
@@ -215,10 +321,10 @@ bool menuWindow::save(const char *file, menuWindow::messageLevel verbose) const
                       "%s", error_msg.c_str());
             wait = true;
         }
-        std::cerr << "Unable to open file " << file
-                  << " for writing" << std::endl;
+        mlog << "Unable to open file " << file
+             << " for writing" << std::endl;
     } else {
-        game->stream_write(output);
+        main_window->getgame().stream_write(output);
         success = true;
         if(verbose == MESSAGE_ALL) {
             mvwprintw(window, maxy/2, (maxx-success_msg.size())/2,
@@ -232,11 +338,7 @@ bool menuWindow::save(const char *file, menuWindow::messageLevel verbose) const
     if(wait)
     {
         wrefresh(window);
-        int ch;
-        do {
-            ch = getch();
-        } while(ch == KEY_MOUSE);
-
+        hang();
         wclear(window);
         wrefresh(window);
     }
@@ -244,7 +346,7 @@ bool menuWindow::save(const char *file, menuWindow::messageLevel verbose) const
     return success;
 }
 
-bool menuWindow::load(const char *file, menuWindow::messageLevel verbose)
+bool menuWindow::load(const char *file, messageLevel verbose)
 {
     // empty path is considered as cancel
     if(!file[0]) return false;
@@ -268,13 +370,13 @@ bool menuWindow::load(const char *file, menuWindow::messageLevel verbose)
                       "%s", error_open_msg.c_str());
             wait = true;
         }
-        std::cerr << "Unable to open file " << file
-                  << " for writing" << std::endl;
+        mlog << "Unable to open file " << file
+             << " for reading" << std::endl;
     } else {
         mainGame tmp;
         try {
             tmp = mainGame::stream_read(input);
-            *game = tmp;
+            main_window->setgame(tmp);
             success = true;
 
             if(verbose == MESSAGE_ALL) {
@@ -283,7 +385,7 @@ bool menuWindow::load(const char *file, menuWindow::messageLevel verbose)
                 wait = true;
             }
         }
-        catch(std::exception &excpt) {
+        catch(syntax_exception &excpt) {
             if(verbose) {
                 std::string error(excpt.what());
                 mvwprintw(window, maxy/2, (maxx-error.size())/2,
@@ -292,8 +394,8 @@ bool menuWindow::load(const char *file, menuWindow::messageLevel verbose)
                           "%s", error_read_msg.c_str());
                 wait = true;
             }
-            std::cerr << "In file " << file << " :\n"
-                      << excpt.what() << std::endl;
+            mlog << "In file " << file << " :\n"
+                 << excpt.what() << std::endl;
         }
     }
 
@@ -303,14 +405,116 @@ bool menuWindow::load(const char *file, menuWindow::messageLevel verbose)
     if(wait)
     {
         wrefresh(window);
-        int ch;
-        do {
-            ch = getch();
-        } while(ch == KEY_MOUSE);
-
+        hang();
         wclear(window);
         wrefresh(window);
     }
 
     return success;
+}
+
+
+bool menuWindow::save_score(const char *file) const
+{
+    std::ofstream output(file);
+
+    if(!output.is_open()) {
+        mlog << "Unable to open file " << file
+             << " for writing" << std::endl;
+        output.close();
+        return false;
+    } else {
+        // score of 0 is an empty entry, and scores are sorted so
+        // if one is null, the following do to
+        for(size_t i=0; i<SCORE_NUMBER && scores[i] > 0; i++) {
+            if(scores[i] > 0) {
+                output << names[i] << " : " << scores[i] << std::endl;
+            }
+        }
+        output.close();
+        return true;
+    }
+}
+
+bool menuWindow::load_score(const char *file)
+{
+    // load scores from file
+    std::ifstream input(file);
+
+    if(!input.is_open()) {
+        mlog << "Unable to open file " << file
+             << " for reading" << std::endl;
+        input.close();
+        return false;
+    } else {
+        std::string input_str, line;
+
+        while(!input.eof()) {
+            std::getline(input, line);
+            input_str += line + '\n';
+        }
+        input.close();
+
+        for(size_t i=0; i<SCORE_NUMBER && !blank_only(input_str); i++) {
+            std::string name, score_str;
+            size_t pos;
+            int score;
+
+            line = getline(input_str);
+            clean_config_input(line);
+
+            if(!get_key_value(line, name, score_str)) {
+                mlog << "Invalid line in highscore file : " << line << std::endl;
+                return false;
+            }
+
+            try {
+                score = std::stoi(score_str, &pos);
+            }
+            catch(std::exception &e) {
+                mlog << "Invalid line in highscore file : " << line << std::endl;
+                return false;
+            }
+            if(!blank_only(score_str.substr(pos))) {
+                mlog << "Invalid line in highscore file : " << line << std::endl;
+                return false;
+            }
+
+            // insert in proper position
+            if(score > scores[SCORE_NUMBER-1]) {
+                size_t i=SCORE_NUMBER-1;
+                while(i>0 && scores[i-1] < score) {
+                    scores[i] = scores[i-1];
+                    names[i] = names[i-1];
+                    i--;
+                }
+                scores[i] = score;
+                names[i] = name;
+            }
+        }
+
+        updatemax_score();
+
+        return true;
+    }
+}
+
+
+
+void menuWindow::updatemax_score()
+{
+    if(scores[0] > main_window->getgame().getmax_score()) {
+        mainGame tmp = main_window->getgame();
+        tmp.setmax_score(scores[0]);
+        main_window->changegame(tmp);
+    }
+}
+
+
+void menuWindow::hang() const
+{
+    int ch;
+    do {
+        ch = getch();
+    } while(ch == KEY_MOUSE);
 }

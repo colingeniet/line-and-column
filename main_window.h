@@ -1,11 +1,13 @@
+#ifndef INCLUDEGUI_H_INCLUDED
+// this file shall never be included, includeGUI.h must be used instead
+#include "includeGUI.h"
+
+#else
+
 #ifndef MAIN_WINDOW_H_INCLUDED
 #define MAIN_WINDOW_H_INCLUDED
 
-#include "main_game.h"      // used by mainWindow
-#include "game_window.h"    // same
-#include "menu_window.h"    // same
-#include "score_window.h"   // same
-
+#include "main_game.h"
 
 /* This class handle interaction between all GUI parts
  * Because copying ncurses windows does not make sense, this class
@@ -13,24 +15,47 @@
 class mainWindow
 {
 public:
+    // indicate which of the Window
+    enum Window
+    {
+        WINDOW_GAME,
+        WINDOW_MENU,
+        WINDOW_MAX
+    };
+
     mainWindow();
     mainWindow(const char *file);
     mainWindow(const mainGame&);
 
     ~mainWindow();
 
-    // copying makes no sense
+    // copying makes no sense : ncurses windows can not be copied
     mainWindow(const mainWindow&) = delete;
     mainWindow& operator=(const mainWindow&) = delete;
 
     // change the mainGame used
     void setgame(const mainGame&);
+    // unlike setgame(), it is required that board dimension are not changed
+    // it does not reinitialize everything
+    bool changegame(const mainGame&);
+
+    const mainGame& getgame() const;
 
     // take a getch() input. return false if the game shall quit
     bool input(int);
 
     // print the current active window
     void print();
+
+    // change active window
+    void setwindow(Window);
+
+
+    // if the score is a highscore, prompt a name, add it and return true
+    // else return false
+    bool add_score(int);
+
+    void print_score();
 
     // return true if successfull, verbose control message printing
     bool save(const char *file, menuWindow::messageLevel verbose) const;
@@ -39,22 +64,16 @@ public:
     bool save_scores(const char *file = SCORE_FILE) const;
     bool load_scores(const char *file = SCORE_FILE);
 
+    // interface with mainGame
+    bool add_form(size_t, int, int);
+
 private:
     mainGame *game;
 
-    // indicate which of the Window subclass is active
-    enum Window
-    {
-        WINDOW_GAME,
-        WINDOW_MENU,
-        WINDOW_SCORE,
-        WINDOW_MAX
-    };
     Window current_window;
 
-    gameWindow game_window;
-    menuWindow menu_window;
-    scoreWindow score_window;
+    gameWindow *game_window;
+    menuWindow *menu_window;
 
     // perform required action to make the game playable after
     // modification via setgame()
@@ -62,3 +81,5 @@ private:
 };
 
 #endif // MAIN_WINDOW_H_INCLUDED
+
+#endif // INCLUDEGUI_H_INCLUDED

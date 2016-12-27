@@ -4,40 +4,55 @@
 # general syntax :
 # 	- comments start with '#' and end at the newline
 # 	- all superflous blank (space, tab and newline) are ignored
-# 	- each entry ust be on a separate line
-# 	- key : value entries require blank before and after ':'
-# 	  if value is empty, blank after ':' may be omitted
+# 	- each entry must be on a separate line
+# 	- key : value 	entries require blank before and after ':'
+
 
 # this header is required and must be before anything else
-# this 3 parameters must not be redefined
-# it define the board width/height and the maximum size of used forms
+# it defines the board width/height
 WIDTH : 10 
 HEIGHT : 10
-FORM_SIZE : 5
 
 # everything else is optional
-# order is irelevant (except for header) and entry
-# may be redefined, in which case only the later is used
+# order is mostly irrelevant (except for header) and entries
+# may be redefined, in which case only the last is used
+
 
 # define the set of forms used
 # valid colors are RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE
 # use of BLACK is not allowed
+#
+# the number after the color is a weight used for random selection.
+# probability of selecting this form is proportional to this weight.
+# it is optional and default to 1. Obviouly, it must be positive
+#
 # inside the {} block are squares coordonates pair as x y
-# they must be in the -FORM_SIZE/2, (FORM_SIZE+1)/2 range 
+# x is toward the right and y toward the bottom
+# 0 0 is the 'center' and both signs are allowed for coordonates
 #
 # each form entry define a new form that will be used
 
-FORM : WHITE
+# small white square
+FORM : WHITE 2	# this one will be selected twice as often
 {
 0 0
 }
 
+# bigger red square
 FORM : RED
 {
 0 0
 1 0
 0 1
 1 1
+}
+
+# blue horizontal line
+FORM : BLUE
+{
+-1 0
+0 0
+1 0
 }
 
 
@@ -59,7 +74,7 @@ SELECTED_FORM : 1 2
 
 
 # current board state
-# all squares must be present (so width x height)
+# all squares must be present (width x height)
 # colors allowed are the same as for FORM, plus BLACK, 
 # which stands for empty
 BOARD :
@@ -79,4 +94,3 @@ BLACK BLACK BLACK BLACK BLACK BLACK BLACK BLACK BLACK BLACK
 
 # editing that ? little cheater
 SCORE : 9000
-COMBO : 9000

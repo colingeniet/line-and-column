@@ -1,8 +1,9 @@
-#include "main_window.h"
+#include "includeGUI.h"
+
+#include "global_log.h" // errors
 
 #include <ncurses.h>    // doupdate() - some definition
 
-#include <iostream>     // errors
 #include <fstream>      // autosave on exit
 #include <exception>    // terminate
 
@@ -11,36 +12,63 @@
 mainWindow::mainWindow() :
     game(new mainGame),
     current_window(WINDOW_GAME),
-    game_window(game),
-    menu_window(game),
-    score_window(game)
+    game_window(new gameWindow(this)),
+    menu_window(new menuWindow(this))
 {
 }
 
 mainWindow::mainWindow(const mainGame &newgame) :
     game(new mainGame(newgame)),
     current_window(WINDOW_GAME),
-    game_window(game),
-    menu_window(game),
-    score_window(game)
+    game_window(new gameWindow(this)),
+    menu_window(new menuWindow(this))
 {
     initialize_game();
 }
 
+mainWindow::mainWindow(const char* file) :
+    game(new mainGame),
+    current_window(WINDOW_GAME),
+    game_window(new gameWindow(this)),
+    menu_window(new menuWindow(this))
+{
+    load(file, menuWindow::MESSAGE_ERROR);
+}
+
 mainWindow::~mainWindow()
 {
-    if(game) delete game;
+    delete game_window;
+    delete menu_window;
+    delete game;
 }
+
 
 void mainWindow::setgame(const mainGame &newgame)
 {
-    // all Window subclass share the reference to the same mainGame object
-    // but some require to be warned if it is changed
-    // specifically, gameWindow needs to rebuild WINDOWS if dimention changed
-    *game = newgame;            // here game is changed for all classes
-    game_window.setgame(game);  // tell other classes about it
-    menu_window.setgame(game);
-    score_window.setgame(game);
+    // but some require to be warned of changes
+    // specifically, gameWindow needs to rebuild WINDOWS if dimentions changed
+    *game = newgame;
+    game_window->update_dimensions();
+    initialize_game();
+}
+
+bool mainWindow::changegame(const mainGame& newgame)
+{
+    // use of this method is only allowed if dimentions are unchanged
+    if(newgame.getwidth() == game->getwidth() &&
+       newgame.getheight() == game->getheight() &&
+       newgame.getform_size() == game->getform_size())
+    {
+        // because dimentions are the same, no other action is required
+        *game = newgame;
+        return true;
+    }
+    else return false;
+}
+
+const mainGame& mainWindow::getgame() const
+{
+    return *game;
 }
 
 
@@ -51,59 +79,13 @@ bool mainWindow::input(int ch)
     switch(current_window)
     {
     case WINDOW_GAME:
-        switch(game_window.input(ch))
-        {
-        case gameWindow::RETURN_NONE:
-            break;
-        case gameWindow::RETURN_QUIT:
-            current_window = WINDOW_MENU;
-            break;
-        case gameWindow::RETURN_NO_MOVE:
-            // game over : save score and reinitialize game
-            score_window.add_score(game->getscore());
-            game->restart();
-            current_window = WINDOW_SCORE;
-            break;
-        default:
-            std::cerr << "Unknown return code" << std::endl;
-            std::terminate();
-            break;
-        }
+        game_window->input(ch);
         break;
     case WINDOW_MENU:
-        switch(menu_window.input(ch))
-        {
-        case menuWindow::RETURN_NONE:
-            break;
-        case menuWindow::RETURN_RESUME:
-            current_window = WINDOW_GAME;
-            break;
-        case menuWindow::RETURN_UPDATE_GAME:
-            // this code means that the game board was modified in a way that
-            // require other windows to be warned (cf mainWindow::setgame())
-            setgame(*game);
-            initialize_game();
-            current_window = WINDOW_GAME;
-            break;
-        case menuWindow::RETURN_SCORES:
-            current_window = WINDOW_SCORE;
-            break;
-        case menuWindow::RETURN_QUIT:
-            return false;
-            break;
-        default:
-            std::cerr << "Unknown return code" << std::endl;
-            std::terminate();
-            break;
-        }
-        break;
-    case WINDOW_SCORE:
-        // the only thing to do when in the score window is to quit
-        // so there is no proper input method for it
-        if(ch != KEY_MOUSE) current_window = WINDOW_MENU;
+        return menu_window->input(ch);
         break;
     default:
-        std::cerr << "Incorrect window code" << std::endl;
+        mlog << "Incorrect window code" << std::endl;
         std::terminate();
         break;
     }
@@ -118,16 +100,13 @@ void mainWindow::print()
     switch(current_window)
     {
     case WINDOW_GAME:
-        game_window.print();
+        game_window->print();
         break;
     case WINDOW_MENU:
-        menu_window.print();
-        break;
-    case WINDOW_SCORE:
-        score_window.print();
+        menu_window->print();
         break;
     default:
-        std::cerr << "Incorrect window code" << std::endl;
+        mlog << "Incorrect window code" << std::endl;
         std::terminate();
         break;
     }
@@ -137,16 +116,31 @@ void mainWindow::print()
 }
 
 
+void mainWindow::setwindow(mainWindow::Window win)
+{
+    current_window = win;
+}
+
+
+bool mainWindow::add_score(int score)
+{
+    return menu_window->add_score(score);
+}
+
+void mainWindow::print_score()
+{
+    menu_window->print_score();
+}
+
 bool mainWindow::save(const char *file, menuWindow::messageLevel verbose) const
 {
-    return menu_window.save(file, verbose);
+    return menu_window->save(file, verbose);
 }
 
 bool mainWindow::load(const char *file, menuWindow::messageLevel verbose)
 {
-    bool success = menu_window.load(file, verbose);
+    bool success = menu_window->load(file, verbose);
     if(success) {
-        setgame(*game);
         initialize_game();
     }
     return success;
@@ -154,17 +148,23 @@ bool mainWindow::load(const char *file, menuWindow::messageLevel verbose)
 
 bool mainWindow::save_scores(const char *file) const
 {
-    return score_window.save(file);
+    return menu_window->save_score(file);
 }
 
 bool mainWindow::load_scores(const char *file)
 {
-    return score_window.load(file);
+    return menu_window->load_score(file);
+}
+
+
+bool mainWindow::add_form(size_t form, int x, int y)
+{
+    return game->add_form(form, x, y);
 }
 
 
 void mainWindow::initialize_game()
 {
-    // a loaded game may not have forms selected
+    // a loaded game may not have no forms selected
     game->random_select_forms(false);
 }

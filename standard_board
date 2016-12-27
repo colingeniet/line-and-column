@@ -1,11 +1,10 @@
-# excat specification game configuration
+# game configuration from original specifications
 # DO NOT EDIT
 # use a copy instead
 
 
 WIDTH : 10 
 HEIGHT : 10
-FORM_SIZE : 5
 
 
 FORM : WHITE
@@ -70,15 +69,6 @@ FORM : RED
 0 0
 0 1
 0 2
-}
-
-FORM : RED
-{
--2 0
--1 0
-0 0
-1 0
-2 0
 }
 
 FORM : GREEN
