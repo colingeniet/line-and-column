@@ -42,7 +42,7 @@ support de la souris -EXPERIMENTAL- :
 	Pour pouvoir jouer à la souris, il faut que le terminal transmette
 	tous les mouvements de la souris, ce qui n'est pas standard.
 	Sur xterm et ses dérivés, essayez avec
-	TERM=xterm-1003 ./line-and-column
+	TERM=xterm-1003 ./line-and-column --enable-mouse
 	
 	
 	

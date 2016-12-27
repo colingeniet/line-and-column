@@ -1,6 +1,6 @@
 LINE AND COLUMN
 A 1010 clone on Unix terminal
-by Colin Geniet, Youcef Cherfaoui, Victor Hueca and Alexandre Ribeyre
+by Colin Geniet, Youcef Cherfaoui, Victor Huesca and Alexandre Ribeyre
 
 version 2.0.0
 
@@ -39,7 +39,7 @@ mouse support -EXPERIMENTAL- :
 	To be playable with mouse, your terminal needs to report all mouse
 	movement, which is non-standard behavior. 
 	On xterm derivated terminals, try with
-	TERM=xterm-1003 ./line-and-column
+	TERM=xterm-1003 ./line-and-column --enable-mouse
 
 
 

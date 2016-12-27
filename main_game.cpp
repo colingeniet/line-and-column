@@ -261,7 +261,7 @@ mainGame mainGame::read(const std::string &str)
             try {
                 new_width = std::stoi(value, &pos);
             }
-            catch(std::exception&) {
+            catch(std::exception &e) {
                 syntax_exception excpt("invalid input : " + line, n_line);
                 throw excpt;
             }
@@ -281,7 +281,7 @@ mainGame mainGame::read(const std::string &str)
             try {
                 new_height = std::stoi(value, &pos);
             }
-            catch(std::exception&) {
+            catch(std::exception &e) {
                 syntax_exception excpt("invalid input : " + line, n_line);
                 throw excpt;
             }
@@ -307,7 +307,7 @@ mainGame mainGame::read(const std::string &str)
                 try {
                     color = word_to_color(getword(value));
                 }
-                catch(std::exception &e) {
+                catch(syntax_exception &e) {
                     syntax_exception excpt(e.what(), n_line);
                     throw excpt;
                 }
@@ -320,7 +320,7 @@ mainGame mainGame::read(const std::string &str)
                     try {
                         weight = std::stoi(value, &pos);
                     }
-                    catch(std::exception&) {
+                    catch(std::exception &e) {
                         syntax_exception excpt("invalid input : " + line, n_line);
                         throw excpt;
                     }
@@ -338,7 +338,7 @@ mainGame mainGame::read(const std::string &str)
                 try {
                     new_form.read(getblock(str_copy, &block_line));
                 }
-                catch(std::exception &e) {
+                catch(syntax_exception &e) {
                     syntax_exception excpt(e.what(), n_line);
                     throw excpt;
                 }
@@ -348,7 +348,7 @@ mainGame mainGame::read(const std::string &str)
                 try {
                     game.board.read(getblock(str_copy, &block_line));
                 }
-                catch(std::exception &e) {
+                catch(syntax_exception &e) {
                     syntax_exception excpt(e.what(), n_line);
                     throw excpt;
                 }

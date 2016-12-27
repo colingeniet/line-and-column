@@ -1,14 +1,15 @@
-#include "menu_window.h"
+#include "includeGUI.h"
 
 #include "global_log.h"     // errors
+#include "config_load.h"    // syntax_exception
 
 #include <fstream>          // save / load
 #include <exception>        // terminate / std::exception
 
 
-menuWindow::menuWindow(mainGame *newgame) :
+menuWindow::menuWindow(mainWindow *_main_window) :
     window(newwin(0,0,0,0)),    // full screen window
-    game(newgame),
+    main_window(_main_window),
     selected_entry(0)
 {
     entry[ENTRY_RESUME] = "resume";
@@ -30,12 +31,6 @@ menuWindow::menuWindow(mainGame *newgame) :
 menuWindow::~menuWindow()
 {
     if(window) delwin(window);
-}
-
-
-void menuWindow::setgame(mainGame *newgame)
-{
-    game = newgame;
 }
 
 
@@ -86,7 +81,7 @@ void menuWindow::print_score()
     wrefresh(window);
 }
 
-menuWindow::returnValue menuWindow::input(int ch)
+bool menuWindow::input(int ch)
 {
     MEVENT event;
 
@@ -136,60 +131,73 @@ menuWindow::returnValue menuWindow::input(int ch)
     default:
         break;
     }
-    return RETURN_NONE;
+    return true;
 }
 
-menuWindow::returnValue menuWindow::excecute_entry(int entry)
+bool menuWindow::excecute_entry(int entry)
 {
     // every action will leave the menu, so reset selection for next time
     selected_entry = 0;
     switch(entry)
     {
     case ENTRY_RESUME:
-        return RETURN_RESUME;
+        main_window->setwindow(mainWindow::WINDOW_GAME);
         break;
     case ENTRY_RESTART:
-        game->restart();
-        return RETURN_RESUME;
+        if(add_score(main_window->getgame().getscore()))
+        {
+            print_score();
+        }
+        {
+            mainGame tmp = main_window->getgame();
+            tmp.restart();
+            main_window->setgame(tmp);
+        }
+        main_window->setwindow(mainWindow::WINDOW_GAME);
         break;
     case ENTRY_SAVE:
         save( prompt("Save as :").c_str(), MESSAGE_ALL);
-        return RETURN_NONE;
         break;
     case ENTRY_LOAD:
-        if(load( prompt("Load file :").c_str(), MESSAGE_ALL ))
-            return RETURN_UPDATE_GAME;
-        else
-            return RETURN_NONE;
+        if(add_score(main_window->getgame().getscore()))
+        {
+            print_score();
+        }
+        load( prompt("Load file :").c_str(), MESSAGE_ALL );
+        main_window->setwindow(mainWindow::WINDOW_GAME);
         break;
     case ENTRY_LAST_SAVE:
-        if(load(AUTOSAVE_FILE, MESSAGE_ERROR))
-            return RETURN_UPDATE_GAME;
-        else
-            return RETURN_NONE;
+        if(add_score(main_window->getgame().getscore()))
+        {
+            print_score();
+        }
+        load(AUTOSAVE_FILE, MESSAGE_ERROR);
+        main_window->setwindow(mainWindow::WINDOW_GAME);
         break;
     case ENTRY_DEFAULT_SETTING:
-        if(load(DEFAULT_BOARD, MESSAGE_ERROR))
-            return RETURN_UPDATE_GAME;
-        else
-            return RETURN_NONE;
+        if(add_score(main_window->getgame().getscore()))
+        {
+            print_score();
+        }
+        load(DEFAULT_BOARD, MESSAGE_ERROR);
+        main_window->setwindow(mainWindow::WINDOW_GAME);
         break;
     case ENTRY_SCORES:
         print_score();
-        return RETURN_NONE;
         break;
     case ENTRY_QUIT:
-        return RETURN_QUIT;
+        return false;
         break;
     default:
         mlog << "Incorrect menu code" << std::endl;
         std::terminate();
         break;
     }
+    return true;
 }
 
 
-void menuWindow::add_score(int score)
+bool menuWindow::add_score(int score)
 {
     if(score > scores[SCORE_NUMBER-1]) {
         std::string name;
@@ -242,7 +250,10 @@ void menuWindow::add_score(int score)
         names[i] = name;
 
         updatemax_score();
+
+        return true;
     }
+    else return false;
 }
 
 
@@ -283,7 +294,7 @@ std::string menuWindow::prompt(const std::string &prompt) const
 
 
 
-bool menuWindow::save(const char *file, menuWindow::messageLevel verbose) const
+bool menuWindow::save(const char *file, messageLevel verbose) const
 {
     // empty path is considered as cancel
     if(!file[0]) return false;
@@ -309,7 +320,7 @@ bool menuWindow::save(const char *file, menuWindow::messageLevel verbose) const
         mlog << "Unable to open file " << file
              << " for writing" << std::endl;
     } else {
-        game->stream_write(output);
+        main_window->getgame().stream_write(output);
         success = true;
         if(verbose == MESSAGE_ALL) {
             mvwprintw(window, maxy/2, (maxx-success_msg.size())/2,
@@ -331,7 +342,7 @@ bool menuWindow::save(const char *file, menuWindow::messageLevel verbose) const
     return success;
 }
 
-bool menuWindow::load(const char *file, menuWindow::messageLevel verbose)
+bool menuWindow::load(const char *file, messageLevel verbose)
 {
     // empty path is considered as cancel
     if(!file[0]) return false;
@@ -361,7 +372,7 @@ bool menuWindow::load(const char *file, menuWindow::messageLevel verbose)
         mainGame tmp;
         try {
             tmp = mainGame::stream_read(input);
-            *game = tmp;
+            main_window->setgame(tmp);
             success = true;
 
             if(verbose == MESSAGE_ALL) {
@@ -370,7 +381,7 @@ bool menuWindow::load(const char *file, menuWindow::messageLevel verbose)
                 wait = true;
             }
         }
-        catch(std::exception &excpt) {
+        catch(syntax_exception &excpt) {
             if(verbose) {
                 std::string error(excpt.what());
                 mvwprintw(window, maxy/2, (maxx-error.size())/2,
@@ -425,6 +436,7 @@ bool menuWindow::load_score(const char *file)
 {
     // load scores from file
     std::ifstream input(file);
+
     if(!input.is_open()) {
         mlog << "Unable to open file " << file
              << " for reading" << std::endl;
@@ -441,12 +453,28 @@ bool menuWindow::load_score(const char *file)
 
         for(size_t i=0; i<SCORE_NUMBER && !blank_only(input_str); i++) {
             std::string name, score_str;
+            size_t pos;
             int score;
+
             line = getline(input_str);
             clean_config_input(line);
-            get_key_value(line, name, score_str);
 
-            score = std::stoi(score_str);
+            if(!get_key_value(line, name, score_str)) {
+                mlog << "Invalid line in highscore file : " << line << std::endl;
+                return false;
+            }
+
+            try {
+                score = std::stoi(score_str, &pos);
+            }
+            catch(std::exception &e) {
+                mlog << "Invalid line in highscore file : " << line << std::endl;
+                return false;
+            }
+            if(!blank_only(score_str.substr(pos))) {
+                mlog << "Invalid line in highscore file : " << line << std::endl;
+                return false;
+            }
 
             // insert in proper position
             if(score > scores[SCORE_NUMBER-1]) {
@@ -471,8 +499,10 @@ bool menuWindow::load_score(const char *file)
 
 void menuWindow::updatemax_score()
 {
-    if(scores[0] > game->getmax_score()) {
-        game->setmax_score(scores[0]);
+    if(scores[0] > main_window->getgame().getmax_score()) {
+        mainGame tmp = main_window->getgame();
+        tmp.setmax_score(scores[0]);
+        main_window->changegame(tmp);
     }
 }
 
