@@ -74,7 +74,7 @@ SELECTED_FORM : 1 2
 
 
 # current board state
-# all squares must be present (so width x height)
+# all squares must be present (width x height)
 # colors allowed are the same as for FORM, plus BLACK, 
 # which stands for empty
 BOARD :
