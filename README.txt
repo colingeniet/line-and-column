@@ -1,6 +1,6 @@
 LINE AND COLUMN
 A 1010 clone on Unix terminal
-by Colin Geniet, Youcef Cherfaoui, Victor Huesca and Alexandre Ribeyre
+by Youcef Cherfaoui, Colin Geniet, Victor Huesca and Alexandre Ribeyre
 
 version 2.1.0
 
