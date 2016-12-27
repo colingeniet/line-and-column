@@ -153,6 +153,7 @@ bool menuWindow::excecute_entry(int entry)
             tmp.restart();
             main_window->setgame(tmp);
         }
+        updatemax_score();
         main_window->setwindow(mainWindow::WINDOW_GAME);
         break;
     case ENTRY_SAVE:
@@ -164,6 +165,7 @@ bool menuWindow::excecute_entry(int entry)
             print_score();
         }
         load( prompt("Load file :").c_str(), MESSAGE_ALL );
+        updatemax_score();
         main_window->setwindow(mainWindow::WINDOW_GAME);
         break;
     case ENTRY_LAST_SAVE:
@@ -172,6 +174,7 @@ bool menuWindow::excecute_entry(int entry)
             print_score();
         }
         load(AUTOSAVE_FILE, MESSAGE_ERROR);
+        updatemax_score();
         main_window->setwindow(mainWindow::WINDOW_GAME);
         break;
     case ENTRY_DEFAULT_SETTING:
@@ -180,6 +183,7 @@ bool menuWindow::excecute_entry(int entry)
             print_score();
         }
         load(DEFAULT_BOARD, MESSAGE_ERROR);
+        updatemax_score();
         main_window->setwindow(mainWindow::WINDOW_GAME);
         break;
     case ENTRY_SCORES:
