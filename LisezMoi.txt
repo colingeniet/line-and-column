@@ -10,7 +10,7 @@ Utilisation:
 compiler :
 	make all
 La librairie ncurses est requise. Elle devrait être disponible sur la plupart
-des systèmes UNIX. Elle peut être obtenue à
+des systèmes Unix. Elle peut être obtenue à
 http://ftp.gnu.org/pub/gnu/ncurses/
 
 supprimer les fichiers crées à la compilation :
@@ -50,23 +50,24 @@ support de la souris -EXPERIMENTAL- :
 ----------------------------------------------------------------------------
 Historique des versions :
 
-v 2.1.0 :
+2.1.0 :
 	- ajout d'un historique
 	- modification mineures des règles, qui sont maintenant exactement
 	  celles du jeu original
 	- ajout d'un poids dans la selection aléatoire
 	- suppression de paramètres inutiles dans les fichers de sauvegarde
 	- ajout d'un fichier de log
+	- ajout d'options en ligne de commande
 
-v 2.0.0 :
+2.0.0 :
 	- ajout du menu
 	- ajout des sauvegardes
 	- ajout des scores
 	- ajout de la souris (expérimental)
 
-v 1.1.0
+1.1.0
 	- problème de rafraichissement fixé
 	- les formes ne peuvent plus 'sortir' du plateau
 
-v 1.0.0
+1.0.0
 	- version initiale

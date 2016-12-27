@@ -6,7 +6,7 @@
 # 	- all superflous blank (space, tab and newline) are ignored
 # 	- each entry must be on a separate line
 # 	- key : value 	entries require blank before and after ':'
-# 	  if value is empty, blank after ':' may be omitted
+
 
 # this header is required and must be before anything else
 # it defines the board width/height
@@ -16,6 +16,7 @@ HEIGHT : 10
 # everything else is optional
 # order is mostly irrelevant (except for header) and entries
 # may be redefined, in which case only the last is used
+
 
 # define the set of forms used
 # valid colors are RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE
@@ -27,6 +28,7 @@ HEIGHT : 10
 #
 # inside the {} block are squares coordonates pair as x y
 # x is toward the right and y toward the bottom
+# 0 0 is the 'center' and both signs are allowed for coordonates
 #
 # each form entry define a new form that will be used
 
