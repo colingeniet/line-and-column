@@ -5,12 +5,6 @@
 #include <string>       // i/o
 
 
-struct Point
-{
-    int x, y;
-};
-
-
 /* This class stores forms made of squares and keeps it's boundary box,
  * ie the smallest rectangle that contains the form */
 
@@ -19,6 +13,12 @@ struct Point
 class Form
 {
 public:
+    struct Point
+    {
+        int x, y;
+    };
+
+
     Form();
     Form(const Form&);
 
@@ -29,7 +29,6 @@ public:
     void clear();
 
     // add a square
-    void add(Point);
     void add(int, int);
 
     // accessors

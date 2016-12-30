@@ -17,6 +17,14 @@
 class mainGame
 {
 public:
+    struct formEntry
+    {
+        Form form;
+        unsigned int weight;
+        int color;
+    };
+
+
     /* parameters : width, height (main board) */
     mainGame();
     mainGame(int, int);
@@ -32,8 +40,7 @@ public:
 
     void setmax_score(int);
 
-    Form getform(size_t) const;
-    int getform_color(size_t) const;
+    formEntry getform(size_t) const;
 
     // coordonates are x, y
     const int *operator[](int) const;
@@ -72,9 +79,7 @@ private:
 
     int form_size;
 
-    std::vector<Form> form_set;
-    std::vector<unsigned int> form_weight;   // weight in random selection
-    std::vector<int> form_color;
+    std::vector<formEntry> form_set;
     int total_weight;
 
     size_t form[N_FORMS];

@@ -251,12 +251,12 @@ void gameWindow::input(int ch)
 
 void gameWindow::cursor_bounds()
 {
-    int minx = - main_window->getgame().getform(selected_form).getboxmin().x;
-    int miny = - main_window->getgame().getform(selected_form).getboxmin().y;
+    int minx = - main_window->getgame().getform(selected_form).form.getboxmin().x;
+    int miny = - main_window->getgame().getform(selected_form).form.getboxmin().y;
     int maxx = main_window->getgame().getwidth()
-               -main_window->getgame().getform(selected_form).getboxmax().x - 1;
+               -main_window->getgame().getform(selected_form).form.getboxmax().x - 1;
     int maxy = main_window->getgame().getheight()
-               -main_window->getgame().getform(selected_form).getboxmax().y - 1;
+               -main_window->getgame().getform(selected_form).form.getboxmax().y - 1;
     if(cursor_x < minx) cursor_x = minx;
     if(cursor_y < miny) cursor_y = miny;
     if(cursor_x > maxx) cursor_x = maxx;
@@ -325,25 +325,25 @@ void gameWindow::print_board()
     }
 
     // current selected form
-    Form form = main_window->getgame().getform(selected_form);
-    wattron(boardWindow, get_attr_color(main_window->getgame().getform_color(selected_form)));
+    Form form = main_window->getgame().getform(selected_form).form;
+    wattron(boardWindow, get_attr_color(main_window->getgame().getform(selected_form).color));
     for(size_t i=0; i<form.getsize(); i++) {
         int x = cursor_x + form[i].x;
         int y = cursor_y + form[i].y;
         mvwprintw(boardWindow, y, 2*x, "  ");
     }
-    wattroff(boardWindow, get_attr_color(main_window->getgame().getform_color(selected_form)));
+    wattroff(boardWindow, get_attr_color(main_window->getgame().getform(selected_form).color));
 }
 
 void gameWindow::print_form(size_t n)
 {
-    Form form = main_window->getgame().getform(n);
+    Form form = main_window->getgame().getform(n).form;
     wclear(formWindow[n]);
-    wattron(formWindow[n], get_attr_color(main_window->getgame().getform_color(n)));
+    wattron(formWindow[n], get_attr_color(main_window->getgame().getform(n).color));
     for(size_t i=0; i<form.getsize(); i++) {
         mvwprintw(formWindow[n],
                   form[i].y + main_window->getgame().getform_size()/2,
                   2*(form[i].x + main_window->getgame().getform_size()/2), "  ");
     }
-    wattroff(formWindow[n], get_attr_color(main_window->getgame().getform_color(n)));
+    wattroff(formWindow[n], get_attr_color(main_window->getgame().getform(n).color));
 }
