@@ -16,8 +16,7 @@ gameWindow::gameWindow(mainWindow *_main_window) :
     main_window(_main_window),
     cursor_x(main_window->getgame().getwidth()/2),
     cursor_y(main_window->getgame().getheight()/2),
-    selected_form(0),
-    history_pos(history.end())
+    selected_form(0)
 {
     init_windows();
 }
@@ -35,7 +34,7 @@ gameWindow::~gameWindow()
 
 void gameWindow::update_dimensions()
 {
-    // recreation of all windows is required if size is changed
+    // create new windows
     delwin(borderWindow);
     delwin(boardWindow);
     for(size_t i=0; i<N_FORMS; i++) {
@@ -46,11 +45,10 @@ void gameWindow::update_dimensions()
     cursor_y = main_window->getgame().getheight()/2;
     selected_form = 0;
 
-    // modification which requires call to setgame() make the history invalid
-    history.clear();
-    history_pos = history.end();
-
     init_windows();
+
+    // changing dimentions make the history invalid
+    history.clear();
 }
 
 
@@ -151,39 +149,15 @@ void gameWindow::input(int ch)
     case '\n':  // different codes enter may produce
     case '\r':
     case KEY_ENTER:
-        // only keep history strictly before current position
-        history.erase(history_pos, history.end());
-        // add current state
-        history.push_back(main_window->getgame());
-        history_pos = history.end();
-
-        main_window->add_form(selected_form, cursor_x, cursor_y);
+        if(main_window->add_form(selected_form, cursor_x, cursor_y)) {
+            history.add(main_window->getgame());
+        }
         break;
     case 'z':
-        // going back in history :
-        // check not at the begining
-        if(history_pos != history.begin()) {
-            // if at the end, current state must be saved
-            if(history_pos == history.end()) {
-                history.push_back(main_window->getgame());
-                // and set history_pos to the current state :
-                // without this, history_pos was history.end(), and would still
-                // be after push_back() due to the way lists works
-                --history_pos;
-            }
-            // game in history have same dimensions
-            // -> no need to warn to other classes from change
-            main_window->changegame(*--history_pos);
-        }
+        main_window->changegame(history.previous());
         break;
     case 'Z':
-        // going forward in history
-        if(history_pos != history.end() &&
-           history_pos != --history.end() ) {
-            // game in history have same dimensions
-            // -> no need to warn to other classes from change
-            main_window->changegame(*++history_pos);
-        }
+        main_window->changegame(history.next());
         break;
     case KEY_MOUSE:
         if(getmouse(&event) == OK)
@@ -200,13 +174,9 @@ void gameWindow::input(int ch)
 
                 if(event.bstate & BUTTON1_PRESSED)
                 {
-                    // only keep history strictly before current position
-                    history.erase(history_pos, history.end());
-                    // add current state
-                    history.push_back(main_window->getgame());
-                    history_pos = history.end();
-
-                    main_window->add_form(selected_form, cursor_x, cursor_y);
+                    if(main_window->add_form(selected_form, cursor_x, cursor_y)) {
+                        history.add(main_window->getgame());
+                    }
                 }
             }
             else
@@ -248,6 +218,15 @@ void gameWindow::input(int ch)
         main_window->setgame(tmp);
     }
 }
+
+
+void gameWindow::initialize_history()
+{
+    history.clear();
+    // initial state must be added to make history ready for use
+    history.add(main_window->getgame());
+}
+
 
 void gameWindow::cursor_bounds()
 {

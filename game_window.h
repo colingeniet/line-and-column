@@ -10,11 +10,11 @@
 
 #include "main_game.h"      // used by gameWindow
 #include "color.h"          // used for printing
+#include "history.h"        // game history
 
 #include <ncurses.h>        // used by gameWindow
 
 #include <cstddef>          // size_t
-#include <list>             // for move history
 
 
 /* main game display
@@ -36,6 +36,9 @@ public:
 
     void input(int);
 
+    // clear history and make it ready for use
+    void initialize_history();
+
 
 private:
     WINDOW *borderWindow, *boardWindow, *scoreWindow;
@@ -46,8 +49,7 @@ private:
     int cursor_x, cursor_y;
     size_t selected_form;
 
-    std::list<mainGame> history;
-    std::list<mainGame>::iterator history_pos;
+    History<mainGame> history;
 
     // create all WINDOW objects (size calculation)
     void init_windows();

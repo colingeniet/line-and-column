@@ -63,6 +63,9 @@ public:
     bool save_score(const char*) const;
     bool load_score(const char*);
 
+    // update maxscore in mainGame according to the scores in menuWindow
+    void updatemax_score();
+
 private:
     WINDOW *window;
 
@@ -92,8 +95,6 @@ private:
 
     // nice prompt window with custom prompt message.
     std::string prompt(const std::string&) const;
-
-    void updatemax_score();
 
     // wait for any input
     void hang() const;

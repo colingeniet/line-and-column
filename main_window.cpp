@@ -15,6 +15,7 @@ mainWindow::mainWindow() :
     game_window(new gameWindow(this)),
     menu_window(new menuWindow(this))
 {
+    initialize_game();
 }
 
 mainWindow::mainWindow(const mainGame &newgame) :
@@ -140,9 +141,7 @@ bool mainWindow::save(const char *file, menuWindow::messageLevel verbose) const
 bool mainWindow::load(const char *file, menuWindow::messageLevel verbose)
 {
     bool success = menu_window->load(file, verbose);
-    if(success) {
-        initialize_game();
-    }
+    if(success) initialize_game();
     return success;
 }
 
@@ -153,7 +152,9 @@ bool mainWindow::save_scores(const char *file) const
 
 bool mainWindow::load_scores(const char *file)
 {
-    return menu_window->load_score(file);
+    bool success = menu_window->load_score(file);
+    if(success) initialize_game();
+    return success;
 }
 
 
@@ -167,4 +168,8 @@ void mainWindow::initialize_game()
 {
     // a loaded game may not have no forms selected
     game->random_select_forms(false);
+    // set max score
+    menu_window->updatemax_score();
+    // start history
+    game_window->initialize_history();
 }
