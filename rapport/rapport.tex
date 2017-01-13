@@ -10,7 +10,6 @@
 \usepackage{url}
 \usepackage{graphicx}
 
-
 \begin{document}
 
 \title{HLIN302~--- Projet « 1010! le casse brique »}
@@ -47,7 +46,7 @@ Le but de ce projet est donc de créer un clone de 1010!, pour terminal Unix. Ce
 D'un point de vue technique, selon les spécifications imposées, le jeu sera codé en C++ en utilisant pour l'interface la librairie ncurses\footnote{\url{https://www.gnu.org/software/ncurses/}}, spécifiquement prévue pour les interfaces graphiques sur terminal et disponible sur la plupart des systèmes Unix actuels (GNU/Linux, OpenBSD, FreeBSD\dots) ainsi que OSX.
 
 
-\newpage
+\clearpage
 \section{Moteur du jeu}
 Le moteur est le cœur du jeu à proprement parler, par opposition à l'interface. Il comprend donc les structures permettant de décrire l'état du jeu, ainsi que les fonctions (ou méthodes en l'occurrence) permettant d'effectuer toutes les actions du jeu.
 
@@ -172,7 +171,49 @@ Sous Linux, avec des émulateurs de terminal dérivés de Xterm, nous avons pu r
 Dans tous les cas, l'usage de la souris restant entièrement dépendant du terminal utilisé, nous avons choisi de le laisser désactivé par défaut, l'option \verb"--enable-mouse" permettant de le réactiver.
 
 \subsection{Affichage}
+Nous avons choisit de baser l'affichage du jeu sur des carrés de couleurs. Ceux-ci sont constitués de deux caractères ``espace'', ce qui donne une forme proche d'un carré avec la plupart des polices. La couleur d'arrière-plan est modifiée pour changer celle du carré.
+
+Pour simplifier l'affichage du jeu, plusieurs fenêtres de ncurses (i.e.\ l'objet \verb"WINDOW") sont utilisées pour les différentes éléments de l'interface : une pour les scores, une pour le plateau et trois pour les formes à placer. Une dernière fenêtre sert d'arrière-plan : elle est vide, colorée uniformément. Les autres fenêtres sont affichées par dessus.
+
+Pour permettre de changer les dimensions du jeu, la taille et la disposition de ces fenêtres est calculée par la méthode \verb"init_windows()" lors de la création de la classe \verb"gameWindow", et à chaque fois que les dimensions sont modifiées.
+
+L'utilisation de fenêtres multiples permet d'effectuer ces calculs de positionnement à la création des fenêtres uniquement, ce qui rend les méthodes d'affichage plus simples.
 
 
+\subsection{Historique}
+Le jeu intègre un historique, permettant d'annuler les coups jusqu'au début de la partie, et bien sûr de les rétablir. Il est implémenté par la classe générique\verb"History", et est intégré dans la classe \verb"gameWindow".
+
+En mémoire, il est implémenté comme une liste doublement chaînée. En effet, l'historique nécessite de pouvoir facilement ajouter des éléments, et le parcours se fait uniquement par incréments et décréments. Une liste doublement chaînée permet d'effectuer toutes ces opérations en temps constant.
+
+
+\clearpage
+\appendix
+
+\section{Liste des fichiers}
+\subsection*{Sources}
+\begin{tabular}{lp{80mm}}
+\verb"board.cpp /.h" & classe \verb"Board" \\
+\verb"color.cpp /.h" & initialisation et gestion des paires de couleurs pour ncurses \\
+\verb"config_load.cpp /.h" & fonctions utilisée pour la lecture des fichiers de configuration \\
+\verb"form.cpp /.h" & classe \verb"Form" \\
+\verb"game_window.cpp /.h" & classe \verb"gameWindow" \\
+\verb"global_log.cpp /.h" & stream de sortie écrivant sur stderr et sur le fichier log.txt \\
+\verb"history.tcc /.h" & classe générique pour l'historique \\
+\verb"includeGUI.h" & inclut les classes \verb"mainWindow", \verb"gameWindow" et \verb"menuWindow". Celles-ci sont interdépendantes et nécessitent d'être incluses les trois, et dans un ordre particulier \\
+\verb"main.cpp" & \verb"main()", initialisation de ncurses \\
+\verb"main_game.cpp /.h" & classe \verb"mainGame" \\
+\verb"main_window.cpp /.h" & classe \verb"mainWindow" \\
+\verb"menu_window.cpp /.h" & classe \verb"menuWindow" \\
+\verb"option.cpp /.h" & gestion des options en ligne de commande \\
+\end{tabular}
+
+\subsection*{Sauvegardes~--- configuration}
+\begin{tabular}{lp{80mm}}
+\verb"default_board" & configuration par défaut (règles du jeu original) \\
+\verb"exemple_board" & exemple de fichier de configuration, avec le détail de la syntaxe \\
+\verb"standard_board" & règles demandées dans les spécifications \\
+\verb"autosave" & fichier de sauvegarde automatique (sauvegarde en quittant le jeu) \\
+\verb".highscore" & sauvegarde des scores \\
+\end{tabular}
 
 \end{document}
