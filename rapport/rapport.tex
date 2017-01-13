@@ -27,6 +27,7 @@ Ce projet vise à la création d'un clone sur terminal Unix du jeu pour mobile 1
 \tableofcontents
 \clearpage
 
+
 \section*{Introduction}
 \subsection*{Présentation du jeu}
 Le jeu 1010!\footnote{\url{https://www.1010ga.me/}} est un jeu pour mobile de type puzzle disponible sur Android et iOS. Il consiste en une grille de taille $10\times10$~--- d'où le nom~--- où l'on place des pièces constituées de plusieurs carrés. Bien entendu, ces formes doivent être posées sur des espaces vides du plateau. Dès qu'une ligne ou une colonne est entièrement remplie, celle-ci est vidée.
@@ -38,17 +39,17 @@ Le jeu 1010!\footnote{\url{https://www.1010ga.me/}} est un jeu pour mobile de ty
 
 Les formes sont choisies aléatoirement dans un ensemble prédéfini et sont proposées trois par trois, c'est à dire que les trois nouvelles formes ne sont données que lorsque les trois précédentes ont été placées. Le jeu se termine dès qu'aucune des pièces disponibles ne peut être placée.
 
-Le but est d'obtenir un score maximal. Celui-ci augmente en plaçant des formes (du nombre de carrés la formant) ainsi qu'en vidant des lignes et des colonnes (10 pour une ligne ou une colonne, avec des bonus lorsque plusieurs lignes et colonnes sont supprimées simultanément).
+Le but est d'obtenir un score maximal. Celui-ci augmente en plaçant des formes (du nombre de carrés la formant) ainsi qu'en vidant des lignes et des colonnes (10 pour une ligne ou une colonne, avec des bonus lorsque plusieurs sont supprimées simultanément).
 
 \subsection*{Le projet}
-Le but de ce projet est donc de créer un clone de 1010!, pour terminal Unix. Celui-ci devra donc être capable de reproduire exactement les règles du jeu original. Nous chercherons de plus à autoriser des variations sur celles-ci, telles que modifier l'ensemble des formes, leur probabilité d'apparition, et même les dimensions du plateau de jeu. L'interface comprendra également un menu, un système de sauvegarde et un historique des mouvements (donc la possibilité de les annuler).
+Le but de ce projet est donc de créer un clone de 1010! pour terminal Unix. Celui-ci devra donc être capable de reproduire exactement les règles du jeu original. Nous chercherons de plus à autoriser des variations sur celles-ci, telles que modifier l'ensemble des formes, leur probabilité d'apparition, et même les dimensions du plateau. Le jeu comprendra également un menu, un système de sauvegarde et un historique des mouvements permettant de les annuler.
 
 D'un point de vue technique, selon les spécifications imposées, le jeu sera codé en C++ en utilisant pour l'interface la librairie ncurses\footnote{\url{https://www.gnu.org/software/ncurses/}}, spécifiquement prévue pour les interfaces graphiques sur terminal et disponible sur la plupart des systèmes Unix actuels (GNU/Linux, OpenBSD, FreeBSD\dots) ainsi que OSX.
 
 
 \clearpage
 \section{Moteur du jeu}
-Le moteur est le cœur du jeu à proprement parler, par opposition à l'interface. Il comprend donc les structures permettant de décrire l'état du jeu, ainsi que les fonctions (ou méthodes en l'occurrence) permettant d'effectuer toutes les actions du jeu.
+Le moteur est le cœur du jeu à proprement parler, par opposition à l'interface. Il comprend donc les structures permettant de décrire l'état du jeu, ainsi que les fonctions permettant d'effectuer toutes les actions du jeu.
 
 \subsection{Représentation}
 Trois classes sont utilisées pour représenter l'état des différents éléments du jeu :
@@ -58,12 +59,12 @@ Celles-ci sont représentées par un tableau de paires de coordonnées, chaque p
 
 Le principal inconvénient de cette représentation est qu'elle est pas optimale pour l'ajout de nouveaux carrés dans une forme puisqu'elle nécessite de modifier la taille du tableau. Cependant, la taille des pièces est telle que ce problème est en pratique négligeable.
 
-Une autre solution aurait été de les représenter par une grille (tableau bidimensionnel) de booléens : vide / plein. Cependant, cette méthode est plus complexe si la taille des formes n'est pas connue à leur création. Puisque nous nous sommes efforcés de ne pas contraindre le jeu au dimensions du jeu original, la première solution à été retenue.
+Une autre solution aurait été de les représenter par une grille (tableau bidimensionnel) de booléens : vide / plein. Cependant, cette méthode est plus complexe si la taille des formes n'est pas connue à leur création. Puisque nous nous sommes efforcés de ne pas contraindre le jeu au dimensions du jeu original, la première solution a été retenue.
 
-Afin de simplifier plusieurs opérations, la classe \verb"Form" calcule également les limites de la forme, c'est à dire le plus petit rectangle contenant entièrement la forme. Cela permet par exemple de déterminer immédiatement si une forme dépasse du plateau.
+Afin de simplifier plusieurs opérations, la classe \verb"Form" calcule également les limites de la forme, c'est à dire le plus petit rectangle la contenant entièrement. Cela permet par exemple de déterminer immédiatement si une forme dépasse du plateau.
 
 \paragraph{Le plateau} (classe \verb"Board")
-Contrairement aux formes, sa représentation s'impose : c'est un tableau bidimensionnel représentant toutes les cases du plateau, chaque case étant représenté par un entier définissant sa couleur (ou bien 0 si elle est vide).
+Contrairement aux formes, sa représentation s'impose : c'est un tableau bidimensionnel représentant toutes les cases du plateau, chaque case étant représentée par un entier définissant sa couleur (ou bien 0 si elle est vide).
 
 On notera que l'on ne peut pas décrire l'état du plateau par l'ensemble de formes qui y ont été placées, puisque la suppression des lignes et colonnes ne conserve pas ces formes. Il est donc nécessaire de décrire l'état de toutes les cases.
 
@@ -83,25 +84,31 @@ Les classes \verb"Form" et \verb"Board" ont essentiellement un rôle de structur
 \item \verb"formCollide()" teste si une forme, à une position donnée serait en collision sur le plateau.
 \end{itemize}
 
+\medskip
 La classe \verb"mainGame", en revanche, est, comme son nom l'indique, la classe principale du moteur, c'est à dire celle qui sera par la suite manipulée par le reste du programme. Par conséquent, ses méthodes permettent d'effectuer des actions complexes du jeu. Deux sont particulièrement importantes :
 \begin{itemize}
-\item \verb"add_form()" permet de tenter d'ajouter une des formes sélectionnées à une position donnée. Elle vérifie que le coup est valide, ajoute la forme au plateau le cas échéant et effectue toutes les actions nécessaire après le coup, a savoir nettoyer d'éventuelles lignes ou colonnes pleines, mettre a jour le score et sélectionné de nouvelles formes si les trois ont été placées.
-\item \verb"move_available()" teste si il existe un coup valide dans la configuration actuelle.
+\item \verb"add_form()" permet de tenter d'ajouter une des formes sélectionnées à une position donnée. Elle vérifie que le coup est valide, ajoute la forme au plateau le cas échéant et effectue toutes les actions nécessaires après le coup, a savoir nettoyer d'éventuelles lignes ou colonnes pleines, mettre a jour le score et sélectionner de nouvelles formes si les trois ont été placées.
+\item \verb"move_available()" teste s'il existe un coup valide dans la configuration actuelle.
 \end{itemize}
 
-Ces deux méthodes sont le centre du moteur : on peut schématiser le jeu par :
+\medskip
+Ces deux méthodes complexes constituent le centre du moteur. À l'interface près, on peut schématiser le jeu par la boucle
 \begin{verbatim}
 while(move_available()) {
-    add_form();
+    addform();
 }
 \end{verbatim}
 
+
+
 \subsection{Fichiers de sauvegarde}
-Pour permettre de sauvegarder et charger des parties, le moteur du jeu intègre également un système de fichiers de sauvegardes. Celui-ci permet de sauvegarder les dimensions du jeu, l'ensemble des formes utilisées, l'état du plateau, les formes couramment sélectionnées, ainsi que le score.
+Le jeu intègre également un système permettant de sauvegarder et charger des parties dans un fichier. Celui-ci permet de sauvegarder les dimensions du jeu, l'ensemble des formes utilisées, l'état du plateau, les formes couramment sélectionnées, ainsi que le score.
 
 Ce même système sert également aux fichiers de configuration : on définit alors uniquement les dimensions et l'ensemble des formes, les autres éléments étant totalement optionnels.
 
-Le choix d'utiliser un format unique pour la configuration et les sauvegardes et justifié par le fait que toutes les informations contenue dans un fichier de configuration sont également requise dans un fichier de sauvegarde : une sauvegarde ne définissant pas les règles~--- c'est à dire la configuration~--- est inutile.
+Le choix d'utiliser un format unique pour la configuration et les sauvegardes et justifié par le fait que toutes les informations contenues dans un fichier de configuration sont également requise dans un fichier de sauvegarde : une sauvegarde ne définissant pas les règles~--- c'est à dire la configuration~--- est inutile.
+
+Chaque classe du moteur contient donc des méthodes permettant de lire et écrire les informations qu'elle contient dans une chaîne de caractères. Ces méthodes sont ensuite utilisées par le menu pour permettre la lecture et l'écriture des fichiers de sauvegardes.
 
 
 \section{Interface}
@@ -111,8 +118,6 @@ L'interface est la partie du programme qui permet à l'utilisateur d'interagir a
 Il existe deux parties principales de l'interface : le jeu à proprement parler et le menu. Celles-ci ayant relativement peu d'interactions, nous avons décidé de les séparer dans deux classes : \verb"gameWindow" et \verb"menuWindow". Il est toutefois nécessaire de les relier ces deux dernières, ainsi que le moteur. Ceci est le rôle d'une troisième classe : \verb"mainWindow".
 
 Le lien entre ces différentes classes est assuré par des pointeurs : \verb"mainWindow" a des pointeurs sur \verb"gameWindow", \verb"menuWindow" et \verb"mainGame". En retour, \verb"gameWindow" et \verb"menuWindow" ont un pointeur sur \verb"mainWindow". Le moteur pouvant fonctionner indépendamment de l'interface, \verb"mainGame" n'a en revanche pas de pointeur sur \verb"mainWindow". On notera enfin que les interactions entre \verb"gameWindow" et \verb"menuWindow" passent obligatoirement par \verb"mainWindow".
-
-En pratique, tous ces pointeurs sont initialisés lors de la construction de \verb"mainWindow", qui crée également les instances des autres classes. Dans la mesure où ces pointeurs sont nécessaire au bon fonctionnement de ces différentes classes, il n'est pas prévu que des instances de \verb"gameWindow" ou \verb"menuWindow" soient créées en dehors de la construction d'une instance de \verb"mainWindow". Cette dernière constitue par conséquent la classe principale du programme (i.e.\ celle qui sera créée dans le \verb"main()").
 
 \begin{figure}[h]
 \caption{lien entre les classes de l'interface graphique}
@@ -134,6 +139,9 @@ En pratique, tous ces pointeurs sont initialisés lors de la construction de \ve
 \put(85, 11){\vector(-1,0){14.8}}
 \end{picture}
 \end{figure}
+
+En pratique, tous ces pointeurs sont initialisés lors de la construction de \verb"mainWindow", qui crée également les instances des autres classes. Dans la mesure où ces pointeurs sont nécessaire au bon fonctionnement de ces différentes classes, il n'est pas prévu que des instances de \verb"gameWindow" ou \verb"menuWindow" soient créées en dehors de la construction d'une instance de \verb"mainWindow". Cette dernière constitue par conséquent la classe principale du programme (i.e.\ celle qui sera créée dans le \verb"main()").
+
 
 \subsection{Méthodes d'interface}
 Afin de compléter cet ensemble de pointeur, la classe \verb"mainWindow" définit des méthodes «d'interface» : des méthodes qui se contentent d'appeler la méthode correspondante dans une des sous classes. Ces méthodes constitue une grande partie de la classe \verb"mainWindow". Appelées via les pointeurs reliant les classes, elles permettent les interactions entre les trois classes de l'interface graphique.
@@ -191,24 +199,24 @@ En mémoire, il est implémenté comme une liste doublement chaînée. En effet,
 
 \section{Liste des fichiers}
 \subsection*{Sources}
-\begin{tabular}{lp{80mm}}
-\verb"board.cpp /.h" & classe \verb"Board" \\
-\verb"color.cpp /.h" & initialisation et gestion des paires de couleurs pour ncurses \\
-\verb"config_load.cpp /.h" & fonctions utilisée pour la lecture des fichiers de configuration \\
-\verb"form.cpp /.h" & classe \verb"Form" \\
-\verb"game_window.cpp /.h" & classe \verb"gameWindow" \\
-\verb"global_log.cpp /.h" & stream de sortie écrivant sur stderr et sur le fichier log.txt \\
-\verb"history.tcc /.h" & classe générique pour l'historique \\
-\verb"includeGUI.h" & inclut les classes \verb"mainWindow", \verb"gameWindow" et \verb"menuWindow". Celles-ci sont interdépendantes et nécessitent d'être incluses les trois, et dans un ordre particulier \\
-\verb"main.cpp" & \verb"main()", initialisation de ncurses \\
-\verb"main_game.cpp /.h" & classe \verb"mainGame" \\
-\verb"main_window.cpp /.h" & classe \verb"mainWindow" \\
-\verb"menu_window.cpp /.h" & classe \verb"menuWindow" \\
-\verb"option.cpp /.h" & gestion des options en ligne de commande \\
+\begin{tabular}{lp{76mm}}
+\verb"board.cpp/.h" & classe \verb"Board" \\
+\verb"color.cpp/.h" & initialisation et gestion des paires de couleurs pour ncurses \\
+\verb"config_load.cpp/.h" & fonctions utilisée pour la lecture des fichiers de configuration \\
+\verb"form.cpp/.h" & classe \verb"Form" \\
+\verb"game_window.cpp/.h" & classe \verb"gameWindow" \\
+\verb"global_log.cpp/.h" & stream de sortie écrivant sur stderr et sur le fichier log.txt \\
+\verb"history.tcc/.h" & classe générique pour l'historique \\
+\verb"includeGUI.h" & inclut les classes \verb"mainWindow", \verb"gameWindow" et \verb"menuWindow". Celles-ci sont interdépendantes et nécessitent d'être incluses les trois ensemble, et dans un ordre particulier \\
+\verb"main.cpp" & \verb"main()", initialisation de ncurses, initialisation du jeu et boucle principale \\
+\verb"main_game.cpp/.h" & classe \verb"mainGame" \\
+\verb"main_window.cpp/.h" & classe \verb"mainWindow" \\
+\verb"menu_window.cpp/.h" & classe \verb"menuWindow" \\
+\verb"option.cpp/.h" & gestion des options en ligne de commande \\
 \end{tabular}
 
 \subsection*{Sauvegardes~--- configuration}
-\begin{tabular}{lp{80mm}}
+\begin{tabular}{lp{84mm}}
 \verb"default_board" & configuration par défaut (règles du jeu original) \\
 \verb"exemple_board" & exemple de fichier de configuration, avec le détail de la syntaxe \\
 \verb"standard_board" & règles demandées dans les spécifications \\
