@@ -59,9 +59,9 @@ Celles-ci sont représentées par un tableau de paires de coordonnées, chaque p
 
 Le principal inconvénient de cette représentation est qu'elle est pas optimale pour l'ajout de nouveaux carrés dans une forme puisqu'elle nécessite de modifier la taille du tableau. Cependant, la taille des pièces est telle que ce problème est en pratique négligeable.
 
-Une autre solution aurait été de les représenter par une grille (tableau bidimensionnel) de booléens : vide / plein. Cependant, cette méthode est plus complexe si la taille des formes n'est pas connue à leur création. Puisque nous nous sommes efforcés de ne pas contraindre le jeu au dimensions du jeu original, la première solution a été retenue.
+Une autre solution aurait été de les représenter par une grille (tableau bidimensionnel) de booléens : vide / plein. Cependant, cette méthode est plus complexe si la taille des formes n'est pas connue à leur création. Puisque nous nous sommes efforcés de ne pas contraindre le jeu aux dimensions du jeu original, la première solution a été retenue.
 
-Afin de simplifier plusieurs opérations, la classe \verb"Form" calcule également les limites de la forme, c'est à dire le plus petit rectangle la contenant entièrement. Cela permet par exemple de déterminer immédiatement si une forme dépasse du plateau.
+Afin de simplifier plusieurs opérations, la classe \verb"Form" calcule également les limites de la forme, c'est-à-dire le plus petit rectangle la contenant entièrement. Cela permet par exemple de déterminer immédiatement si une forme dépasse du plateau.
 
 \paragraph{Le plateau} (classe \verb"Board")
 Contrairement aux formes, sa représentation s'impose : c'est un tableau bidimensionnel représentant toutes les cases du plateau, chaque case étant représentée par un entier définissant sa couleur (ou bien 0 si elle est vide).
@@ -74,20 +74,20 @@ Pour finir, la classe \verb"mainGame" représente l'état du jeu dans son ensemb
 \begin{itemize}
 \item L'état du plateau est défini par une instance de la classe \verb"Board"
 \item L'ensemble des formes est stocké dans un tableau (la possibilité d'accès aléatoire est importante), avec une couleur associée, et un poids influençant leur probabilité d'être sélectionnées aléatoirement. Les différentes informations sont regroupées dans une structure.
-\item Les formes sélectionnées, c'est à dire les trois pièces à placer, sont indiquées par leurs indices dans l'ensemble des formes. Elles constituent un deuxième tableau. Dans le cas ou la forme a été utilisée est n'a pas été remplacée, l'indice $-1$ indique l'absence de forme sélectionnée.
+\item Les formes sélectionnées, c'est-à-dire les trois pièces à placer, sont indiquées par leurs indices dans l'ensemble des formes. Elles constituent un deuxième tableau. Dans le cas où la forme a été utilisée est n'a pas été remplacée, l'indice $-1$ indique l'absence de forme sélectionnée.
 \end{itemize}
 
 \subsection{Manipulation}
 Les classes \verb"Form" et \verb"Board" ont essentiellement un rôle de structure de données. Par conséquent, leurs méthodes restent basiques et sont pour la plupart des accesseurs. Nous mentionnerons simplement deux méthodes de \verb"Board" permettant des interactions simples avec \verb"Form" : 
 \begin{itemize}
 \item \verb"addForm()" permet d'écrire une forme sur le plateau à des coordonnées données.
-\item \verb"formCollide()" teste si une forme, à une position donnée serait en collision sur le plateau.
+\item \verb"formCollide()" teste si une forme, à une position donnée, serait en collision sur le plateau.
 \end{itemize}
 
 \medskip
-La classe \verb"mainGame", en revanche, est, comme son nom l'indique, la classe principale du moteur, c'est à dire celle qui sera par la suite manipulée par le reste du programme. Par conséquent, ses méthodes permettent d'effectuer des actions complexes du jeu. Deux sont particulièrement importantes :
+La classe \verb"mainGame", est en revanche, comme son nom l'indique, la classe principale du moteur, c'est-à-dire celle qui sera par la suite manipulée par le reste du programme. Par conséquent, ses méthodes permettent d'effectuer des actions complexes du jeu. Deux sont particulièrement importantes :
 \begin{itemize}
-\item \verb"add_form()" permet de tenter d'ajouter une des formes sélectionnées à une position donnée. Elle vérifie que le coup est valide, ajoute la forme au plateau le cas échéant et effectue toutes les actions nécessaires après le coup, a savoir nettoyer d'éventuelles lignes ou colonnes pleines, mettre a jour le score et sélectionner de nouvelles formes si les trois ont été placées.
+\item \verb"add_form()" permet de tenter d'ajouter une des formes sélectionnées à une position donnée. Elle vérifie que le coup est valide, ajoute la forme au plateau le cas échéant et effectue toutes les actions nécessaires après le coup, à savoir nettoyer d'éventuelles lignes ou colonnes pleines, mettre a jour le score et sélectionner de nouvelles formes si les trois ont été placées.
 \item \verb"move_available()" teste s'il existe un coup valide dans la configuration actuelle.
 \end{itemize}
 
@@ -102,20 +102,20 @@ while(move_available()) {
 
 
 \subsection{Fichiers de sauvegarde}
-Le jeu intègre également un système permettant de sauvegarder et charger des parties dans un fichier. Celui-ci permet de sauvegarder les dimensions du jeu, l'ensemble des formes utilisées, l'état du plateau, les formes couramment sélectionnées, ainsi que le score.
+Le jeu intègre également un système permettant de sauvegarder et charger une partie dans un fichier. Celui-ci permet de sauvegarder les dimensions du jeu, l'ensemble des formes utilisées, l'état du plateau, les formes sélectionnées, ainsi que le score.
 
 Ce même système sert également aux fichiers de configuration : on définit alors uniquement les dimensions et l'ensemble des formes, les autres éléments étant totalement optionnels.
 
-Le choix d'utiliser un format unique pour la configuration et les sauvegardes et justifié par le fait que toutes les informations contenues dans un fichier de configuration sont également requise dans un fichier de sauvegarde : une sauvegarde ne définissant pas les règles~--- c'est à dire la configuration~--- est inutile.
+Le choix d'utiliser un format unique pour la configuration et les sauvegardes est justifié par le fait que toutes les informations contenues dans un fichier de configuration sont également requises dans un fichier de sauvegarde : une sauvegarde ne définissant pas les règles~--- c'est-à-dire la configuration~--- est inutile.
 
-Chaque classe du moteur contient donc des méthodes permettant de lire et écrire les informations qu'elle contient dans une chaîne de caractères. Ces méthodes sont ensuite utilisées par le menu pour permettre la lecture et l'écriture des fichiers de sauvegardes.
+Chaque classe du moteur contient donc des méthodes permettant de lire et écrire les informations qu'elle contient dans une chaîne de caractères. Ces méthodes sont ensuite utilisées par le menu pour permettre la lecture et l'écriture des fichiers de sauvegarde.
 
 
 \section{Interface}
 L'interface est la partie du programme qui permet à l'utilisateur d'interagir avec le jeu. Dans notre cas, elle a deux rôles majeurs : l'affichage et la gestion des contrôles. Comme mentionné précédemment, l'interface se fera via un terminal Unix, en utilisant la librairie ncurses.
 
 \subsection{Organisation générale de l'interface}
-Il existe deux parties principales de l'interface : le jeu à proprement parler et le menu. Celles-ci ayant relativement peu d'interactions, nous avons décidé de les séparer dans deux classes : \verb"gameWindow" et \verb"menuWindow". Il est toutefois nécessaire de les relier ces deux dernières, ainsi que le moteur. Ceci est le rôle d'une troisième classe : \verb"mainWindow".
+Il existe deux parties principales de l'interface : le jeu à proprement parler et le menu. Celles-ci ayant relativement peu d'interactions, nous avons décidé de les séparer dans deux classes : \verb"gameWindow" et \verb"menuWindow". Il est toutefois nécessaire de relier ces deux dernières, ainsi que le moteur. Ceci est le rôle d'une troisième classe : \verb"mainWindow".
 
 Le lien entre ces différentes classes est assuré par des pointeurs : \verb"mainWindow" a des pointeurs sur \verb"gameWindow", \verb"menuWindow" et \verb"mainGame". En retour, \verb"gameWindow" et \verb"menuWindow" ont un pointeur sur \verb"mainWindow". Le moteur pouvant fonctionner indépendamment de l'interface, \verb"mainGame" n'a en revanche pas de pointeur sur \verb"mainWindow". On notera enfin que les interactions entre \verb"gameWindow" et \verb"menuWindow" passent obligatoirement par \verb"mainWindow".
 
@@ -140,21 +140,21 @@ Le lien entre ces différentes classes est assuré par des pointeurs : \verb"mai
 \end{picture}
 \end{figure}
 
-En pratique, tous ces pointeurs sont initialisés lors de la construction de \verb"mainWindow", qui crée également les instances des autres classes. Dans la mesure où ces pointeurs sont nécessaire au bon fonctionnement de ces différentes classes, il n'est pas prévu que des instances de \verb"gameWindow" ou \verb"menuWindow" soient créées en dehors de la construction d'une instance de \verb"mainWindow". Cette dernière constitue par conséquent la classe principale du programme (i.e.\ celle qui sera créée dans le \verb"main()").
+En pratique, tous ces pointeurs sont initialisés lors de la construction de \verb"mainWindow", qui crée également les instances des autres classes. Dans la mesure où ces pointeurs sont nécessaires au bon fonctionnement de ces différentes classes, il n'est pas prévu que des instances de \verb"gameWindow" ou \verb"menuWindow" soient créées en dehors de la construction d'une instance de \verb"mainWindow". Cette dernière constitue par conséquent la classe principale du programme (i.e.\ celle qui sera créée dans le \verb"main()").
 
 
 \subsection{Méthodes d'interface}
-Afin de compléter cet ensemble de pointeur, la classe \verb"mainWindow" définit des méthodes «d'interface» : des méthodes qui se contentent d'appeler la méthode correspondante dans une des sous classes. Ces méthodes constitue une grande partie de la classe \verb"mainWindow". Appelées via les pointeurs reliant les classes, elles permettent les interactions entre les trois classes de l'interface graphique.
+Afin de compléter cet ensemble de pointeurs, la classe \verb"mainWindow" définit des méthodes «d'interface» : des méthodes qui se contentent d'appeler la méthode correspondante dans une des sous-classes. Ces méthodes constituent une grande partie de la classe \verb"mainWindow". Appelées via les pointeurs reliant les classes, elles permettent les interactions entre les trois classes de l'interface graphique.
 
-Quelque unes d'entre elles méritent une attention supplémentaire :
+Quelques-unes d'entre elles méritent une attention supplémentaire :
 
 \paragraph{Fenêtre active}
-Un autre rôle de la classe \verb"mainWindow" est de gérer la fenêtre active (menu ou jeu). Le choix de celle-ci est représenté grâce à une énumération. Sa valeur a une influence sur deux méthodes : \verb"print()" (méthode principale d'affichage) et \verb"input()" (traitement des entrées du clavier). En effet, ces méthodes appellerons la même méthode dans la classe \verb"gameWindow" ou \verb"menuWindow" selon laquelle des deux est active.
+Un autre rôle de la classe \verb"mainWindow" est de gérer la fenêtre active (menu ou jeu). Le choix de celle-ci est représenté grâce à une énumération. Sa valeur a une influence sur deux méthodes : \verb"print()" (méthode principale d'affichage) et \verb"input()" (traitement des entrées du clavier). En effet, ces méthodes appelleront la même méthode dans la classe \verb"gameWindow" ou \verb"menuWindow" selon laquelle des deux est active.
 
 \paragraph{Accesseur(s) du moteur en écriture}
-L'accès en écriture au moteur du jeu par les classes de l'interface graphique pose un problème : Puisque les dimensions du plateau n'étant pas imposées, il est possible que celles-ci changent. Cela nécessite alors de recréer les fenêtres d'affichage du jeu. La possibilité de changer ces dimensions est importante, mais il va de soi que l'on ne veut pas pour autant recréer les fenêtres dès qu'une action est effectuée sur le jeu.
+L'accès en écriture au moteur du jeu par les classes de l'interface graphique pose un problème : puisque les dimensions du plateau ne sont pas imposées, il est possible que celles-ci changent. Cela nécessite alors de recréer les fenêtres d'affichage du jeu. La possibilité de changer ces dimensions est importante, mais il va de soi que l'on ne veut pas pour autant recréer les fenêtres dès qu'une action est effectuée sur le jeu.
 
-La solution que nous avons choisit est de créer deux accesseurs en écriture :
+La solution que nous avons choisie est de créer deux accesseurs en écriture :
 \begin{itemize}
 \item 
 \verb"setgame()" est inconditionnel : il correspond à l'idée de changer de partie, et permet donc une modification des dimensions. Son appel recrée donc les fenêtres d'affichage, et il ne doit donc pas être trop utilisé.
@@ -162,15 +162,15 @@ La solution que nous avons choisit est de créer deux accesseurs en écriture :
 \verb"changegame()" correspond à une modification du jeu au cours d'une partie. Il interdit les modification des dimensions, et est de fait plus simple.
 \end{itemize}
 
-Cette distinction sémantique entre les deux accesseurs, permet en outre d'intégrer des opérations d'initialisation dans \verb"setgame()" : par exemple, l'historique des coups y est vidé, puisque l'on ne veut pas le garder en changeant de partie.
+Cette distinction sémantique entre les deux accesseurs permet en outre d'intégrer des opérations d'initialisation dans \verb"setgame()" : par exemple, l'historique des coups y est vidé, puisque l'on ne veut pas le garder en changeant de partie.
 
 \subsection{Signaux d'entrée}
-Les signaux d'entrée du clavier sont géré par les méthodes \verb"input()" des classes \verb"mainWindow", \verb"gameWindow" et \verb"menuWindow". Comme mentionné précédemment, c'est normalement la méthode de \verb"mainWindow" qui est appelée, et qui transmet simplement le signal à l'une des deux autres.
+Les signaux d'entrée du clavier sont gérés par les méthodes \verb"input()" des classes \verb"mainWindow", \verb"gameWindow" et \verb"menuWindow". Comme mentionné précédemment, c'est normalement la méthode de \verb"mainWindow" qui est appelée, et qui transmet simplement le signal à l'une des deux autres.
 
-Ces méthodes prennent en paramètre un entier correspondant à signal transmit par une des fonctions d'entrée de ncurses, telle que \verb"getch()". Un switch associe aux différends signaux les actions appropriées.
+Ces méthodes prennent en paramètre un entier correspondant à un signal transmit par une des fonctions d'entrée de ncurses, telle que \verb"getch()". Un switch associe aux différents signaux les actions appropriées.
 
 \subsubsection{Gestion de la souris}
-Le même système sert à gérer la souris : si le terminal le permet, les actions de celle-ci sont indiquée par un code spécial reçu comme un signal venant du clavier. Après sa réception, ncurses permet de recevoir une structure contenant toutes les informations concernant la souris.
+Le même système sert à gérer la souris : si le terminal le permet, les actions de celle-ci sont indiquées par un code spécial reçu comme un signal venant du clavier. Après sa réception, ncurses permet de récupérer une structure contenant toutes les informations concernant la souris.
 
 Il existe cependant un problème : le comportement standard d'un terminal supportant l'usage de la souris est de ne transmettre de tels signaux que lorsque l'état des boutons de la souris change. Dans ce cas, il est impossible de recevoir un simple mouvement de la souris. Cela la rend peu intéressante pour un jeu vidéo : on souhaite pouvoir déplacer une forme sur le plateau avec le curseur.
 
@@ -179,17 +179,17 @@ Sous Linux, avec des émulateurs de terminal dérivés de Xterm, nous avons pu r
 Dans tous les cas, l'usage de la souris restant entièrement dépendant du terminal utilisé, nous avons choisi de le laisser désactivé par défaut, l'option \verb"--enable-mouse" permettant de le réactiver.
 
 \subsection{Affichage}
-Nous avons choisit de baser l'affichage du jeu sur des carrés de couleurs. Ceux-ci sont constitués de deux caractères ``espace'', ce qui donne une forme proche d'un carré avec la plupart des polices. La couleur d'arrière-plan est modifiée pour changer celle du carré.
+Nous avons choisi de baser l'affichage du jeu sur des carrés de couleur. Ceux-ci sont constitués de deux caractères ``espace'', ce qui donne une forme proche d'un carré avec la plupart des polices. La couleur d'arrière-plan est modifiée pour changer celle du carré.
 
-Pour simplifier l'affichage du jeu, plusieurs fenêtres de ncurses (i.e.\ l'objet \verb"WINDOW") sont utilisées pour les différentes éléments de l'interface : une pour les scores, une pour le plateau et trois pour les formes à placer. Une dernière fenêtre sert d'arrière-plan : elle est vide, colorée uniformément. Les autres fenêtres sont affichées par dessus.
+Pour simplifier l'affichage du jeu, plusieurs fenêtres de ncurses (i.e.\ l'objet \verb"WINDOW") sont utilisées pour les différents éléments de l'interface : une pour les scores, une pour le plateau et trois pour les formes à placer. Une dernière fenêtre sert d'arrière-plan : elle est vide, colorée uniformément. Les autres fenêtres sont affichées par dessus.
 
-Pour permettre de changer les dimensions du jeu, la taille et la disposition de ces fenêtres est calculée par la méthode \verb"init_windows()" lors de la création de la classe \verb"gameWindow", et à chaque fois que les dimensions sont modifiées.
+Pour permettre de changer les dimensions du jeu, la taille et la disposition de ces fenêtres sont calculées par la méthode \verb"init_windows()" lors de la création de la classe \verb"gameWindow", et à chaque fois que les dimensions sont modifiées.
 
 L'utilisation de fenêtres multiples permet d'effectuer ces calculs de positionnement à la création des fenêtres uniquement, ce qui rend les méthodes d'affichage plus simples.
 
 
 \subsection{Historique}
-Le jeu intègre un historique, permettant d'annuler les coups jusqu'au début de la partie, et bien sûr de les rétablir. Il est implémenté par la classe générique\verb"History", et est intégré dans la classe \verb"gameWindow".
+Le jeu intègre un historique, permettant d'annuler les coups jusqu'au début de la partie et bien sûr de les rétablir. Il est implémenté par la classe générique\verb"History" et est intégré dans la classe \verb"gameWindow".
 
 En mémoire, il est implémenté comme une liste doublement chaînée. En effet, l'historique nécessite de pouvoir facilement ajouter des éléments, et le parcours se fait uniquement par incréments et décréments. Une liste doublement chaînée permet d'effectuer toutes ces opérations en temps constant.
 
