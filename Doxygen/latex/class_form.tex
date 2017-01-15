@@ -1,0 +1,287 @@
+\hypertarget{class_form}{}\section{Form Class Reference}
+\label{class_form}\index{Form@{Form}}
+
+
+\hyperlink{class_form}{Form} class.  
+
+
+
+
+{\ttfamily \#include $<$form.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_form_a74d41f789dbfcfd081b241e2c44e576a}{Form} ()
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+\hyperlink{class_form_a56a2abc465c4fea2f76d760209d845f1}{Form} (const \hyperlink{class_form}{Form} \&\+\_\+form)
+\begin{DoxyCompactList}\small\item\em Constructor by copying. \end{DoxyCompactList}\item 
+\hyperlink{class_form_a9cda7cce41e81bfaca51e922d4f9b98f}{$\sim$\+Form} ()
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
+\hyperlink{class_form}{Form} \& \hyperlink{class_form_a64ed9c18068eeaac328572a4f42f0a1f}{operator=} (const \hyperlink{class_form}{Form} \&\+\_\+form)
+\begin{DoxyCompactList}\small\item\em Overload of affectation operator. \end{DoxyCompactList}\item 
+void \hyperlink{class_form_a567c4924cf20b2e856f60851c821f4fe}{clear} ()
+\begin{DoxyCompactList}\small\item\em Clear the form. \end{DoxyCompactList}\item 
+void \hyperlink{class_form_a7499275adb667ad101834ff20e286b10}{add} (\hyperlink{struct_point}{Point} \+\_\+coor)
+\begin{DoxyCompactList}\small\item\em Add a square. \end{DoxyCompactList}\item 
+void \hyperlink{class_form_a19fd6c5ca1ee574ca45af9c620d0c3da}{add} (int \+\_\+x, int \+\_\+y)
+\begin{DoxyCompactList}\small\item\em Add a square. \end{DoxyCompactList}\item 
+size\+\_\+t \hyperlink{class_form_a59a8c1139f5f0efee5a483aea004b421}{getsize} () const
+\begin{DoxyCompactList}\small\item\em Accesor to the form\textquotesingle{}s size. \end{DoxyCompactList}\item 
+\hyperlink{struct_point}{Point} \hyperlink{class_form_a9c1a9c10ec318bac8c67a8c7d9d5e1ed}{operator\mbox{[}$\,$\mbox{]}} (size\+\_\+t) const
+\begin{DoxyCompactList}\small\item\em Accesor to a specific square. \end{DoxyCompactList}\item 
+\hyperlink{struct_point}{Point} \hyperlink{class_form_a19ec5bfe99ab4266e549ace55a82ea9f}{getboxmin} () const
+\begin{DoxyCompactList}\small\item\em Accesor to the minimal bounding box. \end{DoxyCompactList}\item 
+\hyperlink{struct_point}{Point} \hyperlink{class_form_aaffcebdc148fd9ebf84fedcba0849ab4}{getboxmax} () const
+\begin{DoxyCompactList}\small\item\em Accesor to the maximal bounding box. \end{DoxyCompactList}\item 
+std\+::string \hyperlink{class_form_a5502780700cacbbf51304320cb94d88d}{write} () const
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_form}{Form}\textquotesingle{}s display. \end{DoxyCompactList}\item 
+void \hyperlink{class_form_aedc0125caaf7c1fcbc8c5104a7bd0154}{read} (const std\+::string \&)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_form}{Form} reading. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{class_form}{Form} class. 
+
+Considers forms as squares\textquotesingle{}s group with a bounding box. 
+
+Definition at line 39 of file form.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_form_a74d41f789dbfcfd081b241e2c44e576a}{}\label{class_form_a74d41f789dbfcfd081b241e2c44e576a} 
+\index{Form@{Form}!Form@{Form}}
+\index{Form@{Form}!Form@{Form}}
+\subsubsection{\texorpdfstring{Form()}{Form()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Form\+::\+Form (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Default constructor. 
+
+Create an empty shape. 
+
+Definition at line 8 of file form.\+cpp.
+
+\hypertarget{class_form_a56a2abc465c4fea2f76d760209d845f1}{}\label{class_form_a56a2abc465c4fea2f76d760209d845f1} 
+\index{Form@{Form}!Form@{Form}}
+\index{Form@{Form}!Form@{Form}}
+\subsubsection{\texorpdfstring{Form()}{Form()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Form\+::\+Form (\begin{DoxyParamCaption}\item[{const \hyperlink{class_form}{Form} \&}]{\+\_\+form }\end{DoxyParamCaption})}
+
+
+
+Constructor by copying. 
+
+Create a form which is the perfect copy of another.
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+form} & \+: The form to copy. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 19 of file form.\+cpp.
+
+\hypertarget{class_form_a9cda7cce41e81bfaca51e922d4f9b98f}{}\label{class_form_a9cda7cce41e81bfaca51e922d4f9b98f} 
+\index{Form@{Form}!````~Form@{$\sim$\+Form}}
+\index{````~Form@{$\sim$\+Form}!Form@{Form}}
+\subsubsection{\texorpdfstring{$\sim$\+Form()}{~Form()}}
+{\footnotesize\ttfamily Form\+::$\sim$\+Form (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Destructor. 
+
+
+
+Definition at line 32 of file form.\+cpp.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_form_a7499275adb667ad101834ff20e286b10}{}\label{class_form_a7499275adb667ad101834ff20e286b10} 
+\index{Form@{Form}!add@{add}}
+\index{add@{add}!Form@{Form}}
+\subsubsection{\texorpdfstring{add()}{add()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Form\+::add (\begin{DoxyParamCaption}\item[{\hyperlink{struct_point}{Point}}]{\+\_\+coor }\end{DoxyParamCaption})}
+
+
+
+Add a square. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+coor} & \+: New square location \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 68 of file form.\+cpp.
+
+\hypertarget{class_form_a19fd6c5ca1ee574ca45af9c620d0c3da}{}\label{class_form_a19fd6c5ca1ee574ca45af9c620d0c3da} 
+\index{Form@{Form}!add@{add}}
+\index{add@{add}!Form@{Form}}
+\subsubsection{\texorpdfstring{add()}{add()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Form\+::add (\begin{DoxyParamCaption}\item[{int}]{\+\_\+x,  }\item[{int}]{\+\_\+y }\end{DoxyParamCaption})}
+
+
+
+Add a square. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+x} & \+: New square\textquotesingle{}s X location \\
+\hline
+{\em \+\_\+y} & \+: New square\textquotesingle{}s Y location \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 73 of file form.\+cpp.
+
+\hypertarget{class_form_a567c4924cf20b2e856f60851c821f4fe}{}\label{class_form_a567c4924cf20b2e856f60851c821f4fe} 
+\index{Form@{Form}!clear@{clear}}
+\index{clear@{clear}!Form@{Form}}
+\subsubsection{\texorpdfstring{clear()}{clear()}}
+{\footnotesize\ttfamily void Form\+::clear (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Clear the form. 
+
+Set form\textquotesingle{}s values as they\textquotesingle{}ll be if the form was just created. 
+
+Definition at line 59 of file form.\+cpp.
+
+\hypertarget{class_form_aaffcebdc148fd9ebf84fedcba0849ab4}{}\label{class_form_aaffcebdc148fd9ebf84fedcba0849ab4} 
+\index{Form@{Form}!getboxmax@{getboxmax}}
+\index{getboxmax@{getboxmax}!Form@{Form}}
+\subsubsection{\texorpdfstring{getboxmax()}{getboxmax()}}
+{\footnotesize\ttfamily \hyperlink{struct_point}{Point} Form\+::getboxmax (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Accesor to the maximal bounding box. 
+
+\begin{DoxyReturn}{Returns}
+The maximal bounding box 
+\end{DoxyReturn}
+
+
+Definition at line 108 of file form.\+cpp.
+
+\hypertarget{class_form_a19ec5bfe99ab4266e549ace55a82ea9f}{}\label{class_form_a19ec5bfe99ab4266e549ace55a82ea9f} 
+\index{Form@{Form}!getboxmin@{getboxmin}}
+\index{getboxmin@{getboxmin}!Form@{Form}}
+\subsubsection{\texorpdfstring{getboxmin()}{getboxmin()}}
+{\footnotesize\ttfamily \hyperlink{struct_point}{Point} Form\+::getboxmin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Accesor to the minimal bounding box. 
+
+\begin{DoxyReturn}{Returns}
+The minimal bounding box 
+\end{DoxyReturn}
+
+
+Definition at line 103 of file form.\+cpp.
+
+\hypertarget{class_form_a59a8c1139f5f0efee5a483aea004b421}{}\label{class_form_a59a8c1139f5f0efee5a483aea004b421} 
+\index{Form@{Form}!getsize@{getsize}}
+\index{getsize@{getsize}!Form@{Form}}
+\subsubsection{\texorpdfstring{getsize()}{getsize()}}
+{\footnotesize\ttfamily size\+\_\+t Form\+::getsize (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Accesor to the form\textquotesingle{}s size. 
+
+\begin{DoxyReturn}{Returns}
+The size 
+\end{DoxyReturn}
+
+
+Definition at line 93 of file form.\+cpp.
+
+\hypertarget{class_form_a64ed9c18068eeaac328572a4f42f0a1f}{}\label{class_form_a64ed9c18068eeaac328572a4f42f0a1f} 
+\index{Form@{Form}!operator=@{operator=}}
+\index{operator=@{operator=}!Form@{Form}}
+\subsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily \hyperlink{class_form}{Form} \& Form\+::operator= (\begin{DoxyParamCaption}\item[{const \hyperlink{class_form}{Form} \&}]{\+\_\+form }\end{DoxyParamCaption})}
+
+
+
+Overload of affectation operator. 
+
+Change the form radicaly.
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+form} & \+: The form to take\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The new form 
+\end{DoxyReturn}
+
+
+Definition at line 38 of file form.\+cpp.
+
+\hypertarget{class_form_a9c1a9c10ec318bac8c67a8c7d9d5e1ed}{}\label{class_form_a9c1a9c10ec318bac8c67a8c7d9d5e1ed} 
+\index{Form@{Form}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!Form@{Form}}
+\subsubsection{\texorpdfstring{operator[]()}{operator[]()}}
+{\footnotesize\ttfamily \hyperlink{struct_point}{Point} Form\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{n }\end{DoxyParamCaption}) const}
+
+
+
+Accesor to a specific square. 
+
+\begin{DoxyReturn}{Returns}
+the square location 
+\end{DoxyReturn}
+
+
+Definition at line 98 of file form.\+cpp.
+
+\hypertarget{class_form_aedc0125caaf7c1fcbc8c5104a7bd0154}{}\label{class_form_aedc0125caaf7c1fcbc8c5104a7bd0154} 
+\index{Form@{Form}!read@{read}}
+\index{read@{read}!Form@{Form}}
+\subsubsection{\texorpdfstring{read()}{read()}}
+{\footnotesize\ttfamily void Form\+::read (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{str }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{class_form}{Form} reading. 
+
+Read a string that save form\textquotesingle{}s values. 
+
+Definition at line 124 of file form.\+cpp.
+
+\hypertarget{class_form_a5502780700cacbbf51304320cb94d88d}{}\label{class_form_a5502780700cacbbf51304320cb94d88d} 
+\index{Form@{Form}!write@{write}}
+\index{write@{write}!Form@{Form}}
+\subsubsection{\texorpdfstring{write()}{write()}}
+{\footnotesize\ttfamily std\+::string Form\+::write (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+\hyperlink{class_form}{Form}\textquotesingle{}s display. 
+
+\begin{DoxyReturn}{Returns}
+Corresponding string 
+\end{DoxyReturn}
+
+
+Definition at line 114 of file form.\+cpp.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{form_8h}{form.\+h}\item 
+\hyperlink{form_8cpp}{form.\+cpp}\end{DoxyCompactItemize}

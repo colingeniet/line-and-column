@@ -1,0 +1,407 @@
+.TH "mainGame" 3 "Sun Jan 15 2017" "Version 2.1.0" "TenTen" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+mainGame \- Main game class\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <main_game\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBmainGame\fP ()"
+.br
+.RI "Default constructor\&. "
+.ti -1c
+.RI "\fBmainGame\fP (int width, int height)"
+.br
+.RI "Default constructor\&. "
+.ti -1c
+.RI "int \fBgetform_size\fP () const"
+.br
+.RI "Accessors for size\&. "
+.ti -1c
+.RI "int \fBgetheight\fP () const"
+.br
+.RI "Accessors for height\&. "
+.ti -1c
+.RI "int \fBgetwidth\fP () const"
+.br
+.RI "Accessors for width\&. "
+.ti -1c
+.RI "int \fBgetscore\fP () const"
+.br
+.RI "Accessors for score\&. "
+.ti -1c
+.RI "int \fBgetcombo\fP () const"
+.br
+.RI "Accessors for combos\&. "
+.ti -1c
+.RI "int \fBgetmax_score\fP () const"
+.br
+.RI "Accessors for best score (read) "
+.ti -1c
+.RI "void \fBsetmax_score\fP (int n_score)"
+.br
+.RI "Accessors for best score (write) "
+.ti -1c
+.RI "\fBForm\fP \fBgetform\fP (size_t) const"
+.br
+.RI "Accessors for a specific form\&. "
+.ti -1c
+.RI "int \fBgetform_color\fP (size_t) const"
+.br
+.RI "Accessors for a specific form's color\&. "
+.ti -1c
+.RI "const int * \fBoperator[]\fP (int) const"
+.br
+.RI "Accessors for specific form on the board\&. "
+.ti -1c
+.RI "bool \fBadd_form\fP (size_t n, int x, int y)"
+.br
+.RI "Move given form on the board\&. "
+.ti -1c
+.RI "bool \fBmove_available\fP () const"
+.br
+.RI "Check if there is move available\&. "
+.ti -1c
+.RI "void \fBadd_form_to_set\fP (const \fBForm\fP &form, int color, unsigned int weight=1)"
+.br
+.RI "Add a form to the form set\&. "
+.ti -1c
+.RI "void \fBrandom_select_forms\fP (bool force=false)"
+.br
+.RI "Select 3 form for the available form list if needed\&. "
+.ti -1c
+.RI "void \fBrestart\fP ()"
+.br
+.RI "Restart a game with the same form set\&. "
+.ti -1c
+.RI "void \fBreset\fP ()"
+.br
+.RI "Restart a game from zero (without keeping anything) ! "
+.ti -1c
+.RI "std::string \fBwrite\fP () const"
+.br
+.RI "Game saving\&. "
+.ti -1c
+.RI "void \fBstream_write\fP (std::ostream &stream) const"
+.br
+.RI "Game saving (stream) "
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBmainGame\fP \fBread\fP (const std::string &str)"
+.br
+.RI "Game loading\&. "
+.ti -1c
+.RI "static \fBmainGame\fP \fBstream_read\fP (std::istream &)"
+.br
+.RI "Game loading (stream) "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Main game class\&. 
+
+This class keeps all informations about the current game state\&. Those informations can be the number of shape propose, the shape's set used in the current game, the shape apparition's probalitity, etc\&. 
+.PP
+Definition at line 35 of file main_game\&.h\&.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "mainGame::mainGame ()"
+
+.PP
+Default constructor\&. Create a game instance with default values\&. 
+.PP
+Definition at line 10 of file main_game\&.cpp\&.
+.SS "mainGame::mainGame (int width, int height)"
+
+.PP
+Default constructor\&. Create a game instance\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIwidth\fP : Number of squares in width 
+.br
+\fIheight\fP : Number of squares in height 
+.RE
+.PP
+
+.PP
+Definition at line 21 of file main_game\&.cpp\&.
+.SH "Member Function Documentation"
+.PP 
+.SS "bool mainGame::add_form (size_t n, int x, int y)"
+
+.PP
+Move given form on the board\&. Perform a move, return true if valid, false if not Add one of the 3 selected forms at given coordonates and perform all required action
+.PP
+\fBParameters:\fP
+.RS 4
+\fIn\fP : \fBForm\fP to move 
+.br
+\fIx\fP : X delta 
+.br
+\fIy\fP : Y delta
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+True if move is valid false otherwise 
+.RE
+.PP
+
+.PP
+Definition at line 76 of file main_game\&.cpp\&.
+.SS "void mainGame::add_form_to_set (const \fBForm\fP & form, int color, unsigned int weight = \fC1\fP)"
+
+.PP
+Add a form to the form set\&. Add a new form which can appear in the game\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIform\fP : \fBForm\fP to add 
+.br
+\fIcolor\fP : \fBForm\fP's color 
+.br
+\fIweight\fP : Weight (ie\&. probability to spawn) 
+.RE
+.PP
+
+.PP
+Definition at line 122 of file main_game\&.cpp\&.
+.SS "int mainGame::getcombo () const"
+
+.PP
+Accessors for combos\&. 
+.PP
+\fBReturns:\fP
+.RS 4
+Current combo 
+.RE
+.PP
+
+.PP
+Definition at line 50 of file main_game\&.cpp\&.
+.SS "\fBForm\fP mainGame::getform (size_t n) const"
+
+.PP
+Accessors for a specific form\&. 
+.PP
+\fBReturns:\fP
+.RS 4
+\fBForm\fP wanted in the form set 
+.RE
+.PP
+
+.PP
+Definition at line 67 of file main_game\&.cpp\&.
+.SS "int mainGame::getform_color (size_t n) const"
+
+.PP
+Accessors for a specific form's color\&. 
+.PP
+\fBReturns:\fP
+.RS 4
+\fBForm\fP's color 
+.RE
+.PP
+
+.PP
+Definition at line 71 of file main_game\&.cpp\&.
+.SS "int mainGame::getform_size () const"
+
+.PP
+Accessors for size\&. 
+.PP
+\fBReturns:\fP
+.RS 4
+\fBForm\fP size 
+.RE
+.PP
+
+.PP
+Definition at line 34 of file main_game\&.cpp\&.
+.SS "int mainGame::getheight () const"
+
+.PP
+Accessors for height\&. 
+.PP
+\fBReturns:\fP
+.RS 4
+Height 
+.RE
+.PP
+
+.PP
+Definition at line 42 of file main_game\&.cpp\&.
+.SS "int mainGame::getmax_score () const"
+
+.PP
+Accessors for best score (read) 
+.PP
+\fBReturns:\fP
+.RS 4
+Hightest score 
+.RE
+.PP
+
+.PP
+Definition at line 54 of file main_game\&.cpp\&.
+.SS "int mainGame::getscore () const"
+
+.PP
+Accessors for score\&. 
+.PP
+\fBReturns:\fP
+.RS 4
+Current score 
+.RE
+.PP
+
+.PP
+Definition at line 46 of file main_game\&.cpp\&.
+.SS "int mainGame::getwidth () const"
+
+.PP
+Accessors for width\&. 
+.PP
+\fBReturns:\fP
+.RS 4
+Width 
+.RE
+.PP
+
+.PP
+Definition at line 38 of file main_game\&.cpp\&.
+.SS "bool mainGame::move_available () const"
+
+.PP
+Check if there is move available\&. For each form available, check if it can be placed on the board untill one of those can\&.
+.PP
+\fBReturns:\fP
+.RS 4
+True if a form can be placed, else otherwise 
+.RE
+.PP
+
+.PP
+Definition at line 101 of file main_game\&.cpp\&.
+.SS "const int * mainGame::operator[] (int n) const"
+
+.PP
+Accessors for specific form on the board\&. 
+.PP
+\fBReturns:\fP
+.RS 4
+\fBForm\fP wanted 
+.RE
+.PP
+
+.PP
+Definition at line 63 of file main_game\&.cpp\&.
+.SS "void mainGame::random_select_forms (bool force = \fCfalse\fP)"
+
+.PP
+Select 3 form for the available form list if needed\&. Choose 3 forms from the form set if none are currently selected\&. If force is true, always reselect\&. If the form set is empty, reset all 3 forms to unselected\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIforce\fP : force new selection ? 
+.RE
+.PP
+
+.PP
+Definition at line 136 of file main_game\&.cpp\&.
+.SS "\fBmainGame\fP mainGame::read (const std::string & str)\fC [static]\fP"
+
+.PP
+Game loading\&. Load a game from a string\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIstr\fP : game state to load - saved inside a string 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+Current game 
+.RE
+.PP
+
+.PP
+Definition at line 232 of file main_game\&.cpp\&.
+.SS "void mainGame::reset ()"
+
+.PP
+Restart a game from zero (without keeping anything) ! Reset everything (include form set)\&. 
+.PP
+Definition at line 175 of file main_game\&.cpp\&.
+.SS "void mainGame::restart ()"
+
+.PP
+Restart a game with the same form set\&. Clean the board and redo random selection (keep the form set) 
+.PP
+Definition at line 168 of file main_game\&.cpp\&.
+.SS "void mainGame::setmax_score (int n_score)"
+
+.PP
+Accessors for best score (write) 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIn_score\fP : New best score 
+.RE
+.PP
+
+.PP
+Definition at line 58 of file main_game\&.cpp\&.
+.SS "\fBmainGame\fP mainGame::stream_read (std::istream & is)\fC [static]\fP"
+
+.PP
+Game loading (stream) Load a game throw a stream\&.
+.PP
+\fBReturns:\fP
+.RS 4
+Current game 
+.RE
+.PP
+
+.PP
+Definition at line 433 of file main_game\&.cpp\&.
+.SS "void mainGame::stream_write (std::ostream & stream) const"
+
+.PP
+Game saving (stream) Save the game state in a stream\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIstream\fP : The stream where write the game 
+.RE
+.PP
+
+.PP
+Definition at line 428 of file main_game\&.cpp\&.
+.SS "std::string mainGame::write () const"
+
+.PP
+Game saving\&. Save the game state in a string\&.
+.PP
+\fBReturns:\fP
+.RS 4
+The current game state inside a string 
+.RE
+.PP
+
+.PP
+Definition at line 196 of file main_game\&.cpp\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for TenTen from the source code\&.

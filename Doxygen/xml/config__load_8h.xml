@@ -1,0 +1,570 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="config__load_8h" kind="file" language="C++">
+    <compoundname>config_load.h</compoundname>
+    <includes local="no">cstddef</includes>
+    <includes local="no">string</includes>
+    <includes local="no">exception</includes>
+    <includedby refid="board_8cpp" local="yes">board.cpp</includedby>
+    <includedby refid="config__load_8cpp" local="yes">config_load.cpp</includedby>
+    <includedby refid="form_8cpp" local="yes">form.cpp</includedby>
+    <includedby refid="main__game_8cpp" local="yes">main_game.cpp</includedby>
+    <includedby refid="menu__window_8cpp" local="yes">menu_window.cpp</includedby>
+    <incdepgraph>
+      <node id="62">
+        <label>string</label>
+      </node>
+      <node id="63">
+        <label>exception</label>
+      </node>
+      <node id="61">
+        <label>cstddef</label>
+      </node>
+      <node id="60">
+        <label>config_load.h</label>
+        <link refid="config__load_8h"/>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="67">
+        <label>form.cpp</label>
+        <link refid="form_8cpp"/>
+      </node>
+      <node id="66">
+        <label>config_load.cpp</label>
+        <link refid="config__load_8cpp"/>
+      </node>
+      <node id="65">
+        <label>board.cpp</label>
+        <link refid="board_8cpp"/>
+      </node>
+      <node id="68">
+        <label>main_game.cpp</label>
+        <link refid="main__game_8cpp"/>
+      </node>
+      <node id="69">
+        <label>menu_window.cpp</label>
+        <link refid="menu__window_8cpp"/>
+      </node>
+      <node id="64">
+        <label>config_load.h</label>
+        <link refid="config__load_8h"/>
+        <childnode refid="65" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="67" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classsyntax__exception" prot="public">syntax_exception</innerclass>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="config__load_8h_1ae75e8747a9d6eec8b1abc62b71e7a187" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool blank_only</definition>
+        <argsstring>(const std::string &amp;)</argsstring>
+        <name>blank_only</name>
+        <param>
+          <type>const std::string &amp;</type>
+        </param>
+        <briefdescription>
+<para>Check if a the string contain only blanck caracters. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>true if string contain only spaces, tabs and newlines </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="config_load.h" line="77" column="1" bodyfile="config_load.cpp" bodystart="25" bodyend="28"/>
+      </memberdef>
+      <memberdef kind="function" id="config__load_8h_1abc3153a083a56debb6ae2110d5d519ad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t count_occurences</definition>
+        <argsstring>(const std::string &amp;input, const std::string &amp;ch)</argsstring>
+        <name>count_occurences</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>input</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>ch</declname>
+        </param>
+        <briefdescription>
+<para>Count occurences of any of the characters in a string. </para>        </briefdescription>
+        <detaileddescription>
+<para>Character set (second argument) is passed as in string::find_first_of()</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>input</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: The string where to search </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ch</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: The caracter to search</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Number of occurences </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="config_load.h" line="91" column="1" bodyfile="config_load.cpp" bodystart="30" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="config__load_8h_1a0b3d65604cb86fecc02a99a3a2235c81" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t count_occurences</definition>
+        <argsstring>(const std::string &amp;input, const char *ch)</argsstring>
+        <name>count_occurences</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>input</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>ch</declname>
+        </param>
+        <briefdescription>
+<para>Count occurences of any of the characters in a string. </para>        </briefdescription>
+        <detaileddescription>
+<para>Character set (second argument) is passed as in string::find_first_of()</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>input</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: The string where to search </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ch</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: The caracter to search</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Number of occurences </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="config_load.h" line="103" column="1" bodyfile="config_load.cpp" bodystart="40" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="function" id="config__load_8h_1ad0a4f721d5136b5e4bbaf568f755f05b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t count_occurences</definition>
+        <argsstring>(const std::string &amp;input, const char *ch, size_t)</argsstring>
+        <name>count_occurences</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>input</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>ch</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+        </param>
+        <briefdescription>
+<para>Count occurences of any of the characters in a string. </para>        </briefdescription>
+        <detaileddescription>
+<para>Character set (second argument) is passed as in string::find_first_of()</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>input</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: The string where to search </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ch</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: The caracter to search </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: Number of character values to search for</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Number of occurences </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="config_load.h" line="116" column="1" bodyfile="config_load.cpp" bodystart="50" bodyend="58"/>
+      </memberdef>
+      <memberdef kind="function" id="config__load_8h_1a899ade67be61798ffcf05b9e76cf2ab7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t count_occurences</definition>
+        <argsstring>(const std::string &amp;input, char ch)</argsstring>
+        <name>count_occurences</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>input</declname>
+        </param>
+        <param>
+          <type>char</type>
+          <declname>ch</declname>
+        </param>
+        <briefdescription>
+<para>Count occurences of any of the characters in a string. </para>        </briefdescription>
+        <detaileddescription>
+<para>Character set (second argument) is passed as in string::find_first_of()</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>input</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: The string where to search </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ch</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: The caracter to search</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Number of occurences </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="config_load.h" line="128" column="1" bodyfile="config_load.cpp" bodystart="60" bodyend="68"/>
+      </memberdef>
+      <memberdef kind="function" id="config__load_8h_1ade1b6c26e93a6e2d06d517638b4f9ef8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void clean_config_input</definition>
+        <argsstring>(std::string &amp;input)</argsstring>
+        <name>clean_config_input</name>
+        <param>
+          <type>std::string &amp;</type>
+          <declname>input</declname>
+        </param>
+        <briefdescription>
+<para>Standard config input cleaning function. </para>        </briefdescription>
+        <detaileddescription>
+<para>Remove blank (space, tab and newline) at the begining and the end. Then replace any sequence of blank by a single space</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>input</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: The string to clean </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="config_load.h" line="141" column="1" bodyfile="config_load.cpp" bodystart="71" bodyend="94"/>
+      </memberdef>
+      <memberdef kind="function" id="config__load_8h_1aa1b160b86794a8c3423085fabd7f9d4f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string getword</definition>
+        <argsstring>(std::string &amp;input)</argsstring>
+        <name>getword</name>
+        <param>
+          <type>std::string &amp;</type>
+          <declname>input</declname>
+        </param>
+        <briefdescription>
+<para>Get a word at the begining of a string then remove it. </para>        </briefdescription>
+        <detaileddescription>
+<para>A word is the group of caracters from begining to the first blank. The blank is removed as well, it is designed for use on string cleaned with clean_config_input.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>input</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: The string where extract the 1st word</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The extracted word </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="config_load.h" line="156" column="1" bodyfile="config_load.cpp" bodystart="97" bodyend="108"/>
+      </memberdef>
+      <memberdef kind="function" id="config__load_8h_1aa3f1e64b40867a118a0c1348e8fd5bbc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string getline</definition>
+        <argsstring>(std::string &amp;)</argsstring>
+        <name>getline</name>
+        <param>
+          <type>std::string &amp;</type>
+        </param>
+        <briefdescription>
+<para>Get a line at the begining of a string then remove it. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>input</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: The string where extract the 1st line</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The extracted line </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="config_load.h" line="167" column="1" bodyfile="config_load.cpp" bodystart="110" bodyend="121"/>
+      </memberdef>
+      <memberdef kind="function" id="config__load_8h_1a470b384c4eb5dc35ad5a7d79f25175ba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string getblock</definition>
+        <argsstring>(std::string &amp;input, size_t *line=nullptr)</argsstring>
+        <name>getblock</name>
+        <param>
+          <type>std::string &amp;</type>
+          <declname>input</declname>
+        </param>
+        <param>
+          <type>size_t *</type>
+          <declname>line</declname>
+          <defval>nullptr</defval>
+        </param>
+        <briefdescription>
+<para>Get a block between &apos;{&apos; and &apos;}&apos;. </para>        </briefdescription>
+        <detaileddescription>
+<para>Before first &apos;{&apos; shall only be blank. Return the block and remove it as well as { } from input. Line is set to the number of lines removed from input</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>input</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: The string where extract the block </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>line</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: The number of line extracted (ie. block&apos;s size)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The block extracted </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="config_load.h" line="183" column="1" bodyfile="config_load.cpp" bodystart="123" bodyend="154"/>
+      </memberdef>
+      <memberdef kind="function" id="config__load_8h_1ae85e3061deff8801e70fa840a7ff23a2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool get_key_value</definition>
+        <argsstring>(const std::string &amp;input, std::string &amp;key, std::string &amp;value)</argsstring>
+        <name>get_key_value</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>input</declname>
+        </param>
+        <param>
+          <type>std::string &amp;</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>std::string &amp;</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>Search a title. </para>        </briefdescription>
+        <detaileddescription>
+<para>Look for the sequence &quot; : &quot; in a string If the sequence is found, set key to the first part (before : ) and value to the second (after : ) and return true. If not, return false. If value is empty, second space is optional. Only the first &quot; : &quot; is considered.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>input</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: The string where search for the sequence &apos;:&apos; </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>line</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: The keyword that describe the sequence find </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: The sequence value</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>True is the sequence has been found </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="config_load.h" line="201" column="1" bodyfile="config_load.cpp" bodystart="157" bodyend="176"/>
+      </memberdef>
+      <memberdef kind="function" id="config__load_8h_1a4342130de4c34ae01e150f057c78e6f2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void set_case</definition>
+        <argsstring>(std::string &amp;str, bool lower=false)</argsstring>
+        <name>set_case</name>
+        <param>
+          <type>std::string &amp;</type>
+          <declname>str</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>lower</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+<para>Convert a string to all UPPER / lower case. </para>        </briefdescription>
+        <detaileddescription>
+<para>By default it convert to lower.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>str</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: The string to convert </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>lower</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: Case wanted </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="config_load.h" line="214" column="1" bodyfile="config_load.cpp" bodystart="179" bodyend="195"/>
+      </memberdef>
+      <memberdef kind="function" id="config__load_8h_1ab26695f9c4f753bb3790890df9403a78" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int word_to_color</definition>
+        <argsstring>(const std::string &amp;color)</argsstring>
+        <name>word_to_color</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>color</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="config_load.h" line="229" column="1" bodyfile="config_load.cpp" bodystart="199" bodyend="214"/>
+      </memberdef>
+      <memberdef kind="function" id="config__load_8h_1a676d3fc781790843391ffde6a642befc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string color_to_word</definition>
+        <argsstring>(int code)</argsstring>
+        <name>color_to_word</name>
+        <param>
+          <type>int</type>
+          <declname>code</declname>
+        </param>
+        <briefdescription>
+<para>Convert a color code to its corresponding name. </para>        </briefdescription>
+        <detaileddescription>
+<para>Color names will be one following : BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>code</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: The color&apos;s code</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The color&apos;s corresponding name </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="config_load.h" line="242" column="1" bodyfile="config_load.cpp" bodystart="217" bodyend="250"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*<sp/>!</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/>@brief<sp/>Configuration<sp/>class</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/>@author<sp/>Colin<sp/>Geniet</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*<sp/>@version<sp/>2.1</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*<sp/>@date<sp/>2016</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*<sp/>Customs<sp/>exeptions<sp/>methods<sp/>and<sp/>functions<sp/>used<sp/>to<sp/>load<sp/>/<sp/>save<sp/>the<sp/>game<sp/>from<sp/>a<sp/>configuration<sp/>file.</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/>Add<sp/>some<sp/>exeptions<sp/>to<sp/>treate<sp/>unexpected<sp/>cases.</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>CONFIG_LOAD_H_INCLUDED</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CONFIG_LOAD_H_INCLUDED</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cstddef&gt;</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>size_t</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;exception&gt;</highlight><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>std::exception</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29" refid="classsyntax__exception" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classsyntax__exception" kindref="compound">syntax_exception</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/>std::exception<sp/>{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classsyntax__exception_1a60278cf3cd3eba72c35f27ee36a21d68" kindref="member">syntax_exception</ref>();</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classsyntax__exception_1a60278cf3cd3eba72c35f27ee36a21d68" kindref="member">syntax_exception</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;detail,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>line<sp/>=<sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal">)-1);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/><ref refid="classsyntax__exception_1a2a32f5e0c2acbbf37c10c9aa3d72506c" kindref="member">what</ref>()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal">();</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classsyntax__exception_1aa25100b3e6601bb67aa5a5d1e76f508e" kindref="member">getline</ref>()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal">();</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>msg;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>line;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="69"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="config__load_8h_1ae75e8747a9d6eec8b1abc62b71e7a187" kindref="member">blank_only</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="config__load_8h_1abc3153a083a56debb6ae2110d5d519ad" kindref="member">count_occurences</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>input,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>ch);</highlight></codeline>
+<codeline lineno="103"><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="config__load_8h_1abc3153a083a56debb6ae2110d5d519ad" kindref="member">count_occurences</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>input,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>ch);</highlight></codeline>
+<codeline lineno="116"><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="config__load_8h_1abc3153a083a56debb6ae2110d5d519ad" kindref="member">count_occurences</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>input,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>ch,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="128"><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="config__load_8h_1abc3153a083a56debb6ae2110d5d519ad" kindref="member">count_occurences</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>input,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>ch);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="config__load_8h_1ade1b6c26e93a6e2d06d517638b4f9ef8" kindref="member">clean_config_input</ref>(std::string<sp/>&amp;input);</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal">std::string<sp/><ref refid="config__load_8h_1aa1b160b86794a8c3423085fabd7f9d4f" kindref="member">getword</ref>(std::string&amp;<sp/>input);</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal">std::string<sp/><ref refid="classsyntax__exception_1aa25100b3e6601bb67aa5a5d1e76f508e" kindref="member">getline</ref>(std::string&amp;);</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal">std::string<sp/><ref refid="config__load_8h_1a470b384c4eb5dc35ad5a7d79f25175ba" kindref="member">getblock</ref>(std::string<sp/>&amp;input,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>*line<sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="config__load_8h_1ae85e3061deff8801e70fa840a7ff23a2" kindref="member">get_key_value</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;input,</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>&amp;key,<sp/><sp/>std::string<sp/>&amp;value);</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="config__load_8h_1a4342130de4c34ae01e150f057c78e6f2" kindref="member">set_case</ref>(std::string<sp/>&amp;str,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>lower<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="217"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="218"><highlight class="comment"></highlight></codeline>
+<codeline lineno="229"><highlight class="comment">int<sp/>word_to_color(const<sp/>std::string&amp;<sp/>color);</highlight></codeline>
+<codeline lineno="230"><highlight class="comment"></highlight></codeline>
+<codeline lineno="231"><highlight class="comment"></highlight></codeline>
+<codeline lineno="242"><highlight class="comment">std::string<sp/>color_to_word(int<sp/>code);</highlight></codeline>
+<codeline lineno="243"><highlight class="comment"></highlight></codeline>
+<codeline lineno="244"><highlight class="comment"></highlight></codeline>
+<codeline lineno="245"><highlight class="comment">#endif<sp/>//<sp/>CONFIG_LOAD_H_INCLUDED</highlight></codeline>
+    </programlisting>
+    <location file="config_load.h"/>
+  </compounddef>
+</doxygen>

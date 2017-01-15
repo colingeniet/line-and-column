@@ -1,0 +1,91 @@
+.TH "OptionSet" 3 "Sun Jan 15 2017" "Version 2.1.0" "TenTen" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+OptionSet \- \fBOption\fP set class\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <option\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBadd_option\fP (const \fBOption\fP &opt)"
+.br
+.RI "Add an option to the set\&. "
+.ti -1c
+.RI "bool \fBfind\fP (const std::string &argument, std::string *name_str, std::string *value_str)"
+.br
+.RI "Check if the argument match with this option\&. "
+.ti -1c
+.RI "const \fBOption\fP & \fBoperator[]\fP (size_t n)"
+.br
+.RI "Accesor overloading\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+\fBOption\fP set class\&. 
+
+This class represent a set of options 
+.PP
+Definition at line 111 of file option\&.h\&.
+.SH "Member Function Documentation"
+.PP 
+.SS "void OptionSet::add_option (const \fBOption\fP & opt)"
+
+.PP
+Add an option to the set\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIopt\fP : \fBOption\fP to add 
+.RE
+.PP
+
+.PP
+Definition at line 73 of file option\&.cpp\&.
+.SS "bool OptionSet::find (const std::string & argument, std::string * name_str, std::string * value_str)"
+
+.PP
+Check if the argument match with this option\&. look for a matching option in the set\&. If found, name_str is set to the option full name, value_str to the value - if any - and it return true if not found, it return false\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIargument\fP : Argument tested 
+.br
+\fIname_str\fP : \fBOption\fP found's name 
+.br
+\fIvalue_str\fP : Optional found's value
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+True if an option match 
+.RE
+.PP
+
+.PP
+Definition at line 78 of file option\&.cpp\&.
+.SS "const \fBOption\fP& OptionSet::operator[] (size_t n)"
+
+.PP
+Accesor overloading\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIn\fP : \fBOption\fP n° n
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+\fBOption\fP wanted 
+.RE
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for TenTen from the source code\&.

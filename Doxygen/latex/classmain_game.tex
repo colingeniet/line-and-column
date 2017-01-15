@@ -1,0 +1,495 @@
+\hypertarget{classmain_game}{}\section{main\+Game Class Reference}
+\label{classmain_game}\index{main\+Game@{main\+Game}}
+
+
+Main game class.  
+
+
+
+
+{\ttfamily \#include $<$main\+\_\+game.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classmain_game_ac016bd8f9474e58c5168b4c248877391}{main\+Game} ()
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+\hyperlink{classmain_game_a1a42050393a3a0f9aabfc898709b5438}{main\+Game} (int width, int height)
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+int \hyperlink{classmain_game_aa756b9ac462f108586efc8b846cc577c}{getform\+\_\+size} () const
+\begin{DoxyCompactList}\small\item\em Accessors for size. \end{DoxyCompactList}\item 
+int \hyperlink{classmain_game_ae346d0d0edeabaaf2fab2dd1049bbc86}{getheight} () const
+\begin{DoxyCompactList}\small\item\em Accessors for height. \end{DoxyCompactList}\item 
+int \hyperlink{classmain_game_a3958ae533f81f1c40bd5e51589927777}{getwidth} () const
+\begin{DoxyCompactList}\small\item\em Accessors for width. \end{DoxyCompactList}\item 
+int \hyperlink{classmain_game_a6f819a6a3433816a8f30a0e540f985a7}{getscore} () const
+\begin{DoxyCompactList}\small\item\em Accessors for score. \end{DoxyCompactList}\item 
+int \hyperlink{classmain_game_a6533cd298cbfcf88793f98f6831153fd}{getcombo} () const
+\begin{DoxyCompactList}\small\item\em Accessors for combos. \end{DoxyCompactList}\item 
+int \hyperlink{classmain_game_a4991a14c51d954adc65fbef4a0235a89}{getmax\+\_\+score} () const
+\begin{DoxyCompactList}\small\item\em Accessors for best score (read) \end{DoxyCompactList}\item 
+void \hyperlink{classmain_game_aeeb30e985566da9dea9679c6868f22a0}{setmax\+\_\+score} (int n\+\_\+score)
+\begin{DoxyCompactList}\small\item\em Accessors for best score (write) \end{DoxyCompactList}\item 
+\hyperlink{class_form}{Form} \hyperlink{classmain_game_a961f1b96d73ad87965008691c7a653a7}{getform} (size\+\_\+t) const
+\begin{DoxyCompactList}\small\item\em Accessors for a specific form. \end{DoxyCompactList}\item 
+int \hyperlink{classmain_game_a195bf2338d8e96d0be3add1b24ccbef5}{getform\+\_\+color} (size\+\_\+t) const
+\begin{DoxyCompactList}\small\item\em Accessors for a specific form\textquotesingle{}s color. \end{DoxyCompactList}\item 
+const int $\ast$ \hyperlink{classmain_game_aad5671e093ad653e8fb301287ebd83f4}{operator\mbox{[}$\,$\mbox{]}} (int) const
+\begin{DoxyCompactList}\small\item\em Accessors for specific form on the board. \end{DoxyCompactList}\item 
+bool \hyperlink{classmain_game_a9dacdcdcaacc70edfb9483dfc7d561e7}{add\+\_\+form} (size\+\_\+t n, int x, int y)
+\begin{DoxyCompactList}\small\item\em Move given form on the board. \end{DoxyCompactList}\item 
+bool \hyperlink{classmain_game_a87020eebf5c467534d888a4053ea4603}{move\+\_\+available} () const
+\begin{DoxyCompactList}\small\item\em Check if there is move available. \end{DoxyCompactList}\item 
+void \hyperlink{classmain_game_a72858da366dd6abe29ea1e703e1bbbf8}{add\+\_\+form\+\_\+to\+\_\+set} (const \hyperlink{class_form}{Form} \&form, int color, unsigned int weight=1)
+\begin{DoxyCompactList}\small\item\em Add a form to the form set. \end{DoxyCompactList}\item 
+void \hyperlink{classmain_game_a9d796e10ca081ec5a25b4eecfd97d1de}{random\+\_\+select\+\_\+forms} (bool force=false)
+\begin{DoxyCompactList}\small\item\em Select 3 form for the available form list if needed. \end{DoxyCompactList}\item 
+void \hyperlink{classmain_game_a0fea171cf6984f14904fe4a4c548db2b}{restart} ()
+\begin{DoxyCompactList}\small\item\em Restart a game with the same form set. \end{DoxyCompactList}\item 
+void \hyperlink{classmain_game_a6bf4986a2943277dcfbb24ecb89f8e2f}{reset} ()
+\begin{DoxyCompactList}\small\item\em Restart a game from zero (without keeping anything) ! \end{DoxyCompactList}\item 
+std\+::string \hyperlink{classmain_game_a4008fd9fe3a236d044d580725cdf0920}{write} () const
+\begin{DoxyCompactList}\small\item\em Game saving. \end{DoxyCompactList}\item 
+void \hyperlink{classmain_game_a29dc58fda69f709f1c34a3aa57955fb2}{stream\+\_\+write} (std\+::ostream \&stream) const
+\begin{DoxyCompactList}\small\item\em Game saving (stream) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{classmain_game}{main\+Game} \hyperlink{classmain_game_a51f19bcf307187637dffb26e58e1fc4c}{read} (const std\+::string \&str)
+\begin{DoxyCompactList}\small\item\em Game loading. \end{DoxyCompactList}\item 
+static \hyperlink{classmain_game}{main\+Game} \hyperlink{classmain_game_abfd0428b0caf9a180494db57fc4df7c3}{stream\+\_\+read} (std\+::istream \&)
+\begin{DoxyCompactList}\small\item\em Game loading (stream) \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Main game class. 
+
+This class keeps all informations about the current game state. Those informations can be the number of shape propose, the shape\textquotesingle{}s set used in the current game, the shape apparition\textquotesingle{}s probalitity, etc. 
+
+Definition at line 35 of file main\+\_\+game.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classmain_game_ac016bd8f9474e58c5168b4c248877391}{}\label{classmain_game_ac016bd8f9474e58c5168b4c248877391} 
+\index{main\+Game@{main\+Game}!main\+Game@{main\+Game}}
+\index{main\+Game@{main\+Game}!main\+Game@{main\+Game}}
+\subsubsection{\texorpdfstring{main\+Game()}{mainGame()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily main\+Game\+::main\+Game (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Default constructor. 
+
+Create a game instance with default values. 
+
+Definition at line 10 of file main\+\_\+game.\+cpp.
+
+\hypertarget{classmain_game_a1a42050393a3a0f9aabfc898709b5438}{}\label{classmain_game_a1a42050393a3a0f9aabfc898709b5438} 
+\index{main\+Game@{main\+Game}!main\+Game@{main\+Game}}
+\index{main\+Game@{main\+Game}!main\+Game@{main\+Game}}
+\subsubsection{\texorpdfstring{main\+Game()}{mainGame()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily main\+Game\+::main\+Game (\begin{DoxyParamCaption}\item[{int}]{width,  }\item[{int}]{height }\end{DoxyParamCaption})}
+
+
+
+Default constructor. 
+
+Create a game instance.
+
+
+\begin{DoxyParams}{Parameters}
+{\em width} & \+: Number of squares in width \\
+\hline
+{\em height} & \+: Number of squares in height \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 21 of file main\+\_\+game.\+cpp.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classmain_game_a9dacdcdcaacc70edfb9483dfc7d561e7}{}\label{classmain_game_a9dacdcdcaacc70edfb9483dfc7d561e7} 
+\index{main\+Game@{main\+Game}!add\+\_\+form@{add\+\_\+form}}
+\index{add\+\_\+form@{add\+\_\+form}!main\+Game@{main\+Game}}
+\subsubsection{\texorpdfstring{add\+\_\+form()}{add\_form()}}
+{\footnotesize\ttfamily bool main\+Game\+::add\+\_\+form (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{n,  }\item[{int}]{x,  }\item[{int}]{y }\end{DoxyParamCaption})}
+
+
+
+Move given form on the board. 
+
+Perform a move, return true if valid, false if not Add one of the 3 selected forms at given coordonates and perform all required action
+
+
+\begin{DoxyParams}{Parameters}
+{\em n} & \+: \hyperlink{class_form}{Form} to move \\
+\hline
+{\em x} & \+: X delta \\
+\hline
+{\em y} & \+: Y delta\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if move is valid false otherwise 
+\end{DoxyReturn}
+
+
+Definition at line 76 of file main\+\_\+game.\+cpp.
+
+\hypertarget{classmain_game_a72858da366dd6abe29ea1e703e1bbbf8}{}\label{classmain_game_a72858da366dd6abe29ea1e703e1bbbf8} 
+\index{main\+Game@{main\+Game}!add\+\_\+form\+\_\+to\+\_\+set@{add\+\_\+form\+\_\+to\+\_\+set}}
+\index{add\+\_\+form\+\_\+to\+\_\+set@{add\+\_\+form\+\_\+to\+\_\+set}!main\+Game@{main\+Game}}
+\subsubsection{\texorpdfstring{add\+\_\+form\+\_\+to\+\_\+set()}{add\_form\_to\_set()}}
+{\footnotesize\ttfamily void main\+Game\+::add\+\_\+form\+\_\+to\+\_\+set (\begin{DoxyParamCaption}\item[{const \hyperlink{class_form}{Form} \&}]{form,  }\item[{int}]{color,  }\item[{unsigned int}]{weight = {\ttfamily 1} }\end{DoxyParamCaption})}
+
+
+
+Add a form to the form set. 
+
+Add a new form which can appear in the game.
+
+
+\begin{DoxyParams}{Parameters}
+{\em form} & \+: \hyperlink{class_form}{Form} to add \\
+\hline
+{\em color} & \+: \hyperlink{class_form}{Form}\textquotesingle{}s color \\
+\hline
+{\em weight} & \+: Weight (ie. probability to spawn) \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 122 of file main\+\_\+game.\+cpp.
+
+\hypertarget{classmain_game_a6533cd298cbfcf88793f98f6831153fd}{}\label{classmain_game_a6533cd298cbfcf88793f98f6831153fd} 
+\index{main\+Game@{main\+Game}!getcombo@{getcombo}}
+\index{getcombo@{getcombo}!main\+Game@{main\+Game}}
+\subsubsection{\texorpdfstring{getcombo()}{getcombo()}}
+{\footnotesize\ttfamily int main\+Game\+::getcombo (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Accessors for combos. 
+
+\begin{DoxyReturn}{Returns}
+Current combo 
+\end{DoxyReturn}
+
+
+Definition at line 50 of file main\+\_\+game.\+cpp.
+
+\hypertarget{classmain_game_a961f1b96d73ad87965008691c7a653a7}{}\label{classmain_game_a961f1b96d73ad87965008691c7a653a7} 
+\index{main\+Game@{main\+Game}!getform@{getform}}
+\index{getform@{getform}!main\+Game@{main\+Game}}
+\subsubsection{\texorpdfstring{getform()}{getform()}}
+{\footnotesize\ttfamily \hyperlink{class_form}{Form} main\+Game\+::getform (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{n }\end{DoxyParamCaption}) const}
+
+
+
+Accessors for a specific form. 
+
+\begin{DoxyReturn}{Returns}
+\hyperlink{class_form}{Form} wanted in the form set 
+\end{DoxyReturn}
+
+
+Definition at line 67 of file main\+\_\+game.\+cpp.
+
+\hypertarget{classmain_game_a195bf2338d8e96d0be3add1b24ccbef5}{}\label{classmain_game_a195bf2338d8e96d0be3add1b24ccbef5} 
+\index{main\+Game@{main\+Game}!getform\+\_\+color@{getform\+\_\+color}}
+\index{getform\+\_\+color@{getform\+\_\+color}!main\+Game@{main\+Game}}
+\subsubsection{\texorpdfstring{getform\+\_\+color()}{getform\_color()}}
+{\footnotesize\ttfamily int main\+Game\+::getform\+\_\+color (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{n }\end{DoxyParamCaption}) const}
+
+
+
+Accessors for a specific form\textquotesingle{}s color. 
+
+\begin{DoxyReturn}{Returns}
+\hyperlink{class_form}{Form}\textquotesingle{}s color 
+\end{DoxyReturn}
+
+
+Definition at line 71 of file main\+\_\+game.\+cpp.
+
+\hypertarget{classmain_game_aa756b9ac462f108586efc8b846cc577c}{}\label{classmain_game_aa756b9ac462f108586efc8b846cc577c} 
+\index{main\+Game@{main\+Game}!getform\+\_\+size@{getform\+\_\+size}}
+\index{getform\+\_\+size@{getform\+\_\+size}!main\+Game@{main\+Game}}
+\subsubsection{\texorpdfstring{getform\+\_\+size()}{getform\_size()}}
+{\footnotesize\ttfamily int main\+Game\+::getform\+\_\+size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Accessors for size. 
+
+\begin{DoxyReturn}{Returns}
+\hyperlink{class_form}{Form} size 
+\end{DoxyReturn}
+
+
+Definition at line 34 of file main\+\_\+game.\+cpp.
+
+\hypertarget{classmain_game_ae346d0d0edeabaaf2fab2dd1049bbc86}{}\label{classmain_game_ae346d0d0edeabaaf2fab2dd1049bbc86} 
+\index{main\+Game@{main\+Game}!getheight@{getheight}}
+\index{getheight@{getheight}!main\+Game@{main\+Game}}
+\subsubsection{\texorpdfstring{getheight()}{getheight()}}
+{\footnotesize\ttfamily int main\+Game\+::getheight (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Accessors for height. 
+
+\begin{DoxyReturn}{Returns}
+Height 
+\end{DoxyReturn}
+
+
+Definition at line 42 of file main\+\_\+game.\+cpp.
+
+\hypertarget{classmain_game_a4991a14c51d954adc65fbef4a0235a89}{}\label{classmain_game_a4991a14c51d954adc65fbef4a0235a89} 
+\index{main\+Game@{main\+Game}!getmax\+\_\+score@{getmax\+\_\+score}}
+\index{getmax\+\_\+score@{getmax\+\_\+score}!main\+Game@{main\+Game}}
+\subsubsection{\texorpdfstring{getmax\+\_\+score()}{getmax\_score()}}
+{\footnotesize\ttfamily int main\+Game\+::getmax\+\_\+score (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Accessors for best score (read) 
+
+\begin{DoxyReturn}{Returns}
+Hightest score 
+\end{DoxyReturn}
+
+
+Definition at line 54 of file main\+\_\+game.\+cpp.
+
+\hypertarget{classmain_game_a6f819a6a3433816a8f30a0e540f985a7}{}\label{classmain_game_a6f819a6a3433816a8f30a0e540f985a7} 
+\index{main\+Game@{main\+Game}!getscore@{getscore}}
+\index{getscore@{getscore}!main\+Game@{main\+Game}}
+\subsubsection{\texorpdfstring{getscore()}{getscore()}}
+{\footnotesize\ttfamily int main\+Game\+::getscore (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Accessors for score. 
+
+\begin{DoxyReturn}{Returns}
+Current score 
+\end{DoxyReturn}
+
+
+Definition at line 46 of file main\+\_\+game.\+cpp.
+
+\hypertarget{classmain_game_a3958ae533f81f1c40bd5e51589927777}{}\label{classmain_game_a3958ae533f81f1c40bd5e51589927777} 
+\index{main\+Game@{main\+Game}!getwidth@{getwidth}}
+\index{getwidth@{getwidth}!main\+Game@{main\+Game}}
+\subsubsection{\texorpdfstring{getwidth()}{getwidth()}}
+{\footnotesize\ttfamily int main\+Game\+::getwidth (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Accessors for width. 
+
+\begin{DoxyReturn}{Returns}
+Width 
+\end{DoxyReturn}
+
+
+Definition at line 38 of file main\+\_\+game.\+cpp.
+
+\hypertarget{classmain_game_a87020eebf5c467534d888a4053ea4603}{}\label{classmain_game_a87020eebf5c467534d888a4053ea4603} 
+\index{main\+Game@{main\+Game}!move\+\_\+available@{move\+\_\+available}}
+\index{move\+\_\+available@{move\+\_\+available}!main\+Game@{main\+Game}}
+\subsubsection{\texorpdfstring{move\+\_\+available()}{move\_available()}}
+{\footnotesize\ttfamily bool main\+Game\+::move\+\_\+available (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Check if there is move available. 
+
+For each form available, check if it can be placed on the board untill one of those can.
+
+\begin{DoxyReturn}{Returns}
+True if a form can be placed, else otherwise 
+\end{DoxyReturn}
+
+
+Definition at line 101 of file main\+\_\+game.\+cpp.
+
+\hypertarget{classmain_game_aad5671e093ad653e8fb301287ebd83f4}{}\label{classmain_game_aad5671e093ad653e8fb301287ebd83f4} 
+\index{main\+Game@{main\+Game}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!main\+Game@{main\+Game}}
+\subsubsection{\texorpdfstring{operator[]()}{operator[]()}}
+{\footnotesize\ttfamily const int $\ast$ main\+Game\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{int}]{n }\end{DoxyParamCaption}) const}
+
+
+
+Accessors for specific form on the board. 
+
+\begin{DoxyReturn}{Returns}
+\hyperlink{class_form}{Form} wanted 
+\end{DoxyReturn}
+
+
+Definition at line 63 of file main\+\_\+game.\+cpp.
+
+\hypertarget{classmain_game_a9d796e10ca081ec5a25b4eecfd97d1de}{}\label{classmain_game_a9d796e10ca081ec5a25b4eecfd97d1de} 
+\index{main\+Game@{main\+Game}!random\+\_\+select\+\_\+forms@{random\+\_\+select\+\_\+forms}}
+\index{random\+\_\+select\+\_\+forms@{random\+\_\+select\+\_\+forms}!main\+Game@{main\+Game}}
+\subsubsection{\texorpdfstring{random\+\_\+select\+\_\+forms()}{random\_select\_forms()}}
+{\footnotesize\ttfamily void main\+Game\+::random\+\_\+select\+\_\+forms (\begin{DoxyParamCaption}\item[{bool}]{force = {\ttfamily false} }\end{DoxyParamCaption})}
+
+
+
+Select 3 form for the available form list if needed. 
+
+Choose 3 forms from the form set if none are currently selected. If force is true, always reselect. If the form set is empty, reset all 3 forms to unselected.
+
+
+\begin{DoxyParams}{Parameters}
+{\em force} & \+: force new selection ? \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 136 of file main\+\_\+game.\+cpp.
+
+\hypertarget{classmain_game_a51f19bcf307187637dffb26e58e1fc4c}{}\label{classmain_game_a51f19bcf307187637dffb26e58e1fc4c} 
+\index{main\+Game@{main\+Game}!read@{read}}
+\index{read@{read}!main\+Game@{main\+Game}}
+\subsubsection{\texorpdfstring{read()}{read()}}
+{\footnotesize\ttfamily \hyperlink{classmain_game}{main\+Game} main\+Game\+::read (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{str }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Game loading. 
+
+Load a game from a string.
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & \+: game state to load -\/ saved inside a string \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Current game 
+\end{DoxyReturn}
+
+
+Definition at line 232 of file main\+\_\+game.\+cpp.
+
+\hypertarget{classmain_game_a6bf4986a2943277dcfbb24ecb89f8e2f}{}\label{classmain_game_a6bf4986a2943277dcfbb24ecb89f8e2f} 
+\index{main\+Game@{main\+Game}!reset@{reset}}
+\index{reset@{reset}!main\+Game@{main\+Game}}
+\subsubsection{\texorpdfstring{reset()}{reset()}}
+{\footnotesize\ttfamily void main\+Game\+::reset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Restart a game from zero (without keeping anything) ! 
+
+Reset everything (include form set). 
+
+Definition at line 175 of file main\+\_\+game.\+cpp.
+
+\hypertarget{classmain_game_a0fea171cf6984f14904fe4a4c548db2b}{}\label{classmain_game_a0fea171cf6984f14904fe4a4c548db2b} 
+\index{main\+Game@{main\+Game}!restart@{restart}}
+\index{restart@{restart}!main\+Game@{main\+Game}}
+\subsubsection{\texorpdfstring{restart()}{restart()}}
+{\footnotesize\ttfamily void main\+Game\+::restart (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Restart a game with the same form set. 
+
+Clean the board and redo random selection (keep the form set) 
+
+Definition at line 168 of file main\+\_\+game.\+cpp.
+
+\hypertarget{classmain_game_aeeb30e985566da9dea9679c6868f22a0}{}\label{classmain_game_aeeb30e985566da9dea9679c6868f22a0} 
+\index{main\+Game@{main\+Game}!setmax\+\_\+score@{setmax\+\_\+score}}
+\index{setmax\+\_\+score@{setmax\+\_\+score}!main\+Game@{main\+Game}}
+\subsubsection{\texorpdfstring{setmax\+\_\+score()}{setmax\_score()}}
+{\footnotesize\ttfamily void main\+Game\+::setmax\+\_\+score (\begin{DoxyParamCaption}\item[{int}]{n\+\_\+score }\end{DoxyParamCaption})}
+
+
+
+Accessors for best score (write) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n\+\_\+score} & \+: New best score \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 58 of file main\+\_\+game.\+cpp.
+
+\hypertarget{classmain_game_abfd0428b0caf9a180494db57fc4df7c3}{}\label{classmain_game_abfd0428b0caf9a180494db57fc4df7c3} 
+\index{main\+Game@{main\+Game}!stream\+\_\+read@{stream\+\_\+read}}
+\index{stream\+\_\+read@{stream\+\_\+read}!main\+Game@{main\+Game}}
+\subsubsection{\texorpdfstring{stream\+\_\+read()}{stream\_read()}}
+{\footnotesize\ttfamily \hyperlink{classmain_game}{main\+Game} main\+Game\+::stream\+\_\+read (\begin{DoxyParamCaption}\item[{std\+::istream \&}]{is }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Game loading (stream) 
+
+Load a game throw a stream.
+
+\begin{DoxyReturn}{Returns}
+Current game 
+\end{DoxyReturn}
+
+
+Definition at line 433 of file main\+\_\+game.\+cpp.
+
+\hypertarget{classmain_game_a29dc58fda69f709f1c34a3aa57955fb2}{}\label{classmain_game_a29dc58fda69f709f1c34a3aa57955fb2} 
+\index{main\+Game@{main\+Game}!stream\+\_\+write@{stream\+\_\+write}}
+\index{stream\+\_\+write@{stream\+\_\+write}!main\+Game@{main\+Game}}
+\subsubsection{\texorpdfstring{stream\+\_\+write()}{stream\_write()}}
+{\footnotesize\ttfamily void main\+Game\+::stream\+\_\+write (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{stream }\end{DoxyParamCaption}) const}
+
+
+
+Game saving (stream) 
+
+Save the game state in a stream.
+
+
+\begin{DoxyParams}{Parameters}
+{\em stream} & \+: The stream where write the game \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 428 of file main\+\_\+game.\+cpp.
+
+\hypertarget{classmain_game_a4008fd9fe3a236d044d580725cdf0920}{}\label{classmain_game_a4008fd9fe3a236d044d580725cdf0920} 
+\index{main\+Game@{main\+Game}!write@{write}}
+\index{write@{write}!main\+Game@{main\+Game}}
+\subsubsection{\texorpdfstring{write()}{write()}}
+{\footnotesize\ttfamily std\+::string main\+Game\+::write (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Game saving. 
+
+Save the game state in a string.
+
+\begin{DoxyReturn}{Returns}
+The current game state inside a string 
+\end{DoxyReturn}
+
+
+Definition at line 196 of file main\+\_\+game.\+cpp.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{main__game_8h}{main\+\_\+game.\+h}\item 
+\hyperlink{main__game_8cpp}{main\+\_\+game.\+cpp}\end{DoxyCompactItemize}

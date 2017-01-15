@@ -1,0 +1,103 @@
+\hypertarget{class_option_set}{}\section{Option\+Set Class Reference}
+\label{class_option_set}\index{Option\+Set@{Option\+Set}}
+
+
+\hyperlink{class_option}{Option} set class.  
+
+
+
+
+{\ttfamily \#include $<$option.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_option_set_a5a83cc35d74108a6302b893c616309ca}{add\+\_\+option} (const \hyperlink{class_option}{Option} \&opt)
+\begin{DoxyCompactList}\small\item\em Add an option to the set. \end{DoxyCompactList}\item 
+bool \hyperlink{class_option_set_a9355623ce41d8700f25f76476d0c8b2d}{find} (const std\+::string \&argument, std\+::string $\ast$name\+\_\+str, std\+::string $\ast$value\+\_\+str)
+\begin{DoxyCompactList}\small\item\em Check if the argument match with this option. \end{DoxyCompactList}\item 
+const \hyperlink{class_option}{Option} \& \hyperlink{class_option_set_a1ce63868573b9592b217057bc95ba7bd}{operator\mbox{[}$\,$\mbox{]}} (size\+\_\+t n)
+\begin{DoxyCompactList}\small\item\em Accesor overloading. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{class_option}{Option} set class. 
+
+This class represent a set of options 
+
+Definition at line 111 of file option.\+h.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_option_set_a5a83cc35d74108a6302b893c616309ca}{}\label{class_option_set_a5a83cc35d74108a6302b893c616309ca} 
+\index{Option\+Set@{Option\+Set}!add\+\_\+option@{add\+\_\+option}}
+\index{add\+\_\+option@{add\+\_\+option}!Option\+Set@{Option\+Set}}
+\subsubsection{\texorpdfstring{add\+\_\+option()}{add\_option()}}
+{\footnotesize\ttfamily void Option\+Set\+::add\+\_\+option (\begin{DoxyParamCaption}\item[{const \hyperlink{class_option}{Option} \&}]{opt }\end{DoxyParamCaption})}
+
+
+
+Add an option to the set. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em opt} & \+: \hyperlink{class_option}{Option} to add \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 73 of file option.\+cpp.
+
+\hypertarget{class_option_set_a9355623ce41d8700f25f76476d0c8b2d}{}\label{class_option_set_a9355623ce41d8700f25f76476d0c8b2d} 
+\index{Option\+Set@{Option\+Set}!find@{find}}
+\index{find@{find}!Option\+Set@{Option\+Set}}
+\subsubsection{\texorpdfstring{find()}{find()}}
+{\footnotesize\ttfamily bool Option\+Set\+::find (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{argument,  }\item[{std\+::string $\ast$}]{name\+\_\+str,  }\item[{std\+::string $\ast$}]{value\+\_\+str }\end{DoxyParamCaption})}
+
+
+
+Check if the argument match with this option. 
+
+look for a matching option in the set. If found, name\+\_\+str is set to the option full name, value\+\_\+str to the value -\/ if any -\/ and it return true if not found, it return false.
+
+
+\begin{DoxyParams}{Parameters}
+{\em argument} & \+: Argument tested \\
+\hline
+{\em name\+\_\+str} & \+: \hyperlink{class_option}{Option} found\textquotesingle{}s name \\
+\hline
+{\em value\+\_\+str} & \+: Optional found\textquotesingle{}s value\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if an option match 
+\end{DoxyReturn}
+
+
+Definition at line 78 of file option.\+cpp.
+
+\hypertarget{class_option_set_a1ce63868573b9592b217057bc95ba7bd}{}\label{class_option_set_a1ce63868573b9592b217057bc95ba7bd} 
+\index{Option\+Set@{Option\+Set}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!Option\+Set@{Option\+Set}}
+\subsubsection{\texorpdfstring{operator[]()}{operator[]()}}
+{\footnotesize\ttfamily const \hyperlink{class_option}{Option}\& Option\+Set\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{n }\end{DoxyParamCaption})}
+
+
+
+Accesor overloading. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n} & \+: \hyperlink{class_option}{Option} n° n\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{class_option}{Option} wanted 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{option_8h}{option.\+h}\item 
+\hyperlink{option_8cpp}{option.\+cpp}\end{DoxyCompactItemize}
