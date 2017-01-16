@@ -64,12 +64,10 @@ const int* mainGame::operator[](int n) const {
     return board[n];
 }
 
-Form mainGame::getform(size_t n) const {
-    return form[n] == (size_t) -1 ? Form() : form_set[form[n]];
-}
-
-int mainGame::getform_color(size_t n) const {
-    return form[n] == (size_t) -1 ? COLOR_NONE : form_color[form[n]];
+mainGame::formEntry mainGame::getform(size_t n) const {
+    return form[n] == (size_t) -1 ?
+            formEntry{Form(), 0, COLOR_NONE} :
+            form_set[form[n]];
 }
 
 
@@ -78,11 +76,11 @@ bool mainGame::add_form(size_t n, int x, int y)
     // check validity
     if(form[n] == (size_t)-1) return false;
     // check that it can be added
-    if(board.formCollide(form_set[form[n]], x, y)) return false;
+    if(board.formCollide(form_set[form[n]].form, x, y)) return false;
 
     // add
-    board.addForm(form_set[form[n]], x, y, form_color[form[n]]);
-    score += form_set[form[n]].getsize();
+    board.addForm(form_set[form[n]].form, x, y, form_set[form[n]].color);
+    score += form_set[form[n]].form.getsize();
     // clean updating score
     int lines=0, columns=0;
     board.clean(lines, columns);
@@ -104,7 +102,7 @@ bool mainGame::move_available() const
     {
         if(form[i] != (size_t) -1)
         {
-            Form f = form_set[form[i]];
+            Form f = form_set[form[i]].form;
             for(int x = - f.getboxmin().x;
                 x < board.getwidth() - f.getboxmax().x; x++) {
                 for(int y = - f.getboxmin().y;
@@ -126,9 +124,7 @@ void mainGame::add_form_to_set(const Form &form, int color, unsigned int weight)
     if(-form.getboxmin().x*2 +1 > form_size) form_size = -form.getboxmin().x*2 +1;
     if(-form.getboxmin().y*2 +1 > form_size) form_size = -form.getboxmin().y*2 +1;
 
-    form_set.push_back(form);
-    form_weight.push_back(weight);
-    form_color.push_back(color);
+    form_set.push_back(mainGame::formEntry{form, weight, color});
     total_weight += weight;
 }
 
@@ -157,7 +153,7 @@ void mainGame::random_select_forms(bool force)
             int n = rand() % total_weight;
             size_t j = 0;
             while(n >= 0) {
-                n -= form_weight[j];
+                n -= form_set[j].weight;
                 j++;
             }
             form[i] = j-1;
@@ -176,8 +172,6 @@ void mainGame::reset()
 {
     board = Board(board.getwidth(), board.getheight());
     form_set.clear();
-    form_weight.clear();
-    form_color.clear();
     total_weight = 0;
     random_select_forms(true);
     score = 0; combo = 0;
@@ -203,8 +197,8 @@ std::string mainGame::write() const
 
     // form set
     for(size_t i=0; i<form_set.size(); i++) {
-        str += "FORM : " + color_to_word(form_color[i]) + "\n{\n";
-        str += form_set[i].write();
+        str += "FORM : " + color_to_word(form_set[i].color) + "\n{\n";
+        str += form_set[i].form.write();
         str += "}\n\n";
     }
 

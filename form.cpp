@@ -65,11 +65,6 @@ void Form::clear()
     boxmax.y = 0;
 }
 
-void Form::add(Point p)
-{
-    add(p.x, p.y);
-}
-
 void Form::add(int x, int y) {
     if(size == capacity) {
         resize();
@@ -95,17 +90,17 @@ size_t Form::getsize() const
     return size;
 }
 
-Point Form::operator[](size_t n) const
+Form::Point Form::operator[](size_t n) const
 {
     return squares[n];
 }
 
-Point Form::getboxmin() const
+Form::Point Form::getboxmin() const
 {
     return boxmin;
 }
 
-Point Form::getboxmax() const
+Form::Point Form::getboxmax() const
 {
     return boxmax;
 }
