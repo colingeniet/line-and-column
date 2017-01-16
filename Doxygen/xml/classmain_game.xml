@@ -1,0 +1,678 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="classmain_game" kind="class" language="C++" prot="public">
+    <compoundname>mainGame</compoundname>
+    <includes refid="main__game_8h" local="no">main_game.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classmain_game_1af0378c1bdc02643ee4e074963d54df44" prot="private" static="no" mutable="no">
+        <type><ref refid="class_board" kindref="compound">Board</ref></type>
+        <definition>Board mainGame::board</definition>
+        <argsstring></argsstring>
+        <name>board</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>The board </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="main_game.h" line="245" column="1" bodyfile="main_game.h" bodystart="245" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmain_game_1a9afd0c375e13a8e8da6e46d8614b91c5" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int mainGame::form_size</definition>
+        <argsstring></argsstring>
+        <name>form_size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Maximal size for forms </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="main_game.h" line="246" column="1" bodyfile="main_game.h" bodystart="246" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmain_game_1a32a754bd3f29995359a8773d3f9dccd7" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="class_form" kindref="compound">Form</ref> &gt;</type>
+        <definition>std::vector&lt;Form&gt; mainGame::form_set</definition>
+        <argsstring></argsstring>
+        <name>form_set</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><ref refid="class_form" kindref="compound">Form</ref> set </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="main_game.h" line="248" column="1" bodyfile="main_game.h" bodystart="248" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmain_game_1a5e0594216300de983b0d10718bb90133" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; unsigned int &gt;</type>
+        <definition>std::vector&lt;unsigned int&gt; mainGame::form_weight</definition>
+        <argsstring></argsstring>
+        <name>form_weight</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Weight in random selection (weight aren&apos;t a part of each form but they are an external parameter) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="main_game.h" line="249" column="1" bodyfile="main_game.h" bodystart="249" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmain_game_1ace690090568254675af98ead5f41bff8" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; int &gt;</type>
+        <definition>std::vector&lt;int&gt; mainGame::form_color</definition>
+        <argsstring></argsstring>
+        <name>form_color</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Color (colors aren&apos;t a part of each form but they are an external parameter) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="main_game.h" line="250" column="1" bodyfile="main_game.h" bodystart="250" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmain_game_1ac941c02d0c6390cf4aaa2b8ef24a0c84" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int mainGame::total_weight</definition>
+        <argsstring></argsstring>
+        <name>total_weight</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Sum of all individual weight for each form in the form set </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="main_game.h" line="251" column="1" bodyfile="main_game.h" bodystart="251" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmain_game_1aebde347b84a926caeecc2d1f4d2d43bf" prot="private" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t mainGame::form[N_FORMS]</definition>
+        <argsstring>[N_FORMS]</argsstring>
+        <name>form</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Current forms available for the user </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="main_game.h" line="253" column="1" bodyfile="main_game.h" bodystart="253" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmain_game_1a7296d91970665a0a7a1a7883a6179c2b" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int mainGame::score</definition>
+        <argsstring></argsstring>
+        <name>score</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Current score </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="main_game.h" line="255" column="1" bodyfile="main_game.h" bodystart="255" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmain_game_1a8428d3bff15df5b254fe4a15ac442001" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int mainGame::combo</definition>
+        <argsstring></argsstring>
+        <name>combo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Current combo state (score multiplier) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="main_game.h" line="256" column="1" bodyfile="main_game.h" bodystart="256" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmain_game_1aea8a0de48a4df4d129119750afd50449" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int mainGame::max_score</definition>
+        <argsstring></argsstring>
+        <name>max_score</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Best score (record) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="main_game.h" line="257" column="1" bodyfile="main_game.h" bodystart="257" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classmain_game_1ac016bd8f9474e58c5168b4c248877391" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>mainGame::mainGame</definition>
+        <argsstring>()</argsstring>
+        <name>mainGame</name>
+        <briefdescription>
+<para>Default constructor. </para>        </briefdescription>
+        <detaileddescription>
+<para>Create a game instance with default values. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="main_game.h" line="44" column="1" bodyfile="main_game.cpp" bodystart="10" bodyend="19"/>
+      </memberdef>
+      <memberdef kind="function" id="classmain_game_1a1a42050393a3a0f9aabfc898709b5438" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>mainGame::mainGame</definition>
+        <argsstring>(int width, int height)</argsstring>
+        <name>mainGame</name>
+        <param>
+          <type>int</type>
+          <declname>width</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>height</declname>
+        </param>
+        <briefdescription>
+<para>Default constructor. </para>        </briefdescription>
+        <detaileddescription>
+<para>Create a game instance.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>width</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: Number of squares in width </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>height</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: Number of squares in height </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="main_game.h" line="55" column="1" bodyfile="main_game.cpp" bodystart="21" bodyend="30"/>
+      </memberdef>
+      <memberdef kind="function" id="classmain_game_1aa756b9ac462f108586efc8b846cc577c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int mainGame::getform_size</definition>
+        <argsstring>() const</argsstring>
+        <name>getform_size</name>
+        <briefdescription>
+<para>Accessors for size. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><ref refid="class_form" kindref="compound">Form</ref> size </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="main_game.h" line="65" column="1" bodyfile="main_game.cpp" bodystart="34" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="function" id="classmain_game_1ae346d0d0edeabaaf2fab2dd1049bbc86" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int mainGame::getheight</definition>
+        <argsstring>() const</argsstring>
+        <name>getheight</name>
+        <briefdescription>
+<para>Accessors for height. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Height </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="main_game.h" line="72" column="1" bodyfile="main_game.cpp" bodystart="42" bodyend="44"/>
+      </memberdef>
+      <memberdef kind="function" id="classmain_game_1a3958ae533f81f1c40bd5e51589927777" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int mainGame::getwidth</definition>
+        <argsstring>() const</argsstring>
+        <name>getwidth</name>
+        <briefdescription>
+<para>Accessors for width. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Width </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="main_game.h" line="79" column="1" bodyfile="main_game.cpp" bodystart="38" bodyend="40"/>
+      </memberdef>
+      <memberdef kind="function" id="classmain_game_1a6f819a6a3433816a8f30a0e540f985a7" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int mainGame::getscore</definition>
+        <argsstring>() const</argsstring>
+        <name>getscore</name>
+        <briefdescription>
+<para>Accessors for score. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Current score </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="main_game.h" line="87" column="1" bodyfile="main_game.cpp" bodystart="46" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="function" id="classmain_game_1a6533cd298cbfcf88793f98f6831153fd" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int mainGame::getcombo</definition>
+        <argsstring>() const</argsstring>
+        <name>getcombo</name>
+        <briefdescription>
+<para>Accessors for combos. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Current combo </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="main_game.h" line="94" column="1" bodyfile="main_game.cpp" bodystart="50" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="function" id="classmain_game_1a4991a14c51d954adc65fbef4a0235a89" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int mainGame::getmax_score</definition>
+        <argsstring>() const</argsstring>
+        <name>getmax_score</name>
+        <briefdescription>
+<para>Accessors for best score (read) </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Hightest score </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="main_game.h" line="101" column="1" bodyfile="main_game.cpp" bodystart="54" bodyend="56"/>
+      </memberdef>
+      <memberdef kind="function" id="classmain_game_1aeeb30e985566da9dea9679c6868f22a0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void mainGame::setmax_score</definition>
+        <argsstring>(int n_score)</argsstring>
+        <name>setmax_score</name>
+        <param>
+          <type>int</type>
+          <declname>n_score</declname>
+        </param>
+        <briefdescription>
+<para>Accessors for best score (write) </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>n_score</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: New best score </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="main_game.h" line="109" column="1" bodyfile="main_game.cpp" bodystart="58" bodyend="60"/>
+      </memberdef>
+      <memberdef kind="function" id="classmain_game_1a961f1b96d73ad87965008691c7a653a7" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_form" kindref="compound">Form</ref></type>
+        <definition>Form mainGame::getform</definition>
+        <argsstring>(size_t) const</argsstring>
+        <name>getform</name>
+        <param>
+          <type>size_t</type>
+          <defname>n</defname>
+        </param>
+        <briefdescription>
+<para>Accessors for a specific form. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><ref refid="class_form" kindref="compound">Form</ref> wanted in the form set </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="main_game.h" line="117" column="1" bodyfile="main_game.cpp" bodystart="67" bodyend="69"/>
+      </memberdef>
+      <memberdef kind="function" id="classmain_game_1a195bf2338d8e96d0be3add1b24ccbef5" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int mainGame::getform_color</definition>
+        <argsstring>(size_t) const</argsstring>
+        <name>getform_color</name>
+        <param>
+          <type>size_t</type>
+          <defname>n</defname>
+        </param>
+        <briefdescription>
+<para>Accessors for a specific form&apos;s color. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><ref refid="class_form" kindref="compound">Form</ref>&apos;s color </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="main_game.h" line="124" column="1" bodyfile="main_game.cpp" bodystart="71" bodyend="73"/>
+      </memberdef>
+      <memberdef kind="function" id="classmain_game_1aad5671e093ad653e8fb301287ebd83f4" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const int *</type>
+        <definition>const int * mainGame::operator[]</definition>
+        <argsstring>(int) const</argsstring>
+        <name>operator[]</name>
+        <param>
+          <type>int</type>
+          <defname>n</defname>
+        </param>
+        <briefdescription>
+<para>Accessors for specific form on the board. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><ref refid="class_form" kindref="compound">Form</ref> wanted </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="main_game.h" line="133" column="1" bodyfile="main_game.cpp" bodystart="63" bodyend="65"/>
+      </memberdef>
+      <memberdef kind="function" id="classmain_game_1a9dacdcdcaacc70edfb9483dfc7d561e7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool mainGame::add_form</definition>
+        <argsstring>(size_t n, int x, int y)</argsstring>
+        <name>add_form</name>
+        <param>
+          <type>size_t</type>
+          <declname>n</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <briefdescription>
+<para>Move given form on the board. </para>        </briefdescription>
+        <detaileddescription>
+<para>Perform a move, return true if valid, false if not Add one of the 3 selected forms at given coordonates and perform all required action</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: <ref refid="class_form" kindref="compound">Form</ref> to move </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: X delta </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: Y delta</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>True if move is valid false otherwise </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="main_game.h" line="150" column="1" bodyfile="main_game.cpp" bodystart="76" bodyend="99"/>
+      </memberdef>
+      <memberdef kind="function" id="classmain_game_1a87020eebf5c467534d888a4053ea4603" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool mainGame::move_available</definition>
+        <argsstring>() const</argsstring>
+        <name>move_available</name>
+        <briefdescription>
+<para>Check if there is move available. </para>        </briefdescription>
+        <detaileddescription>
+<para>For each form available, check if it can be placed on the board untill one of those can.</para><para><simplesect kind="return"><para>True if a form can be placed, else otherwise </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="main_game.h" line="160" column="1" bodyfile="main_game.cpp" bodystart="101" bodyend="120"/>
+      </memberdef>
+      <memberdef kind="function" id="classmain_game_1a72858da366dd6abe29ea1e703e1bbbf8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void mainGame::add_form_to_set</definition>
+        <argsstring>(const Form &amp;form, int color, unsigned int weight=1)</argsstring>
+        <name>add_form_to_set</name>
+        <param>
+          <type>const <ref refid="class_form" kindref="compound">Form</ref> &amp;</type>
+          <declname>form</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>color</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>weight</declname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+<para>Add a form to the form set. </para>        </briefdescription>
+        <detaileddescription>
+<para>Add a new form which can appear in the game.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>form</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: <ref refid="class_form" kindref="compound">Form</ref> to add </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>color</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: <ref refid="class_form" kindref="compound">Form</ref>&apos;s color </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>weight</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: Weight (ie. probability to spawn) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="main_game.h" line="173" column="1" bodyfile="main_game.cpp" bodystart="122" bodyend="133"/>
+      </memberdef>
+      <memberdef kind="function" id="classmain_game_1a9d796e10ca081ec5a25b4eecfd97d1de" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void mainGame::random_select_forms</definition>
+        <argsstring>(bool force=false)</argsstring>
+        <name>random_select_forms</name>
+        <param>
+          <type>bool</type>
+          <declname>force</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+<para>Select 3 form for the available form list if needed. </para>        </briefdescription>
+        <detaileddescription>
+<para>Choose 3 forms from the form set if none are currently selected. If force is true, always reselect. If the form set is empty, reset all 3 forms to unselected.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>force</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: force new selection ? </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="main_game.h" line="186" column="1" bodyfile="main_game.cpp" bodystart="136" bodyend="166"/>
+      </memberdef>
+      <memberdef kind="function" id="classmain_game_1a0fea171cf6984f14904fe4a4c548db2b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void mainGame::restart</definition>
+        <argsstring>()</argsstring>
+        <name>restart</name>
+        <briefdescription>
+<para>Restart a game with the same form set. </para>        </briefdescription>
+        <detaileddescription>
+<para>Clean the board and redo random selection (keep the form set) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="main_game.h" line="195" column="1" bodyfile="main_game.cpp" bodystart="168" bodyend="173"/>
+      </memberdef>
+      <memberdef kind="function" id="classmain_game_1a6bf4986a2943277dcfbb24ecb89f8e2f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void mainGame::reset</definition>
+        <argsstring>()</argsstring>
+        <name>reset</name>
+        <briefdescription>
+<para>Restart a game from zero (without keeping anything) ! </para>        </briefdescription>
+        <detaileddescription>
+<para>Reset everything (include form set). </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="main_game.h" line="203" column="1" bodyfile="main_game.cpp" bodystart="175" bodyend="184"/>
+      </memberdef>
+      <memberdef kind="function" id="classmain_game_1a4008fd9fe3a236d044d580725cdf0920" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string mainGame::write</definition>
+        <argsstring>() const</argsstring>
+        <name>write</name>
+        <briefdescription>
+<para>Game saving. </para>        </briefdescription>
+        <detaileddescription>
+<para>Save the game state in a string.</para><para><simplesect kind="return"><para>The current game state inside a string </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="main_game.h" line="213" column="1" bodyfile="main_game.cpp" bodystart="196" bodyend="227"/>
+      </memberdef>
+      <memberdef kind="function" id="classmain_game_1a29dc58fda69f709f1c34a3aa57955fb2" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void mainGame::stream_write</definition>
+        <argsstring>(std::ostream &amp;stream) const</argsstring>
+        <name>stream_write</name>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>stream</declname>
+        </param>
+        <briefdescription>
+<para>Game saving (stream) </para>        </briefdescription>
+        <detaileddescription>
+<para>Save the game state in a stream.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>stream</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: The stream where write the game </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="main_game.h" line="233" column="1" bodyfile="main_game.cpp" bodystart="428" bodyend="431"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classmain_game_1a51f19bcf307187637dffb26e58e1fc4c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classmain_game" kindref="compound">mainGame</ref></type>
+        <definition>mainGame mainGame::read</definition>
+        <argsstring>(const std::string &amp;str)</argsstring>
+        <name>read</name>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>str</declname>
+        </param>
+        <briefdescription>
+<para>Game loading. </para>        </briefdescription>
+        <detaileddescription>
+<para>Load a game from a string.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>str</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: game state to load - saved inside a string </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Current game </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="main_game.h" line="223" column="1" bodyfile="main_game.cpp" bodystart="232" bodyend="423"/>
+      </memberdef>
+      <memberdef kind="function" id="classmain_game_1abfd0428b0caf9a180494db57fc4df7c3" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classmain_game" kindref="compound">mainGame</ref></type>
+        <definition>mainGame mainGame::stream_read</definition>
+        <argsstring>(std::istream &amp;)</argsstring>
+        <name>stream_read</name>
+        <param>
+          <type>std::istream &amp;</type>
+          <defname>is</defname>
+        </param>
+        <briefdescription>
+<para>Game loading (stream) </para>        </briefdescription>
+        <detaileddescription>
+<para>Load a game throw a stream.</para><para><simplesect kind="return"><para>Current game </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="main_game.h" line="242" column="1" bodyfile="main_game.cpp" bodystart="433" bodyend="441"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classmain_game_1a617517f906fbda1a4d05c691065c4daa" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void mainGame::update_score</definition>
+        <argsstring>(int lines, int columns)</argsstring>
+        <name>update_score</name>
+        <param>
+          <type>int</type>
+          <declname>lines</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>columns</declname>
+        </param>
+        <briefdescription>
+<para>Score updating. </para>        </briefdescription>
+        <detaileddescription>
+<para>Update score in fuction of number of lines and columns cleaned.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>lines</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: number of lines </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>columns</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: number of columns </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="main_game.h" line="268" column="1" bodyfile="main_game.cpp" bodystart="186" bodyend="192"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Main game class. </para>    </briefdescription>
+    <detaileddescription>
+<para>This class keeps all informations about the current game state. Those informations can be the number of shape propose, the shape&apos;s set used in the current game, the shape apparition&apos;s probalitity, etc. </para>    </detaileddescription>
+    <location file="main_game.h" line="36" column="1" bodyfile="main_game.h" bodystart="35" bodyend="269"/>
+    <listofallmembers>
+      <member refid="classmain_game_1a9dacdcdcaacc70edfb9483dfc7d561e7" prot="public" virt="non-virtual"><scope>mainGame</scope><name>add_form</name></member>
+      <member refid="classmain_game_1a72858da366dd6abe29ea1e703e1bbbf8" prot="public" virt="non-virtual"><scope>mainGame</scope><name>add_form_to_set</name></member>
+      <member refid="classmain_game_1af0378c1bdc02643ee4e074963d54df44" prot="private" virt="non-virtual"><scope>mainGame</scope><name>board</name></member>
+      <member refid="classmain_game_1a8428d3bff15df5b254fe4a15ac442001" prot="private" virt="non-virtual"><scope>mainGame</scope><name>combo</name></member>
+      <member refid="classmain_game_1aebde347b84a926caeecc2d1f4d2d43bf" prot="private" virt="non-virtual"><scope>mainGame</scope><name>form</name></member>
+      <member refid="classmain_game_1ace690090568254675af98ead5f41bff8" prot="private" virt="non-virtual"><scope>mainGame</scope><name>form_color</name></member>
+      <member refid="classmain_game_1a32a754bd3f29995359a8773d3f9dccd7" prot="private" virt="non-virtual"><scope>mainGame</scope><name>form_set</name></member>
+      <member refid="classmain_game_1a9afd0c375e13a8e8da6e46d8614b91c5" prot="private" virt="non-virtual"><scope>mainGame</scope><name>form_size</name></member>
+      <member refid="classmain_game_1a5e0594216300de983b0d10718bb90133" prot="private" virt="non-virtual"><scope>mainGame</scope><name>form_weight</name></member>
+      <member refid="classmain_game_1a6533cd298cbfcf88793f98f6831153fd" prot="public" virt="non-virtual"><scope>mainGame</scope><name>getcombo</name></member>
+      <member refid="classmain_game_1a961f1b96d73ad87965008691c7a653a7" prot="public" virt="non-virtual"><scope>mainGame</scope><name>getform</name></member>
+      <member refid="classmain_game_1a195bf2338d8e96d0be3add1b24ccbef5" prot="public" virt="non-virtual"><scope>mainGame</scope><name>getform_color</name></member>
+      <member refid="classmain_game_1aa756b9ac462f108586efc8b846cc577c" prot="public" virt="non-virtual"><scope>mainGame</scope><name>getform_size</name></member>
+      <member refid="classmain_game_1ae346d0d0edeabaaf2fab2dd1049bbc86" prot="public" virt="non-virtual"><scope>mainGame</scope><name>getheight</name></member>
+      <member refid="classmain_game_1a4991a14c51d954adc65fbef4a0235a89" prot="public" virt="non-virtual"><scope>mainGame</scope><name>getmax_score</name></member>
+      <member refid="classmain_game_1a6f819a6a3433816a8f30a0e540f985a7" prot="public" virt="non-virtual"><scope>mainGame</scope><name>getscore</name></member>
+      <member refid="classmain_game_1a3958ae533f81f1c40bd5e51589927777" prot="public" virt="non-virtual"><scope>mainGame</scope><name>getwidth</name></member>
+      <member refid="classmain_game_1ac016bd8f9474e58c5168b4c248877391" prot="public" virt="non-virtual"><scope>mainGame</scope><name>mainGame</name></member>
+      <member refid="classmain_game_1a1a42050393a3a0f9aabfc898709b5438" prot="public" virt="non-virtual"><scope>mainGame</scope><name>mainGame</name></member>
+      <member refid="classmain_game_1aea8a0de48a4df4d129119750afd50449" prot="private" virt="non-virtual"><scope>mainGame</scope><name>max_score</name></member>
+      <member refid="classmain_game_1a87020eebf5c467534d888a4053ea4603" prot="public" virt="non-virtual"><scope>mainGame</scope><name>move_available</name></member>
+      <member refid="classmain_game_1aad5671e093ad653e8fb301287ebd83f4" prot="public" virt="non-virtual"><scope>mainGame</scope><name>operator[]</name></member>
+      <member refid="classmain_game_1a9d796e10ca081ec5a25b4eecfd97d1de" prot="public" virt="non-virtual"><scope>mainGame</scope><name>random_select_forms</name></member>
+      <member refid="classmain_game_1a51f19bcf307187637dffb26e58e1fc4c" prot="public" virt="non-virtual"><scope>mainGame</scope><name>read</name></member>
+      <member refid="classmain_game_1a6bf4986a2943277dcfbb24ecb89f8e2f" prot="public" virt="non-virtual"><scope>mainGame</scope><name>reset</name></member>
+      <member refid="classmain_game_1a0fea171cf6984f14904fe4a4c548db2b" prot="public" virt="non-virtual"><scope>mainGame</scope><name>restart</name></member>
+      <member refid="classmain_game_1a7296d91970665a0a7a1a7883a6179c2b" prot="private" virt="non-virtual"><scope>mainGame</scope><name>score</name></member>
+      <member refid="classmain_game_1aeeb30e985566da9dea9679c6868f22a0" prot="public" virt="non-virtual"><scope>mainGame</scope><name>setmax_score</name></member>
+      <member refid="classmain_game_1abfd0428b0caf9a180494db57fc4df7c3" prot="public" virt="non-virtual"><scope>mainGame</scope><name>stream_read</name></member>
+      <member refid="classmain_game_1a29dc58fda69f709f1c34a3aa57955fb2" prot="public" virt="non-virtual"><scope>mainGame</scope><name>stream_write</name></member>
+      <member refid="classmain_game_1ac941c02d0c6390cf4aaa2b8ef24a0c84" prot="private" virt="non-virtual"><scope>mainGame</scope><name>total_weight</name></member>
+      <member refid="classmain_game_1a617517f906fbda1a4d05c691065c4daa" prot="private" virt="non-virtual"><scope>mainGame</scope><name>update_score</name></member>
+      <member refid="classmain_game_1a4008fd9fe3a236d044d580725cdf0920" prot="public" virt="non-virtual"><scope>mainGame</scope><name>write</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

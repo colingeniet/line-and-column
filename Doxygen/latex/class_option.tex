@@ -1,0 +1,208 @@
+\hypertarget{class_option}{}\section{Option Class Reference}
+\label{class_option}\index{Option@{Option}}
+
+
+\hyperlink{class_option}{Option} class.  
+
+
+
+
+{\ttfamily \#include $<$option.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_option_a686af13adc828fe688e097c531816e58}{Option} (std\+::string \+\_\+name, char \+\_\+shortcut=0, bool \+\_\+value=false)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+std\+::string \hyperlink{class_option_ad820e2fb8cc07899ff9ab9cbd4bed8bd}{getname} () const
+\begin{DoxyCompactList}\small\item\em Accesor for the name. \end{DoxyCompactList}\item 
+char \hyperlink{class_option_a14aaf12f3338434a47f7b69547118505}{getshortcut} () const
+\begin{DoxyCompactList}\small\item\em Accesor for the shortcut. \end{DoxyCompactList}\item 
+bool \hyperlink{class_option_a5ac713700e6cf3fb87736af5c4388f2a}{value\+\_\+required} () const
+\begin{DoxyCompactList}\small\item\em Accesor for the value. \end{DoxyCompactList}\item 
+void \hyperlink{class_option_a2a850c15f77b6e7e512295fba20ead9d}{setname} (std\+::string \+\_\+name)
+\begin{DoxyCompactList}\small\item\em Accesor for the name (writing) \end{DoxyCompactList}\item 
+void \hyperlink{class_option_a33f76f0cac38ae7bb7020d7e68cb68a7}{setshortcut} (char \+\_\+sc)
+\begin{DoxyCompactList}\small\item\em Accesor for the shortcut (writing) \end{DoxyCompactList}\item 
+void \hyperlink{class_option_ab9ebb3871e3998d2d6ae7014606ad85e}{require\+\_\+value} (bool \+\_\+value)
+\begin{DoxyCompactList}\small\item\em Accesor for the value (writing) \end{DoxyCompactList}\item 
+bool \hyperlink{class_option_a261ccd60f0317b0e7a37ebd25e79bc9a}{match} (const std\+::string \&argument, std\+::string $\ast$value\+\_\+str=nullptr)
+\begin{DoxyCompactList}\small\item\em Check if the argument match with this option. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{class_option}{Option} class. 
+
+This class represent a unique option 
+
+Definition at line 29 of file option.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_option_a686af13adc828fe688e097c531816e58}{}\label{class_option_a686af13adc828fe688e097c531816e58} 
+\index{Option@{Option}!Option@{Option}}
+\index{Option@{Option}!Option@{Option}}
+\subsubsection{\texorpdfstring{Option()}{Option()}}
+{\footnotesize\ttfamily Option\+::\+Option (\begin{DoxyParamCaption}\item[{std\+::string}]{\+\_\+name,  }\item[{char}]{\+\_\+shortcut = {\ttfamily 0},  }\item[{bool}]{\+\_\+value = {\ttfamily false} }\end{DoxyParamCaption})}
+
+
+
+Constructor. 
+
+Create an option instance
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+name} & \+: \hyperlink{class_option}{Option}\textquotesingle{}s name \\
+\hline
+{\em \+\_\+shortcut} & \+: short character \\
+\hline
+{\em \+\_\+value} & \+: value \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 3 of file option.\+cpp.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_option_ad820e2fb8cc07899ff9ab9cbd4bed8bd}{}\label{class_option_ad820e2fb8cc07899ff9ab9cbd4bed8bd} 
+\index{Option@{Option}!getname@{getname}}
+\index{getname@{getname}!Option@{Option}}
+\subsubsection{\texorpdfstring{getname()}{getname()}}
+{\footnotesize\ttfamily std\+::string Option\+::getname (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Accesor for the name. 
+
+\begin{DoxyReturn}{Returns}
+The otpion\textquotesingle{}s name 
+\end{DoxyReturn}
+
+
+Definition at line 9 of file option.\+cpp.
+
+\hypertarget{class_option_a14aaf12f3338434a47f7b69547118505}{}\label{class_option_a14aaf12f3338434a47f7b69547118505} 
+\index{Option@{Option}!getshortcut@{getshortcut}}
+\index{getshortcut@{getshortcut}!Option@{Option}}
+\subsubsection{\texorpdfstring{getshortcut()}{getshortcut()}}
+{\footnotesize\ttfamily char Option\+::getshortcut (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Accesor for the shortcut. 
+
+\begin{DoxyReturn}{Returns}
+The otpion\textquotesingle{}s shortcut 
+\end{DoxyReturn}
+
+
+Definition at line 14 of file option.\+cpp.
+
+\hypertarget{class_option_a261ccd60f0317b0e7a37ebd25e79bc9a}{}\label{class_option_a261ccd60f0317b0e7a37ebd25e79bc9a} 
+\index{Option@{Option}!match@{match}}
+\index{match@{match}!Option@{Option}}
+\subsubsection{\texorpdfstring{match()}{match()}}
+{\footnotesize\ttfamily bool Option\+::match (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{argument,  }\item[{std\+::string $\ast$}]{value\+\_\+str = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+
+
+
+Check if the argument match with this option. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em argument} & \+: Argument tested \\
+\hline
+{\em value\+\_\+str} & \+: Optional return string\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the option match with arguments 
+\end{DoxyReturn}
+
+
+Definition at line 39 of file option.\+cpp.
+
+\hypertarget{class_option_ab9ebb3871e3998d2d6ae7014606ad85e}{}\label{class_option_ab9ebb3871e3998d2d6ae7014606ad85e} 
+\index{Option@{Option}!require\+\_\+value@{require\+\_\+value}}
+\index{require\+\_\+value@{require\+\_\+value}!Option@{Option}}
+\subsubsection{\texorpdfstring{require\+\_\+value()}{require\_value()}}
+{\footnotesize\ttfamily void Option\+::require\+\_\+value (\begin{DoxyParamCaption}\item[{bool}]{\+\_\+value }\end{DoxyParamCaption})}
+
+
+
+Accesor for the value (writing) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+value} & \+: Value \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 34 of file option.\+cpp.
+
+\hypertarget{class_option_a2a850c15f77b6e7e512295fba20ead9d}{}\label{class_option_a2a850c15f77b6e7e512295fba20ead9d} 
+\index{Option@{Option}!setname@{setname}}
+\index{setname@{setname}!Option@{Option}}
+\subsubsection{\texorpdfstring{setname()}{setname()}}
+{\footnotesize\ttfamily void Option\+::setname (\begin{DoxyParamCaption}\item[{std\+::string}]{\+\_\+name }\end{DoxyParamCaption})}
+
+
+
+Accesor for the name (writing) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+name} & \+: Name \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 24 of file option.\+cpp.
+
+\hypertarget{class_option_a33f76f0cac38ae7bb7020d7e68cb68a7}{}\label{class_option_a33f76f0cac38ae7bb7020d7e68cb68a7} 
+\index{Option@{Option}!setshortcut@{setshortcut}}
+\index{setshortcut@{setshortcut}!Option@{Option}}
+\subsubsection{\texorpdfstring{setshortcut()}{setshortcut()}}
+{\footnotesize\ttfamily void Option\+::setshortcut (\begin{DoxyParamCaption}\item[{char}]{\+\_\+sc }\end{DoxyParamCaption})}
+
+
+
+Accesor for the shortcut (writing) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+sc} & \+: Shortcut character \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 29 of file option.\+cpp.
+
+\hypertarget{class_option_a5ac713700e6cf3fb87736af5c4388f2a}{}\label{class_option_a5ac713700e6cf3fb87736af5c4388f2a} 
+\index{Option@{Option}!value\+\_\+required@{value\+\_\+required}}
+\index{value\+\_\+required@{value\+\_\+required}!Option@{Option}}
+\subsubsection{\texorpdfstring{value\+\_\+required()}{value\_required()}}
+{\footnotesize\ttfamily bool Option\+::value\+\_\+required (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Accesor for the value. 
+
+\begin{DoxyReturn}{Returns}
+The otpion\textquotesingle{}s value 
+\end{DoxyReturn}
+
+
+Definition at line 19 of file option.\+cpp.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{option_8h}{option.\+h}\item 
+\hyperlink{option_8cpp}{option.\+cpp}\end{DoxyCompactItemize}

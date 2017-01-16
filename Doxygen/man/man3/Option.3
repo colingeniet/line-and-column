@@ -1,0 +1,177 @@
+.TH "Option" 3 "Sun Jan 15 2017" "Version 2.1.0" "TenTen" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Option \- \fBOption\fP class\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <option\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBOption\fP (std::string _name, char _shortcut=0, bool _value=false)"
+.br
+.RI "Constructor\&. "
+.ti -1c
+.RI "std::string \fBgetname\fP () const"
+.br
+.RI "Accesor for the name\&. "
+.ti -1c
+.RI "char \fBgetshortcut\fP () const"
+.br
+.RI "Accesor for the shortcut\&. "
+.ti -1c
+.RI "bool \fBvalue_required\fP () const"
+.br
+.RI "Accesor for the value\&. "
+.ti -1c
+.RI "void \fBsetname\fP (std::string _name)"
+.br
+.RI "Accesor for the name (writing) "
+.ti -1c
+.RI "void \fBsetshortcut\fP (char _sc)"
+.br
+.RI "Accesor for the shortcut (writing) "
+.ti -1c
+.RI "void \fBrequire_value\fP (bool _value)"
+.br
+.RI "Accesor for the value (writing) "
+.ti -1c
+.RI "bool \fBmatch\fP (const std::string &argument, std::string *value_str=nullptr)"
+.br
+.RI "Check if the argument match with this option\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+\fBOption\fP class\&. 
+
+This class represent a unique option 
+.PP
+Definition at line 29 of file option\&.h\&.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Option::Option (std::string _name, char _shortcut = \fC0\fP, bool _value = \fCfalse\fP)"
+
+.PP
+Constructor\&. Create an option instance
+.PP
+\fBParameters:\fP
+.RS 4
+\fI_name\fP : \fBOption\fP's name 
+.br
+\fI_shortcut\fP : short character 
+.br
+\fI_value\fP : value 
+.RE
+.PP
+
+.PP
+Definition at line 3 of file option\&.cpp\&.
+.SH "Member Function Documentation"
+.PP 
+.SS "std::string Option::getname () const"
+
+.PP
+Accesor for the name\&. 
+.PP
+\fBReturns:\fP
+.RS 4
+The otpion's name 
+.RE
+.PP
+
+.PP
+Definition at line 9 of file option\&.cpp\&.
+.SS "char Option::getshortcut () const"
+
+.PP
+Accesor for the shortcut\&. 
+.PP
+\fBReturns:\fP
+.RS 4
+The otpion's shortcut 
+.RE
+.PP
+
+.PP
+Definition at line 14 of file option\&.cpp\&.
+.SS "bool Option::match (const std::string & argument, std::string * value_str = \fCnullptr\fP)"
+
+.PP
+Check if the argument match with this option\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIargument\fP : Argument tested 
+.br
+\fIvalue_str\fP : Optional return string
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+True if the option match with arguments 
+.RE
+.PP
+
+.PP
+Definition at line 39 of file option\&.cpp\&.
+.SS "void Option::require_value (bool _value)"
+
+.PP
+Accesor for the value (writing) 
+.PP
+\fBParameters:\fP
+.RS 4
+\fI_value\fP : Value 
+.RE
+.PP
+
+.PP
+Definition at line 34 of file option\&.cpp\&.
+.SS "void Option::setname (std::string _name)"
+
+.PP
+Accesor for the name (writing) 
+.PP
+\fBParameters:\fP
+.RS 4
+\fI_name\fP : Name 
+.RE
+.PP
+
+.PP
+Definition at line 24 of file option\&.cpp\&.
+.SS "void Option::setshortcut (char _sc)"
+
+.PP
+Accesor for the shortcut (writing) 
+.PP
+\fBParameters:\fP
+.RS 4
+\fI_sc\fP : Shortcut character 
+.RE
+.PP
+
+.PP
+Definition at line 29 of file option\&.cpp\&.
+.SS "bool Option::value_required () const"
+
+.PP
+Accesor for the value\&. 
+.PP
+\fBReturns:\fP
+.RS 4
+The otpion's value 
+.RE
+.PP
+
+.PP
+Definition at line 19 of file option\&.cpp\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for TenTen from the source code\&.

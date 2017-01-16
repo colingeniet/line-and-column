@@ -1,0 +1,217 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="classglobal_log" kind="class" language="C++" prot="public">
+    <compoundname>globalLog</compoundname>
+    <includes refid="global__log_8h" local="no">global_log.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classglobal_log_1a664dabb993f54a9278e8d5c87f08d0c2" prot="private" static="no" mutable="no">
+        <type>std::ofstream</type>
+        <definition>std::ofstream globalLog::log_file</definition>
+        <argsstring></argsstring>
+        <name>log_file</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Log file </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="global_log.h" line="126" column="1" bodyfile="global_log.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classglobal_log_1a773588391d5e6593678e98b22c30529f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>globalLog::globalLog</definition>
+        <argsstring>(const char *file=nullptr)</argsstring>
+        <name>globalLog</name>
+        <param>
+          <type>const char *</type>
+          <declname>file</declname>
+          <defval>nullptr</defval>
+        </param>
+        <briefdescription>
+<para>Constructor. </para>        </briefdescription>
+        <detaileddescription>
+<para>Open the logfile.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>file</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: Log file&apos;s name </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="global_log.h" line="39" column="1" bodyfile="global_log.cpp" bodystart="7" bodyend="9"/>
+      </memberdef>
+      <memberdef kind="function" id="classglobal_log_1aef6cc5f9b3bec75f838d7721397b9338" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void globalLog::setfile</definition>
+        <argsstring>(const char *file)</argsstring>
+        <name>setfile</name>
+        <param>
+          <type>const char *</type>
+          <declname>file</declname>
+        </param>
+        <briefdescription>
+<para>Set file to the correct value. </para>        </briefdescription>
+        <detaileddescription>
+<para>Close old file if needed then open the new one.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>file</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: New file&apos;s name </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="global_log.h" line="49" column="1" bodyfile="global_log.cpp" bodystart="11" bodyend="14"/>
+      </memberdef>
+      <memberdef kind="function" id="classglobal_log_1a45da7f9fb32a7d4319e3e2255769a24e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void globalLog::flush</definition>
+        <argsstring>()</argsstring>
+        <name>flush</name>
+        <briefdescription>
+<para>Flush the buffer. </para>        </briefdescription>
+        <detaileddescription>
+<para>Call flush on log_file. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="global_log.h" line="57" column="1" bodyfile="global_log.cpp" bodystart="16" bodyend="18"/>
+      </memberdef>
+      <memberdef kind="function" id="classglobal_log_1a9ce3b2370f87b2645c4c50354c4d63fa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void globalLog::close</definition>
+        <argsstring>()</argsstring>
+        <name>close</name>
+        <briefdescription>
+<para>Close the file. </para>        </briefdescription>
+        <detaileddescription>
+<para>Flush and close log_file. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="global_log.h" line="65" column="1" bodyfile="global_log.cpp" bodystart="20" bodyend="22"/>
+      </memberdef>
+      <memberdef kind="function" id="classglobal_log_1aa666c04b1c1429ab765c7313060d9e39" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool globalLog::is_open</definition>
+        <argsstring>() const</argsstring>
+        <name>is_open</name>
+        <briefdescription>
+<para>Check if the log file is already openned. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>True if the log file is open </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="global_log.h" line="73" column="1" bodyfile="global_log.cpp" bodystart="24" bodyend="26"/>
+      </memberdef>
+      <memberdef kind="function" id="classglobal_log_1a1a8d6920fb45109bba411cf678e1e502" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Type</type>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classglobal_log" kindref="compound">globalLog</ref> &amp;</type>
+        <definition>globalLog &amp; globalLog::operator&lt;&lt;</definition>
+        <argsstring>(const Type &amp;obj)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <param>
+          <type>const Type &amp;</type>
+          <declname>obj</declname>
+        </param>
+        <briefdescription>
+<para>Stream overloading for log file. </para>        </briefdescription>
+        <detaileddescription>
+<para>Operator &lt;&lt; can be used just like with std::ostream.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: object to pass throw the stream</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>log file to chainload </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="global_log.h" line="89" column="1" bodyfile="global_log.h" bodystart="130" bodyend="135"/>
+      </memberdef>
+      <memberdef kind="function" id="classglobal_log_1a9fd368182e141dde5923ba8a6e559b3b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classglobal_log" kindref="compound">globalLog</ref> &amp;</type>
+        <definition>globalLog &amp; globalLog::operator&lt;&lt;</definition>
+        <argsstring>(std::ostream &amp;(*pf)(std::ostream &amp;))</argsstring>
+        <name>operator&lt;&lt;</name>
+        <param>
+          <type>std::ostream &amp;(*)(std::ostream &amp;)</type>
+          <declname>pf</declname>
+        </param>
+        <briefdescription>
+<para>Stream overloading for log file (function pointeur specialisation) </para>        </briefdescription>
+        <detaileddescription>
+<para>Operator &lt;&lt; can be used just like with std::ostream.</para><para><simplesect kind="return"><para>log file to chainload </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="global_log.h" line="103" column="1" bodyfile="global_log.cpp" bodystart="29" bodyend="34"/>
+      </memberdef>
+      <memberdef kind="function" id="classglobal_log_1a8abfc695fe7cc6fd17112f5222482236" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classglobal_log" kindref="compound">globalLog</ref> &amp;</type>
+        <definition>globalLog &amp; globalLog::operator&lt;&lt;</definition>
+        <argsstring>(std::ios &amp;(*pf)(std::ios &amp;))</argsstring>
+        <name>operator&lt;&lt;</name>
+        <param>
+          <type>std::ios &amp;(*)(std::ios &amp;)</type>
+          <declname>pf</declname>
+        </param>
+        <briefdescription>
+<para>Stream overloading for log file (function pointeur specialisation) </para>        </briefdescription>
+        <detaileddescription>
+<para>Operator &lt;&lt; can be used just like with std::ostream.</para><para><simplesect kind="return"><para>log file to chainload </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="global_log.h" line="113" column="1" bodyfile="global_log.cpp" bodystart="36" bodyend="41"/>
+      </memberdef>
+      <memberdef kind="function" id="classglobal_log_1a390c36e15e827bcd6d10a66a9b882cae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classglobal_log" kindref="compound">globalLog</ref> &amp;</type>
+        <definition>globalLog &amp; globalLog::operator&lt;&lt;</definition>
+        <argsstring>(std::ios_base &amp;(*pf)(std::ios_base &amp;))</argsstring>
+        <name>operator&lt;&lt;</name>
+        <param>
+          <type>std::ios_base &amp;(*)(std::ios_base &amp;)</type>
+          <declname>pf</declname>
+        </param>
+        <briefdescription>
+<para>Stream overloading for log file (function pointeur specialisation) </para>        </briefdescription>
+        <detaileddescription>
+<para>Operator &lt;&lt; can be used just like with std::ostream.</para><para><simplesect kind="return"><para>log file to chainload </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="global_log.h" line="123" column="1" bodyfile="global_log.cpp" bodystart="43" bodyend="48"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Log class. </para>    </briefdescription>
+    <detaileddescription>
+<para>This class can be used as and outpup stream that print a log in both cerr and a log file. It is usefull to send issues to the dev team. </para>    </detaileddescription>
+    <location file="global_log.h" line="29" column="1" bodyfile="global_log.h" bodystart="28" bodyend="127"/>
+    <listofallmembers>
+      <member refid="classglobal_log_1a9ce3b2370f87b2645c4c50354c4d63fa" prot="public" virt="non-virtual"><scope>globalLog</scope><name>close</name></member>
+      <member refid="classglobal_log_1a45da7f9fb32a7d4319e3e2255769a24e" prot="public" virt="non-virtual"><scope>globalLog</scope><name>flush</name></member>
+      <member refid="classglobal_log_1a773588391d5e6593678e98b22c30529f" prot="public" virt="non-virtual"><scope>globalLog</scope><name>globalLog</name></member>
+      <member refid="classglobal_log_1aa666c04b1c1429ab765c7313060d9e39" prot="public" virt="non-virtual"><scope>globalLog</scope><name>is_open</name></member>
+      <member refid="classglobal_log_1a664dabb993f54a9278e8d5c87f08d0c2" prot="private" virt="non-virtual"><scope>globalLog</scope><name>log_file</name></member>
+      <member refid="classglobal_log_1a1a8d6920fb45109bba411cf678e1e502" prot="public" virt="non-virtual"><scope>globalLog</scope><name>operator&lt;&lt;</name></member>
+      <member refid="classglobal_log_1a9fd368182e141dde5923ba8a6e559b3b" prot="public" virt="non-virtual"><scope>globalLog</scope><name>operator&lt;&lt;</name></member>
+      <member refid="classglobal_log_1a8abfc695fe7cc6fd17112f5222482236" prot="public" virt="non-virtual"><scope>globalLog</scope><name>operator&lt;&lt;</name></member>
+      <member refid="classglobal_log_1a390c36e15e827bcd6d10a66a9b882cae" prot="public" virt="non-virtual"><scope>globalLog</scope><name>operator&lt;&lt;</name></member>
+      <member refid="classglobal_log_1aef6cc5f9b3bec75f838d7721397b9338" prot="public" virt="non-virtual"><scope>globalLog</scope><name>setfile</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

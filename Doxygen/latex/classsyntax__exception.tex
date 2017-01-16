@@ -1,0 +1,124 @@
+\hypertarget{classsyntax__exception}{}\section{syntax\+\_\+exception Class Reference}
+\label{classsyntax__exception}\index{syntax\+\_\+exception@{syntax\+\_\+exception}}
+
+
+Config class.  
+
+
+
+
+{\ttfamily \#include $<$config\+\_\+load.\+h$>$}
+
+Inheritance diagram for syntax\+\_\+exception\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classsyntax__exception}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classsyntax__exception_a60278cf3cd3eba72c35f27ee36a21d68}{syntax\+\_\+exception} ()
+\begin{DoxyCompactList}\small\item\em Default exeption constructor. \end{DoxyCompactList}\item 
+\hyperlink{classsyntax__exception_aff5164bb18c155255820187afa2215c9}{syntax\+\_\+exception} (const std\+::string \&detail, size\+\_\+t line=(size\+\_\+t) -\/1)
+\begin{DoxyCompactList}\small\item\em Exception constructor. \end{DoxyCompactList}\item 
+const char $\ast$ \hyperlink{classsyntax__exception_a2a32f5e0c2acbbf37c10c9aa3d72506c}{what} () const  throw ()
+\begin{DoxyCompactList}\small\item\em Tell what happened. \end{DoxyCompactList}\item 
+size\+\_\+t \hyperlink{classsyntax__exception_aa25100b3e6601bb67aa5a5d1e76f508e}{getline} () const  throw ()
+\begin{DoxyCompactList}\small\item\em Tell where it happened. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Config class. 
+
+This class defines I/O from/to a confi. file and handle differents exeptions.
+
+Exception class for file parsing syntax errors. 
+
+Definition at line 29 of file config\+\_\+load.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classsyntax__exception_a60278cf3cd3eba72c35f27ee36a21d68}{}\label{classsyntax__exception_a60278cf3cd3eba72c35f27ee36a21d68} 
+\index{syntax\+\_\+exception@{syntax\+\_\+exception}!syntax\+\_\+exception@{syntax\+\_\+exception}}
+\index{syntax\+\_\+exception@{syntax\+\_\+exception}!syntax\+\_\+exception@{syntax\+\_\+exception}}
+\subsubsection{\texorpdfstring{syntax\+\_\+exception()}{syntax\_exception()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily syntax\+\_\+exception\+::syntax\+\_\+exception (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Default exeption constructor. 
+
+
+
+Definition at line 7 of file config\+\_\+load.\+cpp.
+
+\hypertarget{classsyntax__exception_aff5164bb18c155255820187afa2215c9}{}\label{classsyntax__exception_aff5164bb18c155255820187afa2215c9} 
+\index{syntax\+\_\+exception@{syntax\+\_\+exception}!syntax\+\_\+exception@{syntax\+\_\+exception}}
+\index{syntax\+\_\+exception@{syntax\+\_\+exception}!syntax\+\_\+exception@{syntax\+\_\+exception}}
+\subsubsection{\texorpdfstring{syntax\+\_\+exception()}{syntax\_exception()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily syntax\+\_\+exception\+::syntax\+\_\+exception (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{detail,  }\item[{size\+\_\+t}]{line = {\ttfamily (size\+\_\+t)-\/1} }\end{DoxyParamCaption})}
+
+
+
+Exception constructor. 
+
+To create an exception message. A line can be specify if needed.
+
+
+\begin{DoxyParams}{Parameters}
+{\em line} & \+: Line where the exception as been lauched \\
+\hline
+{\em detail} & \+: Exception message \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 11 of file config\+\_\+load.\+cpp.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classsyntax__exception_aa25100b3e6601bb67aa5a5d1e76f508e}{}\label{classsyntax__exception_aa25100b3e6601bb67aa5a5d1e76f508e} 
+\index{syntax\+\_\+exception@{syntax\+\_\+exception}!getline@{getline}}
+\index{getline@{getline}!syntax\+\_\+exception@{syntax\+\_\+exception}}
+\subsubsection{\texorpdfstring{getline()}{getline()}}
+{\footnotesize\ttfamily size\+\_\+t syntax\+\_\+exception\+::getline (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const throw  ) }
+
+
+
+Tell where it happened. 
+
+\begin{DoxyReturn}{Returns}
+The line where error occurred 
+\end{DoxyReturn}
+
+
+Definition at line 20 of file config\+\_\+load.\+cpp.
+
+\hypertarget{classsyntax__exception_a2a32f5e0c2acbbf37c10c9aa3d72506c}{}\label{classsyntax__exception_a2a32f5e0c2acbbf37c10c9aa3d72506c} 
+\index{syntax\+\_\+exception@{syntax\+\_\+exception}!what@{what}}
+\index{what@{what}!syntax\+\_\+exception@{syntax\+\_\+exception}}
+\subsubsection{\texorpdfstring{what()}{what()}}
+{\footnotesize\ttfamily const char $\ast$ syntax\+\_\+exception\+::what (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const throw  ) }
+
+
+
+Tell what happened. 
+
+If those functions throw an exception, something has gone horribly wrong !
+
+\begin{DoxyReturn}{Returns}
+A C string that contain the error message 
+\end{DoxyReturn}
+
+
+Definition at line 16 of file config\+\_\+load.\+cpp.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{config__load_8h}{config\+\_\+load.\+h}\item 
+\hyperlink{config__load_8cpp}{config\+\_\+load.\+cpp}\end{DoxyCompactItemize}

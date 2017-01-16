@@ -1,0 +1,252 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.12">
+  <compounddef id="main__window_8h" kind="file" language="C++">
+    <compoundname>main_window.h</compoundname>
+    <includes refid="include_g_u_i_8h" local="yes">includeGUI.h</includes>
+    <includedby refid="include_g_u_i_8h" local="yes">includeGUI.h</includedby>
+    <incdepgraph>
+      <node id="258">
+        <label>list</label>
+      </node>
+      <node id="246">
+        <label>main_window.h</label>
+        <link refid="main__window_8h"/>
+        <childnode refid="247" relation="include">
+        </childnode>
+      </node>
+      <node id="259">
+        <label>menu_window.h</label>
+        <link refid="menu__window_8h"/>
+        <childnode refid="247" relation="include">
+        </childnode>
+      </node>
+      <node id="251">
+        <label>color.h</label>
+        <link refid="color_8h"/>
+        <childnode refid="252" relation="include">
+        </childnode>
+      </node>
+      <node id="255">
+        <label>string</label>
+      </node>
+      <node id="247">
+        <label>includeGUI.h</label>
+        <link refid="include_g_u_i_8h"/>
+        <childnode refid="248" relation="include">
+        </childnode>
+        <childnode refid="259" relation="include">
+        </childnode>
+        <childnode refid="246" relation="include">
+        </childnode>
+      </node>
+      <node id="253">
+        <label>form.h</label>
+        <link refid="form_8h"/>
+        <childnode refid="254" relation="include">
+        </childnode>
+        <childnode refid="255" relation="include">
+        </childnode>
+      </node>
+      <node id="249">
+        <label>main_game.h</label>
+        <link refid="main__game_8h"/>
+        <childnode refid="250" relation="include">
+        </childnode>
+        <childnode refid="253" relation="include">
+        </childnode>
+        <childnode refid="254" relation="include">
+        </childnode>
+        <childnode refid="256" relation="include">
+        </childnode>
+        <childnode refid="255" relation="include">
+        </childnode>
+        <childnode refid="257" relation="include">
+        </childnode>
+      </node>
+      <node id="256">
+        <label>vector</label>
+      </node>
+      <node id="257">
+        <label>iostream</label>
+      </node>
+      <node id="254">
+        <label>cstddef</label>
+      </node>
+      <node id="252">
+        <label>ncurses.h</label>
+      </node>
+      <node id="250">
+        <label>board.h</label>
+        <link refid="board_8h"/>
+        <childnode refid="251" relation="include">
+        </childnode>
+        <childnode refid="253" relation="include">
+        </childnode>
+        <childnode refid="254" relation="include">
+        </childnode>
+        <childnode refid="255" relation="include">
+        </childnode>
+      </node>
+      <node id="248">
+        <label>game_window.h</label>
+        <link refid="game__window_8h"/>
+        <childnode refid="249" relation="include">
+        </childnode>
+        <childnode refid="251" relation="include">
+        </childnode>
+        <childnode refid="252" relation="include">
+        </childnode>
+        <childnode refid="254" relation="include">
+        </childnode>
+        <childnode refid="258" relation="include">
+        </childnode>
+        <childnode refid="247" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="265">
+        <label>main.cpp</label>
+        <link refid="main_8cpp"/>
+      </node>
+      <node id="260">
+        <label>main_window.h</label>
+        <link refid="main__window_8h"/>
+        <childnode refid="261" relation="include">
+        </childnode>
+      </node>
+      <node id="263">
+        <label>menu_window.h</label>
+        <link refid="menu__window_8h"/>
+        <childnode refid="261" relation="include">
+        </childnode>
+      </node>
+      <node id="262">
+        <label>game_window.cpp</label>
+        <link refid="game__window_8cpp"/>
+      </node>
+      <node id="266">
+        <label>main_window.cpp</label>
+        <link refid="main__window_8cpp"/>
+      </node>
+      <node id="261">
+        <label>includeGUI.h</label>
+        <link refid="include_g_u_i_8h"/>
+        <childnode refid="262" relation="include">
+        </childnode>
+        <childnode refid="263" relation="include">
+        </childnode>
+        <childnode refid="260" relation="include">
+        </childnode>
+        <childnode refid="264" relation="include">
+        </childnode>
+        <childnode refid="265" relation="include">
+        </childnode>
+        <childnode refid="266" relation="include">
+        </childnode>
+        <childnode refid="267" relation="include">
+        </childnode>
+      </node>
+      <node id="267">
+        <label>menu_window.cpp</label>
+        <link refid="menu__window_8cpp"/>
+      </node>
+      <node id="264">
+        <label>game_window.h</label>
+        <link refid="game__window_8h"/>
+        <childnode refid="261" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*<sp/>!</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/>@brief<sp/>Main<sp/>window</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/>@author<sp/>Colin<sp/>Geniet</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*<sp/>@version<sp/>2.1</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*<sp/>@date<sp/>2016</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*<sp/>Main<sp/>window<sp/>-<sp/>the<sp/>main<sp/>GUI<sp/>class<sp/>that<sp/>interact</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/>with<sp/>all<sp/>other<sp/>specifics<sp/>GUI&apos;s<sp/>classes.</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*<sp/>This<sp/>class<sp/>handle<sp/>interaction<sp/>between<sp/>all<sp/>GUI<sp/>parts.</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/>Because<sp/>copying<sp/>ncurses<sp/>windows<sp/>does<sp/>not<sp/>make<sp/>sense,</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>this<sp/>class<sp/>is<sp/>not<sp/>designed<sp/>to<sp/>be<sp/>copied.</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>INCLUDEGUI_H_INCLUDED</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="comment">//<sp/>this<sp/>file<sp/>shall<sp/>never<sp/>be<sp/>included,<sp/>includeGUI.h<sp/>must<sp/>be<sp/>used<sp/>instead</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="include_g_u_i_8h" kindref="compound">includeGUI.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>MAIN_WINDOW_H_INCLUDED</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MAIN_WINDOW_H_INCLUDED</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="main__game_8h" kindref="compound">main_game.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="keyword">class<sp/></highlight><highlight class="normal">mainWindow</highlight></codeline>
+<codeline lineno="35"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>Window</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WINDOW_GAME,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WINDOW_MENU,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WINDOW_MAX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/>mainWindow();</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/>mainWindow(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*file);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/>mainWindow(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classmain_game" kindref="compound">mainGame</ref>&amp;<sp/>new_game);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/>~mainWindow();</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/>mainWindow(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>mainWindow&amp;)<sp/>=<sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/>mainWindow&amp;<sp/>operator=(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>mainWindow&amp;)<sp/>=<sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>setgame(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classmain_game" kindref="compound">mainGame</ref>&amp;<sp/>new_game);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>changegame(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classmain_game" kindref="compound">mainGame</ref>&amp;<sp/>new_game);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classmain_game" kindref="compound">mainGame</ref>&amp;<sp/>getgame()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>input(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ch);</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>print();</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>setwindow(Window);</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>add_score(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>print_score();</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>save(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*file,<sp/>menuWindow::messageLevel<sp/>verbose)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>load(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*file,<sp/>menuWindow::messageLevel<sp/>verbose);</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>save_scores(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*file<sp/>=<sp/>SCORE_FILE)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>load_scores(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*file<sp/>=<sp/>SCORE_FILE);</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"></highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>add_form(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>n,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>x<sp/>,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>y);</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classmain_game" kindref="compound">mainGame</ref><sp/>*game;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/>Window<sp/>current_window;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/>gameWindow<sp/>*game_window;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/>menuWindow<sp/>*menu_window;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>initialize_game();</highlight></codeline>
+<codeline lineno="252"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"></highlight></codeline>
+<codeline lineno="254"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//<sp/>MAIN_WINDOW_H_INCLUDED</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="255"><highlight class="normal"></highlight></codeline>
+<codeline lineno="256"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//<sp/>INCLUDEGUI_H_INCLUDED</highlight></codeline>
+    </programlisting>
+    <location file="main_window.h"/>
+  </compounddef>
+</doxygen>

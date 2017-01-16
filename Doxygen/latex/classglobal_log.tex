@@ -1,0 +1,222 @@
+\hypertarget{classglobal_log}{}\section{global\+Log Class Reference}
+\label{classglobal_log}\index{global\+Log@{global\+Log}}
+
+
+Log class.  
+
+
+
+
+{\ttfamily \#include $<$global\+\_\+log.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classglobal_log_a773588391d5e6593678e98b22c30529f}{global\+Log} (const char $\ast$file=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+void \hyperlink{classglobal_log_aef6cc5f9b3bec75f838d7721397b9338}{setfile} (const char $\ast$file)
+\begin{DoxyCompactList}\small\item\em Set file to the correct value. \end{DoxyCompactList}\item 
+void \hyperlink{classglobal_log_a45da7f9fb32a7d4319e3e2255769a24e}{flush} ()
+\begin{DoxyCompactList}\small\item\em Flush the buffer. \end{DoxyCompactList}\item 
+void \hyperlink{classglobal_log_a9ce3b2370f87b2645c4c50354c4d63fa}{close} ()
+\begin{DoxyCompactList}\small\item\em Close the file. \end{DoxyCompactList}\item 
+bool \hyperlink{classglobal_log_aa666c04b1c1429ab765c7313060d9e39}{is\+\_\+open} () const
+\begin{DoxyCompactList}\small\item\em Check if the log file is already openned. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Type $>$ }\\\hyperlink{classglobal_log}{global\+Log} \& \hyperlink{classglobal_log_a1a8d6920fb45109bba411cf678e1e502}{operator$<$$<$} (const Type \&obj)
+\begin{DoxyCompactList}\small\item\em Stream overloading for log file. \end{DoxyCompactList}\item 
+\hyperlink{classglobal_log}{global\+Log} \& \hyperlink{classglobal_log_a9fd368182e141dde5923ba8a6e559b3b}{operator$<$$<$} (std\+::ostream \&($\ast$pf)(std\+::ostream \&))
+\begin{DoxyCompactList}\small\item\em Stream overloading for log file (function pointeur specialisation) \end{DoxyCompactList}\item 
+\hyperlink{classglobal_log}{global\+Log} \& \hyperlink{classglobal_log_a8abfc695fe7cc6fd17112f5222482236}{operator$<$$<$} (std\+::ios \&($\ast$pf)(std\+::ios \&))
+\begin{DoxyCompactList}\small\item\em Stream overloading for log file (function pointeur specialisation) \end{DoxyCompactList}\item 
+\hyperlink{classglobal_log}{global\+Log} \& \hyperlink{classglobal_log_a390c36e15e827bcd6d10a66a9b882cae}{operator$<$$<$} (std\+::ios\+\_\+base \&($\ast$pf)(std\+::ios\+\_\+base \&))
+\begin{DoxyCompactList}\small\item\em Stream overloading for log file (function pointeur specialisation) \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Log class. 
+
+This class can be used as and outpup stream that print a log in both cerr and a log file. It is usefull to send issues to the dev team. 
+
+Definition at line 28 of file global\+\_\+log.\+h.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classglobal_log_a773588391d5e6593678e98b22c30529f}{}\label{classglobal_log_a773588391d5e6593678e98b22c30529f} 
+\index{global\+Log@{global\+Log}!global\+Log@{global\+Log}}
+\index{global\+Log@{global\+Log}!global\+Log@{global\+Log}}
+\subsubsection{\texorpdfstring{global\+Log()}{globalLog()}}
+{\footnotesize\ttfamily global\+Log\+::global\+Log (\begin{DoxyParamCaption}\item[{const char $\ast$}]{file = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+
+
+
+Constructor. 
+
+Open the logfile.
+
+
+\begin{DoxyParams}{Parameters}
+{\em file} & \+: Log file\textquotesingle{}s name \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 7 of file global\+\_\+log.\+cpp.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classglobal_log_a9ce3b2370f87b2645c4c50354c4d63fa}{}\label{classglobal_log_a9ce3b2370f87b2645c4c50354c4d63fa} 
+\index{global\+Log@{global\+Log}!close@{close}}
+\index{close@{close}!global\+Log@{global\+Log}}
+\subsubsection{\texorpdfstring{close()}{close()}}
+{\footnotesize\ttfamily void global\+Log\+::close (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Close the file. 
+
+Flush and close log\+\_\+file. 
+
+Definition at line 20 of file global\+\_\+log.\+cpp.
+
+\hypertarget{classglobal_log_a45da7f9fb32a7d4319e3e2255769a24e}{}\label{classglobal_log_a45da7f9fb32a7d4319e3e2255769a24e} 
+\index{global\+Log@{global\+Log}!flush@{flush}}
+\index{flush@{flush}!global\+Log@{global\+Log}}
+\subsubsection{\texorpdfstring{flush()}{flush()}}
+{\footnotesize\ttfamily void global\+Log\+::flush (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Flush the buffer. 
+
+Call flush on log\+\_\+file. 
+
+Definition at line 16 of file global\+\_\+log.\+cpp.
+
+\hypertarget{classglobal_log_aa666c04b1c1429ab765c7313060d9e39}{}\label{classglobal_log_aa666c04b1c1429ab765c7313060d9e39} 
+\index{global\+Log@{global\+Log}!is\+\_\+open@{is\+\_\+open}}
+\index{is\+\_\+open@{is\+\_\+open}!global\+Log@{global\+Log}}
+\subsubsection{\texorpdfstring{is\+\_\+open()}{is\_open()}}
+{\footnotesize\ttfamily bool global\+Log\+::is\+\_\+open (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Check if the log file is already openned. 
+
+\begin{DoxyReturn}{Returns}
+True if the log file is open 
+\end{DoxyReturn}
+
+
+Definition at line 24 of file global\+\_\+log.\+cpp.
+
+\hypertarget{classglobal_log_a1a8d6920fb45109bba411cf678e1e502}{}\label{classglobal_log_a1a8d6920fb45109bba411cf678e1e502} 
+\index{global\+Log@{global\+Log}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!global\+Log@{global\+Log}}
+\subsubsection{\texorpdfstring{operator$<$$<$()}{operator<<()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily template$<$typename Type $>$ \\
+\hyperlink{classglobal_log}{global\+Log} \& global\+Log\+::operator$<$$<$ (\begin{DoxyParamCaption}\item[{const Type \&}]{obj }\end{DoxyParamCaption})}
+
+
+
+Stream overloading for log file. 
+
+Operator $<$$<$ can be used just like with std\+::ostream.
+
+
+\begin{DoxyParams}{Parameters}
+{\em obj} & \+: object to pass throw the stream\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+log file to chainload 
+\end{DoxyReturn}
+
+
+Definition at line 130 of file global\+\_\+log.\+h.
+
+\hypertarget{classglobal_log_a9fd368182e141dde5923ba8a6e559b3b}{}\label{classglobal_log_a9fd368182e141dde5923ba8a6e559b3b} 
+\index{global\+Log@{global\+Log}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!global\+Log@{global\+Log}}
+\subsubsection{\texorpdfstring{operator$<$$<$()}{operator<<()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily \hyperlink{classglobal_log}{global\+Log} \& global\+Log\+::operator$<$$<$ (\begin{DoxyParamCaption}\item[{std\+::ostream \&($\ast$)(std\+::ostream \&)}]{pf }\end{DoxyParamCaption})}
+
+
+
+Stream overloading for log file (function pointeur specialisation) 
+
+Operator $<$$<$ can be used just like with std\+::ostream.
+
+\begin{DoxyReturn}{Returns}
+log file to chainload 
+\end{DoxyReturn}
+
+
+Definition at line 29 of file global\+\_\+log.\+cpp.
+
+\hypertarget{classglobal_log_a8abfc695fe7cc6fd17112f5222482236}{}\label{classglobal_log_a8abfc695fe7cc6fd17112f5222482236} 
+\index{global\+Log@{global\+Log}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!global\+Log@{global\+Log}}
+\subsubsection{\texorpdfstring{operator$<$$<$()}{operator<<()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily \hyperlink{classglobal_log}{global\+Log} \& global\+Log\+::operator$<$$<$ (\begin{DoxyParamCaption}\item[{std\+::ios \&($\ast$)(std\+::ios \&)}]{pf }\end{DoxyParamCaption})}
+
+
+
+Stream overloading for log file (function pointeur specialisation) 
+
+Operator $<$$<$ can be used just like with std\+::ostream.
+
+\begin{DoxyReturn}{Returns}
+log file to chainload 
+\end{DoxyReturn}
+
+
+Definition at line 36 of file global\+\_\+log.\+cpp.
+
+\hypertarget{classglobal_log_a390c36e15e827bcd6d10a66a9b882cae}{}\label{classglobal_log_a390c36e15e827bcd6d10a66a9b882cae} 
+\index{global\+Log@{global\+Log}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!global\+Log@{global\+Log}}
+\subsubsection{\texorpdfstring{operator$<$$<$()}{operator<<()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily \hyperlink{classglobal_log}{global\+Log} \& global\+Log\+::operator$<$$<$ (\begin{DoxyParamCaption}\item[{std\+::ios\+\_\+base \&($\ast$)(std\+::ios\+\_\+base \&)}]{pf }\end{DoxyParamCaption})}
+
+
+
+Stream overloading for log file (function pointeur specialisation) 
+
+Operator $<$$<$ can be used just like with std\+::ostream.
+
+\begin{DoxyReturn}{Returns}
+log file to chainload 
+\end{DoxyReturn}
+
+
+Definition at line 43 of file global\+\_\+log.\+cpp.
+
+\hypertarget{classglobal_log_aef6cc5f9b3bec75f838d7721397b9338}{}\label{classglobal_log_aef6cc5f9b3bec75f838d7721397b9338} 
+\index{global\+Log@{global\+Log}!setfile@{setfile}}
+\index{setfile@{setfile}!global\+Log@{global\+Log}}
+\subsubsection{\texorpdfstring{setfile()}{setfile()}}
+{\footnotesize\ttfamily void global\+Log\+::setfile (\begin{DoxyParamCaption}\item[{const char $\ast$}]{file }\end{DoxyParamCaption})}
+
+
+
+Set file to the correct value. 
+
+Close old file if needed then open the new one.
+
+
+\begin{DoxyParams}{Parameters}
+{\em file} & \+: New file\textquotesingle{}s name \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 11 of file global\+\_\+log.\+cpp.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{global__log_8h}{global\+\_\+log.\+h}\item 
+\hyperlink{global__log_8cpp}{global\+\_\+log.\+cpp}\end{DoxyCompactItemize}

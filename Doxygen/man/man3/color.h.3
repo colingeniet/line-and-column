@@ -1,0 +1,105 @@
+.TH "color.h" 3 "Sun Jan 15 2017" "Version 2.1.0" "TenTen" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+color.h \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <ncurses\&.h>\fP
+.br
+
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBCOLOR_NONE\fP   COLOR_BLACK"
+.br
+.in -1c
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum \fBcolorPair\fP { \fBDEFAULT_PAIR\fP, \fBBLACK_RED\fP, \fBBLACK_GREEN\fP, \fBBLACK_YELLOW\fP, \fBBLACK_BLUE\fP, \fBBLACK_MAGENTA\fP, \fBBLACK_CYAN\fP, \fBBLACK_WHITE\fP, \fBRED_BLACK\fP, \fBBLUE_BLACK\fP, \fBYELLOW_BLACK\fP, \fBMAX_PAIR\fP }
+.RI "Colors pairs\&. ""
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBinit_color_pairs\fP ()"
+.br
+.RI "required by ncurse "
+.ti -1c
+.RI "int \fBget_attr_color\fP (int)"
+.br
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define COLOR_NONE   COLOR_BLACK"
+
+.PP
+Definition at line 19 of file color\&.h\&.
+.SH "Enumeration Type Documentation"
+.PP 
+.SS "enum \fBcolorPair\fP"
+
+.PP
+Colors pairs\&. Create all macro required by ncurse to describe colors\&. Every square's color in the grid is define by a pair with blanck caracter writed on a colord backfont\&. Color pair 0 is reserved by ncurses as default color pair it is initialized by start_colors() and should not be modified\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fIDEFAULT_PAIR \fP\fP
+Default pair\&. 
+.TP
+\fB\fIBLACK_RED \fP\fP
+Red square\&. 
+.TP
+\fB\fIBLACK_GREEN \fP\fP
+Green square\&. 
+.TP
+\fB\fIBLACK_YELLOW \fP\fP
+Yellow square\&. 
+.TP
+\fB\fIBLACK_BLUE \fP\fP
+Blue square\&. 
+.TP
+\fB\fIBLACK_MAGENTA \fP\fP
+Magenta square\&. 
+.TP
+\fB\fIBLACK_CYAN \fP\fP
+Cyan square\&. 
+.TP
+\fB\fIBLACK_WHITE \fP\fP
+White square\&. 
+.TP
+\fB\fIRED_BLACK \fP\fP
+Red font\&. 
+.TP
+\fB\fIBLUE_BLACK \fP\fP
+Blue font\&. 
+.TP
+\fB\fIYELLOW_BLACK \fP\fP
+Yellow font\&. 
+.TP
+\fB\fIMAX_PAIR \fP\fP
+Number of pairs defined\&. 
+.PP
+Definition at line 30 of file color\&.h\&.
+.SH "Function Documentation"
+.PP 
+.SS "int get_attr_color (int)"
+
+.PP
+Definition at line 19 of file color\&.cpp\&.
+.SS "void init_color_pairs ()"
+
+.PP
+required by ncurse 
+.PP
+Definition at line 3 of file color\&.cpp\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for TenTen from the source code\&.
